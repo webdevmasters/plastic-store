@@ -6,7 +6,9 @@
         <div>
             <ul class="list-group text-center" style="display: ruby">
                 <li class="list-group-item" id="allProducts" style="width: 150px"><a><span>Svi proizvodi</span></a></li>
-                <li class="list-group-item" style="width: 150px" ><a><span>Kategorija</span></a></li>
+                @foreach($categories as $category)
+                    <li class="list-group-item" style="width: 150px"><a><span>{{$category->name}}</span></a></li>
+                @endforeach
             </ul>
             <div class="newProduct">
                 <a href="#">
@@ -32,20 +34,20 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td ></td>
-                        <td ></td>
+                        <td></td>
+                        <td></td>
                         <td>
                             <label>
                                 <select class="sizes" style="width: 100px">
-                                    <option >
+                                    <option>
                                 </select>
                             </label>
                         </td>
-                        <td><span ></span></td>
-                        <td id="availableCBox" onclick="return false;"><input  type="checkbox"/></td>
+                        <td><span></span></td>
+                        <td id="availableCBox" onclick="return false;"><input type="checkbox"/></td>
                         <td id="saleCBox" onclick="return false;"><input type="checkbox"/></td>
                         <td id="tblImg"><img alt="" src="" border=3 height=40 width=40/></td>
-                        <td hidden="hidden" id="categoryColumn" ></td>
+                        <td hidden="hidden" id="categoryColumn"></td>
                         <td>
                             <a class="btn btn-warning btn-sm" href="#"><i class="fa fa-edit"></i></a>
                             <a class="btn btn-danger btn-sm" href="#"><i class="fa fa-times"></i></a>
@@ -55,7 +57,9 @@
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tbody>
                     <tr>
-                        <td class="gutter"><div class="line number1 index0 alt2" style="display: none;">1</div></td>
+                        <td class="gutter">
+                            <div class="line number1 index0 alt2" style="display: none;">1</div>
+                        </td>
                         <td class="code">
                             <div class="container" style="display: none;">
                                 <div class="line number1 index0 alt2" style="display: none;">&nbsp;</div>
