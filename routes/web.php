@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function() {
-   return redirect()->route('admin.products.index');
+    return redirect()->route('admin.products.index');
 });
+
+Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 
 Route::name('admin.')->prefix("admin")->group(function() {
     Route::resources([

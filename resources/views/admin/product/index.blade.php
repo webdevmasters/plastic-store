@@ -11,9 +11,7 @@
                 @endforeach
             </ul>
             <div class="newProduct">
-                <a href="#">
-                    <button class="btn btn-primary" type="button">Unesi proizvod</button>
-                </a>
+                <a href="{{route('admin.products.create')}}"><button  class="btn btn-primary" type="button">Unesi proizvod</button></a>
             </div>
         </div>
         <div class="row" id="category1">

@@ -5,12 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperProduct
+ */
 class Product extends Model {
 
     use HasFactory;
 
+    protected $fillable = ['code', 'name', 'description', 'manufacturer', 'sizes',
+        'prices', 'discounted_prices', 'colors', 'category', 'subcategory', 'available', 'sale'];
+
     public function images() {
-        $this->hasMany(Image::class);
+        return $this->hasMany(Image::class);
     }
 
     public function colors() {

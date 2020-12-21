@@ -20,7 +20,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item active" role="presentation"><a class="nav-link" href="#">Proizvodi</a></li>
+                <li class="nav-item active" role="presentation"><a class="nav-link" href="{{route('admin.products.index')}}">Proizvodi</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#">Porudžbine</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#">Korisnici</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#">Poruke</a></li>
@@ -33,28 +33,14 @@
         </div>
     </div>
 </nav>
+<main>
+    @yield('content')
+</main>
 
-@yield('content')
-
-<div class="d-md-flex justify-content-md-center footer-basic" style="padding-bottom: 10px;padding-top: 10px;margin: 10px;">
-    <footer class="text-primary">
-        <div class="social">
-            <a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a>
-            <a href="#"><i class="icon ion-social-twitter"></i></a>
-            <a href="#"><i class="icon ion-social-facebook"></i></a></div>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Početna</a></li>
-            <li class="list-inline-item"><a href="#">Usluge</a></li>
-            <li class="list-inline-item"><a href="#">O nama</a></li>
-            <li class="list-inline-item"><a href="#">Pravila</a></li>
-            <li class="list-inline-item"><a href="#">Polisa</a></li>
-        </ul>
-        <p class="copyright">Company Name © 2017</p>
-    </footer>
-</div>
+@include('admin.includes.footer')
 
 <script src="{{mix('js/external/external.js')}}" type="text/javascript"></script>
 <script src="{{mix('js/administration/admin.js')}}" type="text/javascript"></script>
-
+@stack('scripts')
 </body>
 </html>

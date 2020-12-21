@@ -11,13 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-
 mix.js('resources/js/app.js', 'public/js')
     .scripts([
         'resources/js/external/jquery.js',
         'resources/js/external/jquery-data-tables.js',
+        'resources/js/external/popper.min.js',
+        'resources/js/external/bootstrap.min.js',
         'resources/js/external/data-tables.js',
         'resources/js/external/select2.js',
+        'resources/js/external/ajax-es6-shim.js',
+        'resources/js/external/bootstrap-select.js',
+        'resources/js/external/bootstrap-validator.js',
+        'resources/js/external/bootbox.js',
     ], 'public/js/external/external.js')
     .scripts([
         'resources/js/administration/administration.js',
