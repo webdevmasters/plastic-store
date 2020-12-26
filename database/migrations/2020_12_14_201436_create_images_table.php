@@ -16,7 +16,7 @@ class CreateImagesTable extends Migration {
             $table->id();
             $table->string('name');
             $table->string('path');
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
         });
     }
 

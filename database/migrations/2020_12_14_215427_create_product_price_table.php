@@ -13,8 +13,8 @@ class CreateProductPriceTable extends Migration {
      */
     public function up() {
         Schema::create('product_price', function(Blueprint $table) {
-            $table->foreignId('product_id')->constrained();
-            $table->foreignId('price_id')->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('price_id')->constrained()->cascadeOnDelete();
             $table->integer('discounted_price')->default(0);
             $table->timestamps();
         });

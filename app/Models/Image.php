@@ -17,4 +17,13 @@ class Image extends Model {
     public function product() {
         return $this->belongsTo(Product::class);
     }
+
+//    function getPathAttribute($value) {
+//        if(File::exists('/storage/' . $value . '/' . $this->name))
+//            $imagePath = $this->path;
+//        else $imagePath = 'storage/images/no-image.png';
+//
+//        return $imagePath;
+//    }
+
 }

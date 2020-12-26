@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class StoreProductRequest extends FormRequest {
 
@@ -22,8 +23,7 @@ class StoreProductRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        return [
-            'code'              => 'required|unique:products',
+        $rules = $rules = [
             'name'              => 'required',
             'description'       => 'max:255',
             'manufacturer'      => 'required',
@@ -33,10 +33,18 @@ class StoreProductRequest extends FormRequest {
             'prices'            => 'required|distinct',
             'prices.*'          => 'numeric',
             'colors'            => 'required|distinct',
-            'images'            => 'required',
             'images.*'          => 'mimes:jpg,png',
             'discounted_prices' => 'required_if:sale,true',
         ];
+        if(Route::has('admin.products.update')) {
+            $rules['code'] = 'sometimes|required';
+            $rules['images'] = '';
+        } else {
+            $rules['code'] = 'required|unique:products';
+            $rules['images'] = 'required';
+        }
+
+        return $rules;
     }
 
     /**
