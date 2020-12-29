@@ -44,7 +44,7 @@ class Product extends Model {
         $imagePath = 'storage/' . $this->images()->pluck('path')->first() . '/' . $this->images()->pluck('name')->first();
         if(File::exists($imagePath))
             return $imagePath;
-        else $imagePath = 'storage/images/no-image.png';
+        else $imagePath = 'storage/images/no-image/no-image.png';
 
         return $imagePath;
     }

@@ -21,7 +21,7 @@ class PriceFactory extends Factory {
      */
     public function definition() {
         return [
-            //
+            'value' => $this->faker->numberBetween(50, 3000)
         ];
     }
 }

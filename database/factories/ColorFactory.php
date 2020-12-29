@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Size;
+use App\Models\Color;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SizeFactory extends Factory {
+class ColorFactory extends Factory {
 
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Size::class;
+    protected $model = Color::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +21,8 @@ class SizeFactory extends Factory {
      */
     public function definition() {
         return [
-            'value' => $this->faker->numberBetween(50, 200)
+            'code' => $this->faker->hexColor,
+            'name' => $this->faker->colorName,
         ];
     }
 }
