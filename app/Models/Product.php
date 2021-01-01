@@ -29,7 +29,11 @@ class Product extends Model {
     }
 
     public function minPrice() {
-        return max($this->prices()->pluck('value')->all());
+        return min($this->prices()->pluck('value')->all());
+    }
+
+    public function minDiscountedPrice() {
+        return min($this->prices()->pluck('discounted_price')->all());
     }
 
     public function prices() {
@@ -37,16 +41,18 @@ class Product extends Model {
     }
 
     public function maxPrice() {
-        return min($this->prices()->pluck('value')->all());
+        return max($this->prices()->pluck('value')->all());
+    }
+
+    public function maxDiscountedPrice() {
+        return max($this->prices()->pluck('discounted_price')->all());
     }
 
     public function mainImage() {
         $imagePath = 'storage/' . $this->images()->pluck('path')->first() . '/' . $this->images()->pluck('name')->first();
         if(File::exists($imagePath))
             return $imagePath;
-        else $imagePath = 'storage/images/no-image/no-image.png';
-
-        return $imagePath;
+        else return 'static/images/shop/not-found.png';
     }
 
     public function images() {

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder {
             SubCategorySeeder::class
         ]);
 
-        Product::factory()->count(100)
+        Product::factory()->count(1000)
             ->has(Image::factory()->count(4))
             ->hasAttached(Size::factory()->count(3))
             ->hasAttached(Price::factory()->count(3), [

@@ -2,7 +2,10 @@
     "/js/app.js": "/js/app.js",
     "/css/app/app.css": "/css/app/app.css",
     "/js/external/external.js": "/js/external/external.js",
+    "/js/webapp/main.js": "/js/webapp/main.js",
     "/js/administration/admin.js": "/js/administration/admin.js",
+    "/css/external/external.css": "/css/external/external.css",
     "/css/administration/admin.css": "/css/administration/admin.css",
-    "/css/external/external.css": "/css/external/external.css"
+    "/css/webapp/theme.css": "/css/webapp/theme.css",
+    "/css/webapp/main.css": "/css/webapp/main.css"
 }

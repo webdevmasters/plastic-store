@@ -25,8 +25,8 @@ class ProductFactory extends Factory {
         $sub_category_id = SubCategory::where("category_id", $category_id)->inRandomOrder()->first()->id;
 
         return [
-            'code'            => $this->faker->unique()->numberBetween(0, 10000),
-            'name'            => $this->faker->name,
+            'code'            => $this->faker->unique()->numberBetween(0, 1000000),
+            'name'            => 'Product '.$this->faker->unique()->numberBetween(0,1000),
             'description'     => $this->faker->text(200),
             'manufacturer'    => $this->faker->company,
             'available'       => $this->faker->boolean(50),

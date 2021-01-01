@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -20,6 +21,8 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-        //
+        view()->composer(['webapp.layouts.main','webapp.shop.index'], function($view) {
+            $view->with('categories', Category::all());
+        });
     }
 }

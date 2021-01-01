@@ -132,9 +132,7 @@
                                     name="colors[]"
                                     value="{{ old('colors[]') }}">
                                 @foreach($colors as $color)
-                                    <option {{$product->colors->pluck('id')->contains($color->id)?'selected':''}}
-                                            value="{{$color->id}}"
-                                            style="background: {{$color->code}}">{{$color->name}}</option>
+                                    <option {{$product->colors->pluck('id')->contains($color->id)?'selected':''}}value="{{$color->id}}" style="background: {{$color->code}}">{{$color->name}}</option>
                                 @endforeach
                             </select>
                             @error('colors')

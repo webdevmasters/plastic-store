@@ -7,7 +7,7 @@ INSERT INTO plastic_store.categories (name)
 VALUES ('Kupatilo');
 INSERT INTO plastic_store.categories (name)
 VALUES ('Saksije i bašta');
-INSERT INTO plastic_store_db.categories (name)
+INSERT INTO plastic_store.categories (name)
 VALUES ('Čišćenje');
 INSERT INTO plastic_store.categories (name)
 VALUES ('Kuhinja');
