@@ -21,7 +21,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property-read Collection|SubCategory[] $subcategories
+ * @property-read Collection|Subcategory[] $subcategories
  * @property-read int|null $subcategories_count
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
@@ -179,12 +179,12 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property int $category_id
- * @method static Builder|SubCategory newModelQuery()
- * @method static Builder|SubCategory newQuery()
- * @method static Builder|SubCategory query()
- * @method static Builder|SubCategory whereCategoryId($value)
- * @method static Builder|SubCategory whereId($value)
- * @method static Builder|SubCategory whereName($value)
+ * @method static Builder|Subcategory newModelQuery()
+ * @method static Builder|Subcategory newQuery()
+ * @method static Builder|Subcategory query()
+ * @method static Builder|Subcategory whereCategoryId($value)
+ * @method static Builder|Subcategory whereId($value)
+ * @method static Builder|Subcategory whereName($value)
  * @mixin Eloquent
  */
 	class IdeHelperSubCategory extends Eloquent {}

@@ -39,14 +39,9 @@
 
             <div class="hover-icons">
                 <ul>
-                    <li><a th:data-tooltip="#{add.to.cart}" th:href="@{/product/single_product/__${product.id}__}"><i
-                                class="icon ion-md-cart"></i></a></li>
-                    <li><a href="#" th:data-tooltip="#{add.to.wishlist}"
-                           th:onclick="|openWishListDialog(${product.id})|"><i class="icon ion-md-heart-empty"></i></a>
-                    </li>
-                    <li><a href="#" id="details" th:data-tooltip="#{details}"
-                           th:onclick="'javascript:openProductModal(\'' + ${product.id} + '\');'"><i
-                                class="icon ion-md-open"></i></a></li>
+                    <li><a th:data-tooltip="#{add.to.cart}" th:href="@{/product/single_product/__${product.id}__}"><i class="icon ion-md-cart"></i></a></li>
+                    <li><a href="#" th:data-tooltip="#{add.to.wishlist}" th:onclick="|openWishListDialog(${product.id})|"><i class="icon ion-md-heart-empty"></i></a></li>
+                    <li><a href="#" id="details" th:data-tooltip="#{details}" th:onclick="'javascript:openProductModal(\'' + ${product.id} + '\');'"><i class="icon ion-md-open"></i></a></li>
                 </ul>
             </div>
         </div>

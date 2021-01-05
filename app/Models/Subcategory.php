@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @mixin IdeHelperSubCategory
  */
-class SubCategory extends Model {
+class Subcategory extends Model {
 
     use HasFactory;
 
     public function category() {
-        $this->belongsTo(Category::class);
+       return $this->belongsTo(Category::class);
     }
 }

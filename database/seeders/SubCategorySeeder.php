@@ -13,7 +13,7 @@ class SubCategorySeeder extends Seeder {
      * @return void
      */
     public function run() {
-        $path = base_path() . '/database/seeds/sub_categories.sql';
+        $path = base_path() . '/database/seeds/subcategories.sql';
         $sql = file_get_contents($path);
         DB::unprepared($sql);
     }

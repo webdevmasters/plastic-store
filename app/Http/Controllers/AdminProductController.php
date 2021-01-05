@@ -9,7 +9,7 @@ use App\Models\Image;
 use App\Models\Price;
 use App\Models\Product;
 use App\Models\Size;
-use App\Models\SubCategory;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller {
@@ -23,7 +23,7 @@ class AdminProductController extends Controller {
     }
 
     public function findSubcategoriesByCategory($category_id) {
-        return response()->json(SubCategory::where('category_id', $category_id)->get());
+        return response()->json(Subcategory::where('category_id', $category_id)->get());
     }
 
     public function store(StoreProductRequest $request) {
@@ -34,7 +34,7 @@ class AdminProductController extends Controller {
         $product->description = $validated['description'];
         $product->manufacturer = $validated['manufacturer'];
         $product->category_id = $validated['category'];
-        $product->sub_category_id = $validated['subcategory'];
+        $product->subcategory_id = $validated['subcategory'];
         $product->sale = $request->has('sale');
         $product->available = $request->has('available');
         $product->save();
@@ -42,7 +42,7 @@ class AdminProductController extends Controller {
         foreach($validated['images'] as $file) {
             $image = new Image();
             $image->name = $file->getClientOriginalName();
-            $image->path = 'images/' . Category::find($validated['category'])->name . '/' . SubCategory::find($validated['subcategory'])->name;
+            $image->path = 'images/' . Category::find($validated['category'])->name . '/' . Subcategory::find($validated['subcategory'])->name;
             $file->storeAs('public/' . $image->path, $image->name);
             $image->product()->associate($product)->save();
         }
@@ -78,7 +78,7 @@ class AdminProductController extends Controller {
         $product->description = $validated['description'];
         $product->manufacturer = $validated['manufacturer'];
         $product->category_id = $validated['category'];
-        $product->sub_category_id = $validated['subcategory'];
+        $product->subcategory_id = $validated['subcategory'];
         $product->sale = $request->has('sale');
         $product->available = $request->has('available');
         $product->save();
@@ -92,7 +92,7 @@ class AdminProductController extends Controller {
             foreach($validated['images'] as $file) {
                 $image = new Image();
                 $image->name = $file->getClientOriginalName();
-                $image->path = 'images/' . Category::find($validated['category'])->name . '/' . SubCategory::find($validated['subcategory'])->name;
+                $image->path = 'images/' . Category::find($validated['category'])->name . '/' . Subcategory::find($validated['subcategory'])->name;
                 $file->storeAs('public/' . $image->path, $image->name);
                 $image->product()->associate($product)->save();
             }

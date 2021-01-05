@@ -20,9 +20,12 @@ class ColorFactory extends Factory {
      * @return array
      */
     public function definition() {
+        $color_name = Color::inRandomOrder()->where('id', '>', 0)->pluck('name')->first();
+        $color_code = Color::inRandomOrder()->where('id', '>', 0)->pluck('code')->first();
+
         return [
-            'code' => $this->faker->hexColor,
-            'name' => $this->faker->colorName,
+            'code' => $color_code,
+            'name' => $color_name,
         ];
     }
 }

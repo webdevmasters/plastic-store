@@ -12,7 +12,7 @@ class CreateSubCategoriesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('sub_categories', function(Blueprint $table) {
+        Schema::create('subcategories', function(Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignId('category_id')->constrained();
@@ -25,6 +25,6 @@ class CreateSubCategoriesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('sub_categories');
+        Schema::dropIfExists('subcategories');
     }
 }

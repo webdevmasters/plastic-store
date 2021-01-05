@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
-use App\Models\SubCategory;
+use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory {
@@ -21,8 +21,8 @@ class ProductFactory extends Factory {
      * @return array
      */
     public function definition() {
-        $category_id = $this->faker->numberBetween(1, 6);
-        $sub_category_id = SubCategory::where("category_id", $category_id)->inRandomOrder()->first()->id;
+        $category_id = $this->faker->numberBetween(1, 7);
+        $subcategory_id = Subcategory::where("category_id", $category_id)->inRandomOrder()->first()->id;
 
         return [
             'code'            => $this->faker->unique()->numberBetween(0, 1000000),
@@ -32,7 +32,7 @@ class ProductFactory extends Factory {
             'available'       => $this->faker->boolean(50),
             'sale'            => $this->faker->boolean(10),
             'category_id'     => $category_id,
-            'sub_category_id' => $sub_category_id,
+            'subcategory_id' => $subcategory_id,
         ];
     }
 }

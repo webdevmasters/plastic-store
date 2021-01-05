@@ -201,16 +201,16 @@
                         <nav>
                             <ul class="main-menu-item">
                                 @foreach($categories as $category)
-                                <li class="menu-item-has-children" th:classappend="${selected_category!=null && (selected_category.name== category.name)} ? 'active'" value="{{$category->id}}">
-                                    <a href="@{/product/product_list_category/__${category.id}__}">{{$category->name}}</a>
-                                    <ul class="sub-menu">
-                                        @foreach($category->subcategories as $subcategory)
-                                        <li>
-                                            <a href="@{/product/product_list_sub_category/__${sub_category.id}__}">{{$subcategory->name}}</a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
+                                    <li class="menu-item-has-children" th:classappend="${selected_category!=null && (selected_category.name== category.name)} ? 'active'" value="{{$category->id}}">
+                                        <a href="{{route('products.by.category',$category->id)}}">{{$category->name}}</a>
+                                        <ul class="sub-menu">
+                                            @foreach($category->subcategories as $subcategory)
+                                                <li>
+                                                    <a href="{{route('products.by.subcategory',$subcategory->id)}}">{{$subcategory->name}}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
                                 @endforeach
                             </ul>
                         </nav>
@@ -241,9 +241,9 @@
     <!--=====  End of navigation menu  ======-->
 
 </div>
-
-@yield('content')
-
+<section id="section">
+    @yield('content')
+</section>
 <div class="footer-container">
     <!--=======  footer navigation  =======-->
 
@@ -326,6 +326,10 @@
         </div>
     </div>
 </div>
+
+@include('webapp.includes.search_overlay')
+@include('webapp.includes.product_modal')
+@include('webapp.includes.scroll-top')
 
 <script src="{{mix('js/external/external.js')}}" type="text/javascript"></script>
 <script src="{{mix('js/webapp/main.js')}}" type="text/javascript"></script>

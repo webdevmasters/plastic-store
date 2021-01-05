@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration {
             $table->boolean('sale')->default(false);
             $table->boolean('available')->default(true);
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('sub_category_id')->constrained();
+            $table->foreignId('subcategory_id')->constrained();
             $table->timestamps();
         });
     }

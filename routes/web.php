@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'index']);
 
-Route::get('/products_by_subcategory/{subcategory_id}', [ProductController::class, 'getProductsBuSubcategory']);
+Route::get('/slider_products_by_subcategory/{subcategory_id}', [ProductController::class, 'renderSliderBySubcategory']);
+Route::get('/products_by_category/{category_id}', [ProductController::class, 'showProductsByCategory'])->name('products.by.category');
+Route::get('/products_by_subcategory/{subcategory_id}', [ProductController::class, 'showProductsBySubcategory'])->name('products.by.subcategory');
+Route::get('/products_list_fragment/{data}', [ProductController::class, 'renderProductList']);
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 

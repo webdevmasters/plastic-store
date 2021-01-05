@@ -56,7 +56,7 @@
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
                     </div>
-                    <input id="subcat_hidden" type="hidden" value="{{ $product->sub_category_id }}">
+                    <input id="subcat_hidden" type="hidden" value="{{ $product->subcategory_id }}">
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="subcategory">Pod :</label>
                         <div class="col-sm-9">

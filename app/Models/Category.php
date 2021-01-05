@@ -15,6 +15,6 @@ class Category extends Model {
     public $timestamps = false;
 
     public function subcategories() {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(Subcategory::class);
     }
 }

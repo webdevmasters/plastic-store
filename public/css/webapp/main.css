@@ -163,6 +163,13 @@ a:hover {
     color: #9acf6a;
 }
 
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #9acf6a;
+    border-color: #9acf6a;
+}
+
 button, input[type="submit"] {
     cursor: pointer;
 }
@@ -484,7 +491,6 @@ a.scroll-top:hover {
 
 /*----------  pagination  ----------*/
 .pagination-area {
-    border: 1px solid #ebebeb;
     padding: 15px 25px;
 }
 

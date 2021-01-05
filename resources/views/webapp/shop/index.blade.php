@@ -336,6 +336,7 @@
 
 @endsection
 
+
 @push('scripts')
     <script type="text/javascript">
 
@@ -457,7 +458,7 @@
 
         function showFirstProductsBySubcategory(subcategoryId) {
             $.ajax({
-                url: '{{ url("products_by_subcategory") }}' + '/' + subcategoryId,
+                url: '{{ url("slider_products_by_subcategory") }}' + '/' + subcategoryId,
                 type: 'get',
                 success: function (response) {
                     $('#first_slider').children().first().replaceWith(response);
@@ -468,7 +469,7 @@
 
         function showSecondProductsBySubcategory(subcategoryId) {
             $.ajax({
-                url: '{{ url("products_by_subcategory") }}' + '/' + subcategoryId,
+                url: '{{ url("slider_products_by_subcategory") }}' + '/' + subcategoryId,
                 type: 'get',
                 success: function (response) {
                     $('#second_slider').children().first().replaceWith(response);
@@ -479,7 +480,7 @@
 
         function showThirdProductsBySubcategory(subcategoryId) {
             $.ajax({
-                url: '{{ url("products_by_subcategory") }}' + '/' + subcategoryId,
+                url: '{{ url("slider_products_by_subcategory") }}' + '/' + subcategoryId,
                 type: 'get',
                 success: function (response) {
                     $('#third_slider').children().first().replaceWith(response);
