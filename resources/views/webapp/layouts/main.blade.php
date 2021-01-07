@@ -201,7 +201,7 @@
                         <nav>
                             <ul class="main-menu-item">
                                 @foreach($categories as $category)
-                                    <li class="menu-item-has-children" th:classappend="${selected_category!=null && (selected_category.name== category.name)} ? 'active'" value="{{$category->id}}">
+                                    <li class="menu-item-has-children {{isset($selected_category)&&$selected_category->name==$category->name?'active':''}}" value="{{$category->id}}">
                                         <a href="{{route('products.by.category',$category->id)}}">{{$category->name}}</a>
                                         <ul class="sub-menu">
                                             @foreach($category->subcategories as $subcategory)
@@ -217,14 +217,13 @@
                     </div>
                     <!-- end of navigation section -->
                 </div>
-                <form id="searchForm" method="get" th:action="@{/product/searchProductsByName}" th:object="${search}">
+                <form id="searchForm" method="get" action="{{route('search_by_name')}}">
+                    {{ csrf_field() }}
                     <div class="col-12 col-lg-3" id="search-section">
                         <!--=======  navigation search bar  =======-->
                         <div class="navigation-search d-none d-lg-block">
-                            <input id="search" name="search" oninput="setCustomValidity('')"
-                                   oninvalid="this.setCustomValidity('Unesite reč pretrage')"
-                                   required
-                                   th:placeholder="#{search.products}+' ...'" th:value="${search}" type="search">
+                            <input id="search" name="search" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Unesite reč pretrage')" required
+                                   placeholder="#{search.products}+' ...'" value="{{isset($search)?$search:''}}" type="search">
                             <button type="submit"><i class="icon ion-md-search"></i></button>
                         </div>
                         <!--=======  End of navigation search bar  =======-->

@@ -23,6 +23,8 @@ Route::get('/slider_products_by_subcategory/{subcategory_id}', [ProductControlle
 Route::get('/products_by_category/{category_id}', [ProductController::class, 'showProductsByCategory'])->name('products.by.category');
 Route::get('/products_by_subcategory/{subcategory_id}', [ProductController::class, 'showProductsBySubcategory'])->name('products.by.subcategory');
 Route::get('/products_list_fragment/{data}', [ProductController::class, 'renderProductList']);
+Route::get('/products_list_searched_fragment/{data}', [ProductController::class, 'renderSearchedProductList']);
+Route::get('/search_products_by_name', [ProductController::class, 'searchProduct'])->name('search_by_name');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 
