@@ -28,9 +28,8 @@ mix.js('resources/js/app.js', 'public/js')
     .scripts([
         'resources/js/webapp/plugins.js',
         'resources/js/webapp/main.js',
-        'resources/js/webapp/validation.js',
+    //    'resources/js/webapp/validation.js',
         'resources/js/webapp/minicart.js',
-        'resources/js/webapp/messages_sr.js',
     ], 'public/js/webapp/main.js')
     .scripts([
         'resources/js/administration/administration.js',

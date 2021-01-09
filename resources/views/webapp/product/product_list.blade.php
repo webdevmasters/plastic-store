@@ -334,7 +334,7 @@
 
         function openProductModal(productID) {
             $.ajax({
-                url: '/product/product_modal/' + productID,
+                url: '{{url('/product_modal')}}' + '/' + productID,
                 type: 'get',
                 success: function (response) {
                     $(".modal").html(response);

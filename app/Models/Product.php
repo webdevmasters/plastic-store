@@ -36,16 +36,20 @@ class Product extends Model {
         return min($this->prices()->pluck('value')->all());
     }
 
-    public function minDiscountedPrice() {
-        return min($this->prices()->pluck('discounted_price')->all());
-    }
-
     public function prices() {
         return $this->belongsToMany(Price::class, 'product_price')->withTimestamps()->withPivot(['discounted_price']);
     }
 
+    public function minDiscountedPrice() {
+        return min($this->prices()->pluck('discounted_price')->all());
+    }
+
     public function maxPrice() {
         return max($this->prices()->pluck('value')->all());
+    }
+
+    public function savings() {
+        return ($this->prices()->first()->value - $this->prices()->first()->pivot->discounted_price) * 100 / $this->prices()->first()->value . '%';
     }
 
     public function maxDiscountedPrice() {
@@ -61,6 +65,16 @@ class Product extends Model {
 
     public function images() {
         return $this->hasMany(Image::class);
+    }
+
+    public function avgRating() {
+        if(count($this->reviews()->get()->toArray()) > 0)
+            return round($this->reviews()->pluck('rating')->avg(),0);
+        else return 0;
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
 
     public function altImage() {

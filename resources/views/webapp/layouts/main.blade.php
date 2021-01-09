@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="{{mix('css/external/external.css')}}" type="text/css" rel="stylesheet"/>
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
     <link href="{{mix('css/app/app.css')}}" type="text/css" rel="stylesheet"/>
@@ -48,24 +48,41 @@
                         <span class="separator pl-15 pr-15">|</span>
 
                         <!--=======  single dropdown  =======-->
-                        <a sec:authorize="!isAuthenticated()" th:href="@{/customer/login}" th:text="#{login}">Prjavi se </a>
-                        <span sec:authorize="!isAuthenticated()"> / </span>
-                        <a sec:authorize="!isAuthenticated()" th:href="@{/customer/register}" th:text="#{register}">Registruj se</a>
-                        <div class="single-dropdown">
-                            <a href="#" id="changeAccount" sec:authorize="isAuthenticated()"><span id="accountMenuName" th:text="${#authentication.getPrincipal().getUsername()}"></span>
-                                <span><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <div class="language-currency-list hidden" id="accountList">
-                                <ul>
-                                    <li sec:authorize="isAuthenticated()"><a th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a></li>
-                                    <li sec:authorize="isAuthenticated()"><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
-                                    <li sec:authorize="isAuthenticated()"><a th:href="@{/customer/my_account}" th:text="#{my.account}">Moj nalog</a></li>
-                                    <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/administration/product_list}" th:text="#{administration}">Administracija</a></li>
-                                    <li sec:authorize="isAuthenticated()"><a th:href="@{/customer/logout}" th:text="#{logout}">Odjavi se </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--=======  End of single dropdown  =======-->
+                        @if (Route::has('login'))
+                            @guest()
+                                <a href="{{route('login')}}" th:text="#{login}">Prjavi se </a>
+                                @if (Route::has('register'))
+                                    <span> / </span>
+                                    <a href="{{route('register')}}" th:text="#{register}">Registruj se</a>
+                                @endif
+                            @endguest
+                            @auth
+                                <div class="single-dropdown">
+                                    <a href="#" id="changeAccount">
+                                        <span id="accountMenuName">{{Auth::user()->name}}</span>
+                                        <span><i class="fa fa-angle-down"></i></span>
+                                    </a>
+                                    <div class="language-currency-list hidden" id="accountList">
+                                        <ul>
+                                            <li><a th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a></li>
+                                            <li><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
+                                            <li><a th:href="@{/customer/my_account}" th:text="#{my.account}">Moj nalog</a></li>
+                                            <li><a th:href="@{/administration/product_list}" th:text="#{administration}">Administracija</a></li>
+
+                                            <li>
+                                                <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    Odjavi se
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endauth
+                        @endif
+
                     </div>
                     <!--=======  End of header top dropdowns  =======-->
                 </div>

@@ -23,28 +23,25 @@ class StoreProductRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $rules = $rules = [
+
+        $code_rule = Route::has('admin.products.update') ? 'sometimes|required' : 'required|unique:products';
+        $images_rule = Route::has('admin.products.update') ? '' : 'required';
+
+        return $rules = [
+            'code'              => $code_rule,
             'name'              => 'required',
             'description'       => 'max:255',
             'manufacturer'      => 'required',
             'sizes'             => 'required|distinct',
             'category'          => 'required',
             'subcategory'       => 'required',
+            'images'            => $images_rule,
             'prices'            => 'required|distinct',
             'prices.*'          => 'numeric',
             'colors'            => 'required|distinct',
             'images.*'          => 'mimes:jpg,png',
             'discounted_prices' => 'required_if:sale,true',
         ];
-        if(Route::has('admin.products.update')) {
-            $rules['code'] = 'sometimes|required';
-            $rules['images'] = '';
-        } else {
-            $rules['code'] = 'required|unique:products';
-            $rules['images'] = 'required';
-        }
-
-        return $rules;
     }
 
     /**

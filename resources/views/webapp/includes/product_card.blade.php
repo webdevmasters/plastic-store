@@ -1,6 +1,6 @@
 <div class="fl-product {{$type}}">
     <div class="image {{$product->sale? 'sale-product':''}}">
-        <a href="@{/product/single_product/__${product.id}__}">
+        <a href="{{route('single.product.by.id',$product->id)}}">
             @foreach($product->images as $image)
                 <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
                 @if($loop->index==1)@break @endif
@@ -8,13 +8,13 @@
         </a>
     </div>
     <div class="content">
-        <h2 class="product-title"><a href="@{/product/single_product/__${product.id}__}">{{$product->name}}</a></h2>
+        <h2 class="product-title"><a href="{{route('single.product.by.id',$product->id)}}">{{$product->name}}</a></h2>
         <div class="rating" id="grid-rating">
-            <i class="fa fa-star" th:classappend="${product.getAverageRating()>=1}?'active'"></i>
-            <i class="fa fa-star" th:classappend="${product.getAverageRating()>=2}?'active'"></i>
-            <i class="fa fa-star" th:classappend="${product.getAverageRating()>=3}?'active'"></i>
-            <i class="fa fa-star" th:classappend="${product.getAverageRating()>=4}?'active'"></i>
-            <i class="fa fa-star" th:classappend="${product.getAverageRating()>=5}?'active'"></i>
+            <i class="fa fa-star {{$product->avgRating()>=1?'active':''}}"></i>
+            <i class="fa fa-star {{$product->avgRating()>=2?'active':''}}"></i>
+            <i class="fa fa-star {{$product->avgRating()>=3?'active':''}}"></i>
+            <i class="fa fa-star {{$product->avgRating()>=4?'active':''}}"></i>
+            <i class="fa fa-star {{$product->avgRating()>=5?'active':''}}"></i>
         </div>
         <p class="product-price">
             @if($product->sale)
@@ -38,9 +38,9 @@
         @endif
         <div class="hover-icons">
             <ul>
-                <li><a th:data-tooltip="#{add.to.cart}" th:href="@{/product/single_product/__${product.id}__}"><i class="icon ion-md-cart"></i></a></li>
-                <li><a href="#" th:data-tooltip="#{add.to.wishlist}" th:onclick="|openWishListDialog(${product.id})|"> <i class="icon ion-md-heart-empty"></i></a></li>
-                <li><a href="#" th:data-tooltip="#{details}" th:onclick="'javascript:openProductModal(\'' + ${product.id} + '\');'"><i class="icon ion-md-open"></i></a></li>
+                <li><a data-tooltip="#{add.to.cart}" href="{{route('single.product.by.id',$product->id)}}"><i class="icon ion-md-cart"></i></a></li>
+                <li><a href="#" data-tooltip="#{add.to.wishlist}" onclick="openWishListDialog({{$product->id}})"> <i class="icon ion-md-heart-empty"></i></a></li>
+                <li><a href="#" data-tooltip="#{details}" onclick="openProductModal({{$product->id}})"><i class="icon ion-md-open"></i></a></li>
             </ul>
         </div>
     </div>

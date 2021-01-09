@@ -124,14 +124,14 @@
                         <div class="tab-content" id="nav-tabContent">
                             <div aria-labelledby="featured-tab" class="tab-pane fade show active" id="featured" role="tabpanel">
                                 <!--=======  tab product slider  =======-->
-                            @include('webapp.includes.tab_slider',['products'=>$popular_products])
+                            @include('webapp.includes.product_slider',['products'=>$popular_products])
                             <!--=======  End of tab product slider  =======-->
                             </div>
 
                             <div aria-labelledby="new-arrival-tab" class="tab-pane fade" id="new-arrivals" role="tabpanel">
                                 <!--=======  tab product slider  =======-->
 
-                            @include('webapp.includes.tab_slider',['products'=>$new_products])
+                            @include('webapp.includes.product_slider',['products'=>$new_products])
 
                             <!--=======  End of tab product slider  =======-->
                             </div>
@@ -139,7 +139,7 @@
                             <div aria-labelledby="nav-onsale-tab" class="tab-pane fade" id="on-sale" role="tabpanel">
                                 <!--=======  tab product slider  =======-->
 
-                            @include('webapp.includes.tab_slider',['products'=>$sale_products])
+                            @include('webapp.includes.product_slider',['products'=>$sale_products])
 
                             <!--=======  End of tab product slider  =======-->
                             </div>
@@ -447,7 +447,7 @@
 
         function openProductModal(productID) {
             $.ajax({
-                url: '/product/product_modal/' + productID,
+                url: '{{url('/product_modal')}}' + '/' + productID,
                 type: 'get',
                 success: function (response) {
                     $(".modal").html(response);

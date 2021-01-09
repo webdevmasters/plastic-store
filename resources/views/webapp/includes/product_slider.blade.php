@@ -1,9 +1,9 @@
-<div class="fl-slider tab-product-slider">
+<div class="fl-slider {{isset($type)?$type:'tab-product-slider'}}">
     <!--=======  single product  =======-->
     @foreach($products as $product)
         <div class="fl-product">
             <div class="image {{$product->sale?' sale-product':''}}">
-                <a th:href="@{/product/single_product/__${popular_product.id}__}">
+                <a href="{{route('single.product.by.id',$product->id)}}">
                     @foreach($product->images as $image)
                         <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
                         @if($loop->index==1)@break @endif
@@ -11,13 +11,13 @@
                 </a>
             </div>
             <div class="content">
-                <h2 class="product-title"><a href="@{/product/single_product/__${popular_product.id}__}">{{$product->name}}</a></h2>
+                <h2 class="product-title"><a href="{{route('single.product.by.id',$product->id)}}">{{$product->name}}</a></h2>
                 <div class="rating">
-                    <i class="fa fa-star" th:classappend="${popular_product.getAverageRating()>=1}?'active'"></i>
-                    <i class="fa fa-star" th:classappend="${popular_product.getAverageRating()>=2}?'active'"></i>
-                    <i class="fa fa-star" th:classappend="${popular_product.getAverageRating()>=3}?'active'"></i>
-                    <i class="fa fa-star" th:classappend="${popular_product.getAverageRating()>=4}?'active'"></i>
-                    <i class="fa fa-star" th:classappend="${popular_product.getAverageRating()>=5}?'active'"></i>
+                    <i class="fa fa-star {{$product->avgRating()>=1?'active':''}}"></i>
+                    <i class="fa fa-star {{$product->avgRating()>=2?'active':''}}"></i>
+                    <i class="fa fa-star {{$product->avgRating()>=3?'active':''}}"></i>
+                    <i class="fa fa-star {{$product->avgRating()>=4?'active':''}}"></i>
+                    <i class="fa fa-star {{$product->avgRating()>=5?'active':''}}"></i>
                 </div>
                 <p class="product-price">
                     @if($product->sale)
@@ -39,9 +39,9 @@
 
                 <div class="hover-icons">
                     <ul>
-                        <li><a data-tooltip="Dodaj u korpu" th:href="@{/product/single_product/__${popular_product.id}__}"><i class="icon ion-md-cart"></i></a></li>
-                        <li><a data-tooltip="Dodaj u listu želja" href="#" th:onclick="|openWishListDialog(${popular_product.id})|"> <i class="icon ion-md-heart-empty"></i></a></li>
-                        <li><a data-tooltip="Detaljnije" href="#" th:onclick="'javascript:openProductModal(\'' + ${popular_product.id} + '\');'"><i class="icon ion-md-open"></i></a></li>
+                        <li><a data-tooltip="#{add.to.cart}" href="{{route('single.product.by.id',$product->id)}}"><i class="icon ion-md-cart"></i></a></li>
+                        <li><a href="#" data-tooltip="#{add.to.wishlist}" onclick="openWishListDialog({{$product->id}})"> <i class="icon ion-md-heart-empty"></i></a></li>
+                        <li><a href="#" data-tooltip="#{details}" onclick="openProductModal({{$product->id}})"><i class="icon ion-md-open"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -2,20 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReviewRequest;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Price;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller {
 
     public function renderSliderBySubcategory($subcategory_id) {
-        return view('webapp.partials.product_slider')->with('slider_products', self::loadProductsBySubcategory($subcategory_id))->render();
+        return view('webapp.includes.product_slider')
+            ->with('products', self::loadProductsBySubcategory($subcategory_id))
+            ->with('type', 'banner-slider')->render();
     }
 
-    public function searchProduct(Request $request) {
+    public function loadProductsBySubcategory($subcategory_id) {
+        return Product::whereSubcategoryId($subcategory_id)->get();
+    }
+
+    public function addReview(ReviewRequest $request) {
+        $review = Review::create([
+            'reviewer'   => $request->reviewer,
+            'email'      => $request->email,
+            'comment'    => $request->comment,
+            'rating'     => $request->rating,
+            'user_id'    => Auth::id(),
+            'product_id' => $request->product_id,
+        ]);
+
+        return response()->json(['product_id' => $request->product_id]);
+    }
+
+    public function showProductModal($id){
+        return view('webapp.product.product_modal')->with('product', Product::findOrFail($id))->render();
+    }
+
+    public function showSingleProduct($id) {
+        $single_product = Product::findOrFail($id);
+        $similar_products = Product::whereCategoryId($single_product->category_id)->inRandomOrder()->take(15)->get();
+        $single_product->reviews()->pluck('rating')->avg();
+        $product_ratings = Review::where('product_id', '=', 3)->pluck('rating')->toArray();
+
+        $ratings = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
+
+        foreach($product_ratings as $rating) {
+            if($rating == 1) $ratings['1']++;
+            if($rating == 2) $ratings['2']++;
+            if($rating == 3) $ratings['3']++;
+            if($rating == 4) $ratings['4']++;
+            if($rating == 5) $ratings['5']++;
+        }
+
+        return view('webapp.product.single_product')
+            ->with('single_product', $single_product)
+            ->with('ratings', $ratings)
+            ->with('similar_products', $similar_products);
+    }
+
+    public
+    function searchProduct(Request $request) {
         $products = Product::where('name', 'LIKE', '%' . $request->input('search') . '%')->orderBy('name')->paginate(20);
 
         return view('webapp.product.product_search')
@@ -24,7 +73,8 @@ class ProductController extends Controller {
             ->with('pagination', json_decode(json_encode($products), true));
     }
 
-    public function renderSearchedProductList($data) {
+    public
+    function renderSearchedProductList($data) {
         $params = json_decode($data);
 
         $products_eloquent = Product::where('name', 'LIKE', '%' . $params->search . '%');
@@ -63,7 +113,8 @@ class ProductController extends Controller {
                                  'search'        => $params->search]);
     }
 
-    public function renderProductList($data) {
+    public
+    function renderProductList($data) {
         $params = json_decode($data);
         $products_eloquent = null;
         if(isset($params->subcategory_id)) {
@@ -147,7 +198,28 @@ class ProductController extends Controller {
                                  'colors'        => $colors]);
     }
 
-    public function showProductsByCategory($category_id) {
+    public
+    function minTotalPrice($products) {
+        $minPrices = array();
+        foreach($products as $product) {
+            array_push($minPrices, $product->minPrice());
+        }
+
+        return min($minPrices);
+    }
+
+    public
+    function maxTotalPrice($products) {
+        $maxPrices = array();
+        foreach($products as $product) {
+            array_push($maxPrices, $product->maxPrice());
+        }
+
+        return max($maxPrices);
+    }
+
+    public
+    function showProductsByCategory($category_id) {
         $products_eloquent = Product::whereCategoryId($category_id)->orderBy('name');
         $products = $products_eloquent->get();
         $paginated_products = $products_eloquent->paginate(20);
@@ -167,7 +239,8 @@ class ProductController extends Controller {
             ->with('pagination', json_decode(json_encode($paginated_products), true));
     }
 
-    public function showProductsBySubcategory($subcategory_id) {
+    public
+    function showProductsBySubcategory($subcategory_id) {
         $products = Product::whereSubcategoryId($subcategory_id)->get();
         $paginated_products = Product::whereSubcategoryId($subcategory_id)->paginate(20);
         $colorsByProducts = Color::whereHas('products', function($query) use ($products) {
@@ -184,27 +257,5 @@ class ProductController extends Controller {
             ->with('min_price', $this->minTotalPrice($products))
             ->with('max_price', $this->maxTotalPrice($products))
             ->with('pagination', json_decode(json_encode($paginated_products), true));
-    }
-
-    public function minTotalPrice($products) {
-        $minPrices = array();
-        foreach($products as $product) {
-            array_push($minPrices, $product->minPrice());
-        }
-
-        return min($minPrices);
-    }
-
-    public function maxTotalPrice($products) {
-        $maxPrices = array();
-        foreach($products as $product) {
-            array_push($maxPrices, $product->maxPrice());
-        }
-
-        return max($maxPrices);
-    }
-
-    public function loadProductsBySubcategory($subcategory_id) {
-        return Product::whereSubcategoryId($subcategory_id)->get();
     }
 }

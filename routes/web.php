@@ -24,13 +24,18 @@ Route::get('/products_by_category/{category_id}', [ProductController::class, 'sh
 Route::get('/products_by_subcategory/{subcategory_id}', [ProductController::class, 'showProductsBySubcategory'])->name('products.by.subcategory');
 Route::get('/products_list_fragment/{data}', [ProductController::class, 'renderProductList']);
 Route::get('/products_list_searched_fragment/{data}', [ProductController::class, 'renderSearchedProductList']);
+Route::get('/product_modal/{id}', [ProductController::class, 'showProductModal']);
 Route::get('/search_products_by_name', [ProductController::class, 'searchProduct'])->name('search_by_name');
+Route::get('/single_product/{id}', [ProductController::class, 'showSingleProduct'])->name('single.product.by.id');
+Route::post('/single_product/add_review', [ProductController::class, 'addReview'])->name('add.review');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 
-Route::name('admin.')->prefix("admin")->group(function() {
+Route::name('admin.')->prefix("admin")->namespace('Admin')->group(function() {
     Route::resources([
         'products' => AdminProductController::class,
         'orders'   => AdminOrderController::class,
     ]);
 });
+
+require __DIR__ . '/auth.php';
