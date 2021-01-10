@@ -9,7 +9,7 @@
                         <nav>
                             <ul>
                                 <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li class="parent-page"><a href="{{'products.by.category',$single_product->category_id}}">{{$single_product->category->name}}</a></li>
+                                <li class="parent-page"><a href="{{'products.by.category',$single_product->category}}">{{$single_product->category->name}}</a></li>
                                 <li>{{$single_product->name}}</li>
                             </ul>
                         </nav>

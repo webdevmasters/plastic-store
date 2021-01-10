@@ -5,16 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 /**
  * @mixin IdeHelperProduct
  */
 class Product extends Model {
 
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = ['code', 'name', 'description', 'manufacturer', 'sizes',
         'prices', 'discounted_prices', 'colors', 'category', 'subcategory', 'available', 'sale'];
+
+    public function getSlugOptions(): SlugOptions {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName() {
+        return 'slug';
+    }
 
     public function category() {
         return $this->belongsTo(Category::class);
@@ -69,7 +81,7 @@ class Product extends Model {
 
     public function avgRating() {
         if(count($this->reviews()->get()->toArray()) > 0)
-            return round($this->reviews()->pluck('rating')->avg(),0);
+            return round($this->reviews()->pluck('rating')->avg(), 0);
         else return 0;
     }
 

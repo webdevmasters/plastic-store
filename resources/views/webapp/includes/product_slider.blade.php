@@ -3,7 +3,7 @@
     @foreach($products as $product)
         <div class="fl-product">
             <div class="image {{$product->sale?' sale-product':''}}">
-                <a href="{{route('single.product.by.id',$product->id)}}">
+                <a href="{{route('single.product.by.id',$product)}}">
                     @foreach($product->images as $image)
                         <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
                         @if($loop->index==1)@break @endif

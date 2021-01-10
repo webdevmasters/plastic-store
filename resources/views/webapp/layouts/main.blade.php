@@ -67,8 +67,9 @@
                                             <li><a th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a></li>
                                             <li><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
                                             <li><a th:href="@{/customer/my_account}" th:text="#{my.account}">Moj nalog</a></li>
-                                            <li><a th:href="@{/administration/product_list}" th:text="#{administration}">Administracija</a></li>
-
+                                            @can('manage-customers')
+                                            <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
+                                            @endcan
                                             <li>
                                                 <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     Odjavi se
@@ -219,11 +220,11 @@
                             <ul class="main-menu-item">
                                 @foreach($categories as $category)
                                     <li class="menu-item-has-children {{isset($selected_category)&&$selected_category->name==$category->name?'active':''}}" value="{{$category->id}}">
-                                        <a href="{{route('products.by.category',$category->id)}}">{{$category->name}}</a>
+                                        <a href="{{route('products.by.category',$category)}}">{{$category->name}}</a>
                                         <ul class="sub-menu">
                                             @foreach($category->subcategories as $subcategory)
                                                 <li>
-                                                    <a href="{{route('products.by.subcategory',$subcategory->id)}}">{{$subcategory->name}}</a>
+                                                    <a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a>
                                                 </li>
                                             @endforeach
                                         </ul>

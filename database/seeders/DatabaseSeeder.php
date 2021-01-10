@@ -2,12 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Color;
 use App\Models\Image;
 use App\Models\Price;
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\Size;
+use App\Models\Subcategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder {
 
@@ -32,7 +36,21 @@ class DatabaseSeeder extends Seeder {
             ->create();
 
         foreach($products as $product) {
-            $product->colors()->attach(Color::whereIn('id', [1,6,8,14])->get());
+            $product->colors()->attach(Color::whereIn('id', [1, 6, 8, 14])->get());
         }
+
+        $categories = Category::all();
+        $subcategories = Subcategory::all();
+        foreach($categories as $category) {
+            $category->slug = Str::slug($category->name);
+            $category->save();
+        }
+        foreach($subcategories as $subcategory) {
+            $subcategory->slug = Str::slug($subcategory->name);
+            $subcategory->save();
+        }
+
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'customer']);
     }
 }

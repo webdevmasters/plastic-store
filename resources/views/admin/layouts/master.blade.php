@@ -29,7 +29,7 @@
             <form class="form-inline mr-auto" target="_self">
                 <div class="form-group"></div>
             </form>
-            <a class="btn btn-light action-button" role="button" href="#">E-prodavnica</a>
+            <a class="btn btn-light action-button" role="button" href="{{url('/')}}">E-prodavnica</a>
         </div>
     </div>
 </nav>

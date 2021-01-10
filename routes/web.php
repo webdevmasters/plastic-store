@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminOrderController;
-use App\Http\Controllers\AdminProductController;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,24 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/slider_products_by_subcategory/{subcategory_id}', [ProductController::class, 'renderSliderBySubcategory']);
-Route::get('/products_by_category/{category_id}', [ProductController::class, 'showProductsByCategory'])->name('products.by.category');
-Route::get('/products_by_subcategory/{subcategory_id}', [ProductController::class, 'showProductsBySubcategory'])->name('products.by.subcategory');
+Route::get('/products_by_category/{category:slug}', [ProductController::class, 'showProductsByCategory'])->name('products.by.category');
+Route::get('/products_by_subcategory/{subcategory:slug}', [ProductController::class, 'showProductsBySubcategory'])->name('products.by.subcategory');
 Route::get('/products_list_fragment/{data}', [ProductController::class, 'renderProductList']);
 Route::get('/products_list_searched_fragment/{data}', [ProductController::class, 'renderSearchedProductList']);
 Route::get('/product_modal/{id}', [ProductController::class, 'showProductModal']);
 Route::get('/search_products_by_name', [ProductController::class, 'searchProduct'])->name('search_by_name');
-Route::get('/single_product/{id}', [ProductController::class, 'showSingleProduct'])->name('single.product.by.id');
+Route::get('/single_product/{product:slug}', [ProductController::class, 'showSingleProduct'])->name('single.product.by.id');
 Route::post('/single_product/add_review', [ProductController::class, 'addReview'])->name('add.review');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 
-Route::name('admin.')->prefix("admin")->namespace('Admin')->group(function() {
+Route::name('admin.')->prefix("admin")->middleware('can:manage-customers')->group(function() {
     Route::resources([
         'products' => AdminProductController::class,
-        'orders'   => AdminOrderController::class,
     ]);
 });
 

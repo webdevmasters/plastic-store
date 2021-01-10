@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration {
             $table->id();
             $table->integer('code');
             $table->string('name');
+            $table->string('slug');
             $table->string('description')->nullable();
             $table->string('manufacturer')->nullable();
             $table->boolean('sale')->default(false);

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Color;
@@ -13,6 +14,10 @@ use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function index() {
         return view('admin.product.index')->with('categories', Category::all())->with('products', Product::all());
@@ -64,7 +69,7 @@ class AdminProductController extends Controller {
         return back()->with('message', 'Uspešno ste sačuvali proizvod');
     }
 
-    public function show($id) {
+    public function show() {
         //
     }
 
@@ -118,18 +123,18 @@ class AdminProductController extends Controller {
         return back()->with('message', 'Uspešno ste izmenili proizvod ' . $product->name);
     }
 
-    public function destroy(Product $product) {
-        self::deleteImageFiles($product->id);
-        Product::destroy($product->id);
-
-        return back()->with('message', 'Uspešno ste obrisali proizvod ' . $product->name);
-    }
-
     public function deleteImageFiles($product_id) {
         $imgsToDelete = Image::whereProductId($product_id)->get();
 
         foreach($imgsToDelete as $img) {
             Storage::delete('public/' . $img->path . '/' . $img->name);
         }
+    }
+
+    public function destroy(Product $product) {
+        self::deleteImageFiles($product->id);
+        Product::destroy($product->id);
+
+        return back()->with('message', 'Uspešno ste obrisali proizvod ' . $product->name);
     }
 }

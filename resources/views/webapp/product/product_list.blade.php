@@ -45,38 +45,14 @@
                             <!--=======  tag container  =======-->
 
                             <ul class="tag-container">
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(0).getSubcategories().get(1).getId()}__}"
-                                       th:text="${categories.get(0).getSubcategories().get(1).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(1).getSubcategories().get(1).getId()}__}"
-                                       th:text="${categories.get(1).getSubcategories().get(1).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(2).getSubcategories().get(3).getId()}__}"
-                                       th:text="${categories.get(2).getSubcategories().get(3).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(3).getSubcategories().get(1).getId()}__}"
-                                       th:text="${categories.get(3).getSubcategories().get(1).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(4).getSubcategories().get(8).getId()}__}"
-                                       th:text="${categories.get(4).getSubcategories().get(8).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(5).getSubcategories().get(5).getId()}__}"
-                                       th:text="${categories.get(5).getSubcategories().get(5).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(6).getSubcategories().get(3).getId()}__}"
-                                       th:text="${categories.get(6).getSubcategories().get(3).getName()}"></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/product/product_list_sub_category/__${categories.get(6).getSubcategories().get(6).getId()}__}"
-                                       th:text="${categories.get(6).getSubcategories().get(6).getName()}"></a>
-                                </li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(0)->subcategories->get(1))}}">{{$categories->get(0)->subcategories->get(1)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(1)->subcategories->get(1))}}">{{$categories->get(1)->subcategories->get(1)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(2)->subcategories->get(3))}}">{{$categories->get(2)->subcategories->get(3)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(3)->subcategories->get(1))}}">{{$categories->get(3)->subcategories->get(1)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(4)->subcategories->get(8))}}">{{$categories->get(4)->subcategories->get(8)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(5)->subcategories->get(5))}}">{{$categories->get(5)->subcategories->get(5)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(6)->subcategories->get(3))}}">{{$categories->get(6)->subcategories->get(3)->name}}</a></li>
+                                <li><a href="{{route('products.by.subcategory',$categories->get(6)->subcategories->get(6))}}">{{$categories->get(6)->subcategories->get(6)->name}}</a></li>
                             </ul>
 
                             <!--=======  End of tag container  =======-->
