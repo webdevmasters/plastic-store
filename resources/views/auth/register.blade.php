@@ -67,6 +67,14 @@
                                     @error('password')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
+
+                                @if (Route::has('login'))
+                                    @guest()
+                                        <div class="col-md-6 mt-10 mb-20 text-left" th:text="#{already.registered}+'?'">Već registrovan?
+                                            <a href="{{route('login')}}" th:text="#{login}">Prijavi se</a>
+                                        </div>
+                                    @endguest
+                                @endif
                                 <div class="col-12">
                                     <button class="register-button mt-0" th:text="#{register}" type="submit">Registruj se</button>
                                 </div>

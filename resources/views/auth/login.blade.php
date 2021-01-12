@@ -21,8 +21,6 @@
         </div>
     </div>
 
-    <!--=====  End of breadcrumb area  ======-->
-
     <div class="page-section mb-50">
         <div class="container">
             <div class="row">
@@ -33,6 +31,9 @@
                         <div class="login-form">
                             <h4 class="login-title" th:text="#{login.title}">Prijava</h4>
                             <div class="row">
+                                @if(session('status'))
+                                    <div class="alert alert-success">{{ session('status') }}</div>
+                                @endif
                                 @if ($errors->any())
                                     @foreach ($errors->all() as $error)
                                         <div class="col-md-12 col-12 mb-0 invalid-feedback d-block">{{ $error }}</div>
@@ -69,3 +70,15 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+    </script>
+@endpush

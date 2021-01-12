@@ -64,16 +64,14 @@
                                     </a>
                                     <div class="language-currency-list hidden" id="accountList">
                                         <ul>
-                                            <li><a th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a></li>
-                                            <li><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
-                                            <li><a th:href="@{/customer/my_account}" th:text="#{my.account}">Moj nalog</a></li>
+                                            <li><a href="#" th:text="#{cart}">Korpa</a></li>
+                                            <li><a href="#" th:text="#{wishlist}">Lista želja</a></li>
+                                            <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
                                             @can('manage-customers')
                                             <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
                                             @endcan
                                             <li>
-                                                <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    Odjavi se
-                                                </a>
+                                                <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Odjavi se</a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>

@@ -62,8 +62,7 @@ class ProductController extends Controller {
             ->with('similar_products', $similar_products);
     }
 
-    public
-    function searchProduct(Request $request) {
+    public function searchProduct(Request $request) {
         $products = Product::where('name', 'LIKE', '%' . $request->input('search') . '%')->orderBy('name')->paginate(20);
 
         return view('webapp.product.product_search')
@@ -72,8 +71,7 @@ class ProductController extends Controller {
             ->with('pagination', json_decode(json_encode($products), true));
     }
 
-    public
-    function renderSearchedProductList($data) {
+    public function renderSearchedProductList($data) {
         $params = json_decode($data);
 
         $products_eloquent = Product::where('name', 'LIKE', '%' . $params->search . '%');
@@ -112,8 +110,7 @@ class ProductController extends Controller {
                                  'search'        => $params->search]);
     }
 
-    public
-    function renderProductList($data) {
+    public function renderProductList($data) {
         $params = json_decode($data);
         $products_eloquent = null;
         if(isset($params->subcategory_id)) {
@@ -197,8 +194,7 @@ class ProductController extends Controller {
                                  'colors'        => $colors]);
     }
 
-    public
-    function minTotalPrice($products) {
+    public function minTotalPrice($products) {
         $minPrices = array();
         foreach($products as $product) {
             array_push($minPrices, $product->minPrice());
@@ -207,8 +203,7 @@ class ProductController extends Controller {
         return min($minPrices);
     }
 
-    public
-    function maxTotalPrice($products) {
+    public function maxTotalPrice($products) {
         $maxPrices = array();
         foreach($products as $product) {
             array_push($maxPrices, $product->maxPrice());
@@ -217,8 +212,7 @@ class ProductController extends Controller {
         return max($maxPrices);
     }
 
-    public
-    function showProductsByCategory(Category $category) {
+    public function showProductsByCategory(Category $category) {
         $products_eloquent = Product::whereCategoryId($category->id)->orderBy('name');
         $products = $products_eloquent->get();
         $paginated_products = $products_eloquent->paginate(20);
@@ -238,8 +232,7 @@ class ProductController extends Controller {
             ->with('pagination', json_decode(json_encode($paginated_products), true));
     }
 
-    public
-    function showProductsBySubcategory(Subcategory $subcategory) {
+    public function showProductsBySubcategory(Subcategory $subcategory) {
         $products = Product::whereSubcategoryId($subcategory->id)->get();
         $paginated_products = Product::whereSubcategoryId($subcategory->id)->paginate(20);
         $colorsByProducts = Color::whereHas('products', function($query) use ($products) {

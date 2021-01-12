@@ -24,6 +24,10 @@ class User extends Authenticatable {
         'last_name',
         'email',
         'password',
+        'zip_code',
+        'phone',
+        'address',
+        'city'
     ];
 
     /**
