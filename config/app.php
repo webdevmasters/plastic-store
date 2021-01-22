@@ -163,10 +163,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
-
+        Darryldecode\Cart\CartServiceProvider::class,
+        \App\Providers\WishListProvider::class,
         /*
          * Application Service Providers...
          */
@@ -199,6 +201,8 @@ return [
         'Broadcast'    => Illuminate\Support\Facades\Broadcast::class,
         'Bus'          => Illuminate\Support\Facades\Bus::class,
         'Cache'        => Illuminate\Support\Facades\Cache::class,
+        'Cart'         => Darryldecode\Cart\Facades\CartFacade::class,
+        'Wishlist'     => App\Facades\Wishlist::class,
         'Config'       => Illuminate\Support\Facades\Config::class,
         'Cookie'       => Illuminate\Support\Facades\Cookie::class,
         'Crypt'        => Illuminate\Support\Facades\Crypt::class,

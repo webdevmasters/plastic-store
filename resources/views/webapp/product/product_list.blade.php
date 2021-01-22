@@ -3,7 +3,7 @@
 @section('title',isset($selected_subcategory)?$selected_subcategory->name:$selected_category->name)
 @section('content')
     <!--==========   breadcrumb area   ===========-->
-    @include('webapp.product.includes.breadcrumb')
+    @include('webapp.includes.product.breadcrumb')
 
     <div class="shop-page-content mb-50">
         <div class="container">
@@ -29,12 +29,12 @@
                         <!--=======  End of single sidebar block  =======-->
 
                         <!--=======  single sidebar block  =======-->
-                    @include('webapp.product.includes.product_price')
+                    @include('webapp.includes.product.product_price')
 
                     <!--=======  End of single sidebar block  =======-->
 
                         <!--=======  single sidebar block  =======-->
-                    @include('webapp.product.includes.product_colors')
+                    @include('webapp.includes.product.product_colors')
                     <!--=======  End of single sidebar block  =======-->
 
                         <!--=======  single sidebar block  =======-->
@@ -105,7 +105,7 @@
                                 </div>
 
                                 <!--=======  End of Sort by dropdown  =======-->
-                                @include('webapp.product.includes.product_header')
+                                @include('webapp.includes.product.product_header')
                             </div>
                         </div>
                     </div>
@@ -113,13 +113,13 @@
                     <!--=======  End of Shop header  =======-->
 
                     <!--=======  shop products display area  =======-->
-                @include('webapp.product.includes.product_list')
+                @include('webapp.includes.product.product_list')
 
                 <!--=======  End of shop products display area  =======-->
 
                     <!--=======  pagination area  =======-->
 
-                @include('webapp.product.includes.pagination')
+                @include('webapp.includes.product.pagination')
 
                 <!--=======  End of pagination area  =======-->
                 </div>
@@ -131,6 +131,13 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $("#price-range").slider('option', 'min', @json($min_price));
             $("#price-range").slider('option', 'max', @json($max_price));
 
@@ -252,44 +259,12 @@
                 $(this).parent().removeClass();
             });
         }
-
-        function openWishListDialog(productID) {
-            $.ajax({
-                url: '/product/add_product_to_wishlist/' + productID,
-                type: 'get',
-                success: function (response) {
-                    bootbox.dialog({
-                        title: 'Lista želja',
-                        message: 'Uspešno ste dodali proizvod ' + response + ' u listu želja',
-                        size: 'medium',
-                        onEscape: false,
-                        buttons: {
-                            cancel: {
-                                label: "Nastavi sa kupovinom",
-                                className: 'btn-success',
-                                callback: function () {
-                                    refreshMinicart();
-                                }
-                            },
-                            ok: {
-                                label: "Pregledaj listu želja",
-                                className: 'btn-success',
-                                callback: function () {
-                                    showWishListProducts();
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
-        function refreshMinicart() {
+        function refreshMiniWishlist(){
             $.ajax({
                 url: '/cart/refresh_minicart',
                 type: 'get',
                 success: function (response) {
-                    $(".navigation-menu-top").replaceWith(response);
+                    $(".wishlist-section").replaceWith(response['mini-wishlist']);
                     $("#cart-icon").on("click", function (event) {
                         event.stopPropagation();
                         $("#cart-floating-box").slideToggle();
@@ -304,8 +279,44 @@
             });
         }
 
+        function openWishListDialog(product_id) {
+            var id={'product_id':product_id};
+            $.ajax({
+                url: "{{route('add.to.wishlist')}}",
+                type: 'POST',
+                dataType:'JSON',
+                data:id,
+                success: function (response) {
+                    $(".wishlist-section").replaceWith(response['mini-wishlist']);
+                    if(!response['duplicate']) {
+                        bootbox.dialog({
+                            title: 'Lista želja',
+                            message: 'Uspešno ste dodali proizvod ' + response['product_name'] + ' u listu želja',
+                            size: 'medium',
+                            onEscape: false,
+                            buttons: {
+                                cancel: {
+                                    label: "Nastavi sa kupovinom",
+                                    className: 'btn-success',
+                                    callback: function () {
+                                    }
+                                },
+                                ok: {
+                                    label: "Pregledaj listu želja",
+                                    className: 'btn-success',
+                                    callback: function () {
+                                        showWishListProducts();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
         function showWishListProducts() {
-            window.location = '/product/show_wishlist';
+            window.location = '/wishlist/show_wishlist';
         }
 
         function openProductModal(productID) {

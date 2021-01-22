@@ -100,9 +100,9 @@ class ProductController extends Controller {
 
         $paginated_products = $products_eloquent->paginate($params->size);
 
-        $product_list_view = view('webapp.product.includes.product_list')->with('products', $paginated_products)->render();
-        $pagination = view('webapp.product.includes.pagination')->with('products', $paginated_products)->render();
-        $header = view('webapp.product.includes.product_header')->with('pagination', json_decode(json_encode($paginated_products), true))->render();
+        $product_list_view = view('webapp.includes.product.product_list')->with('products', $paginated_products)->render();
+        $pagination = view('webapp.includes.product.pagination')->with('products', $paginated_products)->render();
+        $header = view('webapp.includes.product.product_header')->with('pagination', json_decode(json_encode($paginated_products), true))->render();
 
         return response()->json(['products_list' => $product_list_view,
                                  'pagination'    => $pagination,
@@ -181,10 +181,10 @@ class ProductController extends Controller {
         }
         $paginated_products = $products_eloquent->paginate($params->size);
 
-        $product_list_view = view('webapp.product.includes.product_list')->with('products', $paginated_products)->render();
-        $pagination = view('webapp.product.includes.pagination')->with('products', $paginated_products)->render();
-        $colors = view('webapp.product.includes.product_colors')->with('colorsByProducts', $colorsByProducts)->render();
-        $header = view('webapp.product.includes.product_header')->with('pagination', json_decode(json_encode($paginated_products), true))->render();
+        $product_list_view = view('webapp.includes.product.product_list')->with('products', $paginated_products)->render();
+        $pagination = view('webapp.includes.product.pagination')->with('products', $paginated_products)->render();
+        $colors = view('webapp.includes.product.product_colors')->with('colorsByProducts', $colorsByProducts)->render();
+        $header = view('webapp.includes.product.product_header')->with('pagination', json_decode(json_encode($paginated_products), true))->render();
 
         return response()->json(['products_list' => $product_list_view,
                                  'pagination'    => $pagination,

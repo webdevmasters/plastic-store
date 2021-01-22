@@ -341,6 +341,11 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             showFirstProductsBySubcategory(9);
             showSecondProductsBySubcategory(37);
             showThirdProductsBySubcategory(19);
@@ -380,59 +385,44 @@
             }
         });
 
-        function openWishListDialog(productID) {
+        function openWishListDialog(product_id) {
+            var id={'product_id':product_id};
             $.ajax({
-                url: '/product/add_product_to_wishlist/' + productID,
-                type: 'get',
+                url: "{{route('add.to.wishlist')}}",
+                type: 'POST',
+                dataType:'JSON',
+                data:id,
                 success: function (response) {
-                    bootbox.dialog({
-                        title: 'Lista želja',
-                        message: 'Uspešno ste dodali proizvod ' + response + ' u listu želja',
-                        size: 'medium',
-                        onEscape: false,
-                        buttons: {
-                            cancel: {
-                                label: "Nastavi sa kupovinom",
-                                className: 'btn-success',
-                                callback: function () {
-                                    refreshMinicart();
-                                }
-                            },
-                            ok: {
-                                label: "Pregledaj listu želja",
-                                className: 'btn-success',
-                                callback: function () {
-                                    showWishListProducts();
+                    $(".wishlist-section").replaceWith(response['mini-wishlist']);
+                    if(!response['duplicate']) {
+                        bootbox.dialog({
+                            title: 'Lista želja',
+                            message: 'Uspešno ste dodali proizvod ' + response['product_name'] + ' u listu želja',
+                            size: 'medium',
+                            onEscape: false,
+                            buttons: {
+                                cancel: {
+                                    label: "Nastavi sa kupovinom",
+                                    className: 'btn-success',
+                                    callback: function () {
+                                    }
+                                },
+                                ok: {
+                                    label: "Pregledaj listu želja",
+                                    className: 'btn-success',
+                                    callback: function () {
+                                        showWishListProducts();
+                                    }
                                 }
                             }
-                        }
-                    });
-                }
-            });
-        }
-
-        function refreshMinicart() {
-            $.ajax({
-                url: '/cart/refresh_minicart',
-                type: 'get',
-                success: function (response) {
-                    $(".navigation-menu-top").replaceWith(response);
-                    $("#cart-icon").on("click", function (event) {
-                        event.stopPropagation();
-                        $("#cart-floating-box").slideToggle();
-                        $("#accountList").slideUp("slow");
-                        $("#languageList").slideUp("slow");
-                    });
-
-                    $("body:not(#cart-icon)").on("click", function () {
-                        $("#cart-floating-box").slideUp("slow");
-                    });
+                        });
+                    }
                 }
             });
         }
 
         function showWishListProducts() {
-            window.location = '/product/show_wishlist';
+            window.location = '/wishlist/show_wishlist';
         }
 
         function searchProducts() {

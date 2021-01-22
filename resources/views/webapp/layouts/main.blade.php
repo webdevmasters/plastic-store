@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <link href="{{mix('css/external/external.css')}}" type="text/css" rel="stylesheet"/>
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
     <link href="{{mix('css/app/app.css')}}" type="text/css" rel="stylesheet"/>
@@ -64,11 +64,11 @@
                                     </a>
                                     <div class="language-currency-list hidden" id="accountList">
                                         <ul>
-                                            <li><a href="#" th:text="#{cart}">Korpa</a></li>
+                                            <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
                                             <li><a href="#" th:text="#{wishlist}">Lista želja</a></li>
                                             <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
                                             @can('manage-customers')
-                                            <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
+                                                <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
                                             @endcan
                                             <li>
                                                 <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Odjavi se</a>
@@ -89,12 +89,6 @@
         </div>
     </div>
 
-    <!--=====  End of header top  ======-->
-
-    <!--=============================================
-    =            navigation menu top            =
-    =============================================-->
-
     <div class="navigation-menu-top pt-35 pb-35 pt-md-15 pb-md-15 pt-sm-15 pb-sm-15">
         <div class="container">
             <div class="row align-items-center">
@@ -112,80 +106,13 @@
                 <div class="col-12 col-lg-7 col-md-12 col-sm-12 order-3 order-lg-2"></div>
                 <div class=" col-6 col-lg-3 col-md-6 col-sm-6 order-2 order-lg-3">
                     <!--=======  cart icon  =======-->
-                    <div class="minicart-section">
-                        <a href="#" id="cart-icon">
-                            <span class="image"><i class="icon ion-md-cart" id="cart-image"></i></span>
-                            <h5 th:text="${session.cart!=null} ? ${session.cart.getTotal()}+' RSD':'0 RSD'"><i class="fa fa-angle-down"></i></h5>
-                            <p th:if="${session.cart!=null && (session.cart.getCartItems().size()>1 || session.cart.getCartItems().size()==0)}" th:text="${session.cart.getCartItems().size()}+' '+#{items}"></p>
-                            <p th:if="${session.cart!=null && session.cart.getCartItems().size()==1}" th:text="${session.cart.getCartItems().size()}+' '+#{item}"></p>
-                        </a>
+                    @include('webapp.includes.cart.mini_cart')
 
-                        <!-- cart floating box -->
-                        <div class="cart-floating-box hidden" id="cart-floating-box">
-                            <div class="cart-items" th:if="${session.cart!=null}">
-                                <div class="cart-float-single-item d-flex"
-                                     th:each=" item:${session.cart.getCartItems()}">
-                                    <span class="remove-item" id="remove-item"><a
-                                            onclick=deleteFromMiniCart(this.getAttribute('data-size'),this.getAttribute('data-price'),this.getAttribute('data-color'),this.getAttribute('data-code'));
-                                            th:data-code="${item.getProduct().getCode()}"
-                                            th:data-color="${item.getColor()}"
-                                            th:data-price="${item.getPrice()}"
-                                            th:data-size="${item.getSize()}">
-                                        <i class="icon ion-md-close"></i></a></span>
-                                    <div class="cart-float-single-item-image">
-                                        <a th:href="@{/product/single_product/__${item.product.id}__}"><img alt=""
-                                                                                                            class="img-fluid"
-                                                                                                            th:onerror="'this.onerror==null; this.src=\'' + @{/img/not-found.png} + '\';'"
-                                                                                                            th:src="@{'/images/' + ${item.product.images.get(0).name}}"></a>
-                                    </div>
-                                    <div class="cart-float-single-item-desc">
-                                        <p class="product-title"><a
-                                                th:href="@{/product/single_product/__${item.product.id}__}"
-                                                th:text="${item.product.getName()}"></a></p>
-                                        <p class="quantity" th:text="'Količina:' +${item.getQuantity()}"></p>
-                                        <p class="price" th:text="${item.getTotalPrice()}+' RSD'"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cart-calculation">
-                                <div class="calculation-details">
-                                    <p class="total">Ukupno
-                                        <span th:if="${session.cart!=null}"
-                                              th:text="${session.cart.getTotal()+ ' RSD'}"></span>
-                                        <span th:text=" '0 RSD'" th:unless="${session.cart!=null}"></span>
-                                    </p>
-                                </div>
-                                <div class="floating-cart-btn text-center">
-                                    <a class="fl-btn pull-left" th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a>
-                                    <a class="fl-btn pull-right" th:href="@{/checkout/show_checkout}"
-                                       th:if="${session.cart!=null && session.cart.getCartItems().size()>0}"
-                                       th:text="#{place.order}">Završi kupovinu</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end of cart floating box -->
-                    </div>
-
-                    <div class="wishlist-section">
-                        <a id="wishlist-icon" th:href="@{/product/show_wishlist}">
-                            <span class="image"><i class="icon ion-md-heart"></i></span>
-                            <h5><i class="fa fa-angle-down"></i></h5>
-                            <p class="wishlist-counter"
-                               th:if="${session.wishlist_products!=null && session.wishlist_products.size()>0 }"
-                               th:text="${session.wishlist_products.size()}"></p>
-                        </a>
-                    </div>
-                    <!--=======  End of cart icon  =======-->
+                    @include('webapp.includes.wishlist.mini_wishlist')
                 </div>
             </div>
         </div>
     </div>
-
-    <!--=======  End of navigation menu top  =======-->
-
-    <!--=============================================
-    =            navigation menu         =
-    =============================================-->
 
     <div class="navigation-menu">
         <div class="container">
@@ -311,8 +238,8 @@
                     <div class="widget-block">
                         <h4 class="footer-widget-title mt-sm-20 mb-sm-10" th:text="#{my.account.big}">MOJ NALOG</h4>
                         <ul>
-                            <li><a th:href="@{/customer/my_account}" th:text="#{my.account}">Moj nalog</a></li>
-                            <li><a th:href="@{/cart/show_cart}" th:text="#{cart}">Korpa</a></li>
+                            <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
+                            <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
                             <li><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
                             <li><a th:href="@{/faqs}" th:text="#{faqs}">Česta pitanja</a></li>
                         </ul>
@@ -324,11 +251,8 @@
                     <!--=======  widget block  =======-->
 
                     <div class="widget-block">
-                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10" th:text="#{contact.us.big}">KONTAKTIRAJTE
-                            NAS </h4>
-                        <p th:text="#{contact.info.suggestions}">Kontaktirajte nas kako biste imali najnovije
-                            informacije o proizvodima ili predloge kako
-                            bismo usavršili naš sajt.</p>
+                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10" th:text="#{contact.us.big}">KONTAKTIRAJTE NAS </h4>
+                        <p th:text="#{contact.info.suggestions}">Kontaktirajte nas kako biste imali najnovije informacije o proizvodima ili predloge kako bismo usavršili naš sajt.</p>
 
                         <div class="newsletter-form mb-20">
                             <a th:href="@{/contact}" th:text="#{contact}">Kontakt</a>

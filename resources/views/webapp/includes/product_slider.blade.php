@@ -39,8 +39,8 @@
 
                 <div class="hover-icons">
                     <ul>
-                        <li><a data-tooltip="#{add.to.cart}" href="{{route('single.product.by.id',$product->id)}}"><i class="icon ion-md-cart"></i></a></li>
-                        <li><a href="#" data-tooltip="#{add.to.wishlist}" onclick="openWishListDialog({{$product->id}})"> <i class="icon ion-md-heart-empty"></i></a></li>
+                        <li><a data-tooltip="#{add.to.cart}" href="{{route('single.product.by.id',$product)}}"><i class="icon ion-md-cart"></i></a></li>
+                        <li><a href="#" data-tooltip="#{add.to.wishlist}" onclick=openWishListDialog("{{$product->id}}")> <i class="icon ion-md-heart-empty"></i></a></li>
                         <li><a href="#" data-tooltip="#{details}" onclick="openProductModal({{$product->id}})"><i class="icon ion-md-open"></i></a></li>
                     </ul>
                 </div>

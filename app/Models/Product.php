@@ -92,5 +92,4 @@ class Product extends Model {
     public function altImage() {
         return '/storage/images/no-image.png';
     }
-
 }

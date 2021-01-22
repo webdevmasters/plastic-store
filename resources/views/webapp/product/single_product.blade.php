@@ -9,7 +9,7 @@
                         <nav>
                             <ul>
                                 <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li class="parent-page"><a href="{{'products.by.category',$single_product->category}}">{{$single_product->category->name}}</a></li>
+                                <li class="parent-page"><a href="{{'products.by.category',$single_product->category->name}}">{{$single_product->category->name}}</a></li>
                                 <li>{{$single_product->name}}</li>
                             </ul>
                         </nav>
@@ -124,7 +124,7 @@
                         <div class="color mb-20">
                             <span class="title" th:text="#{color}"> Boja:</span> <br>
                             @foreach($single_product->colors as $color)
-                                <a value="{{$color->name}}">
+                                <a value="{{$color->code}}">
                                     <span class="color-block {{$loop->first?'active':''}}" style="{{'background-color:'.$color->code.';'}}" title="{{$color->name}}"></span>
                                 </a>
                             @endforeach
@@ -522,42 +522,44 @@
                 });
             });
 
-            function openWishListDialog(productID) {
+            function openWishListDialog(product_id) {
+                var id={'product_id':product_id};
                 $.ajax({
-                    url: '/product/add_product_to_wishlist/' + productID,
-                    type: 'get',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader(header, token);
-                    },
+                    url: "{{route('add.to.wishlist')}}",
+                    type: 'POST',
+                    dataType:'JSON',
+                    data:id,
                     success: function (response) {
-                        bootbox.dialog({
-                            title: 'Lista želja',
-                            message: 'Uspešno ste dodali artikal ' + response + ' u listu želja',
-                            size: 'medium',
-                            onEscape: false,
-                            buttons: {
-                                cancel: {
-                                    label: "Nastavi sa kupovinom",
-                                    className: 'btn-success',
-                                    callback: function () {
-                                        refreshMinicart();
-                                    }
-                                },
-                                ok: {
-                                    label: "Pregledaj listu želja",
-                                    className: 'btn-success',
-                                    callback: function () {
-                                        showWishListProducts();
+                        $(".wishlist-section").replaceWith(response['mini-wishlist']);
+                        if(!response['duplicate']) {
+                            bootbox.dialog({
+                                title: 'Lista želja',
+                                message: 'Uspešno ste dodali proizvod ' + response['product_name'] + ' u listu želja',
+                                size: 'medium',
+                                onEscape: false,
+                                buttons: {
+                                    cancel: {
+                                        label: "Nastavi sa kupovinom",
+                                        className: 'btn-success',
+                                        callback: function () {
+                                        }
+                                    },
+                                    ok: {
+                                        label: "Pregledaj listu želja",
+                                        className: 'btn-success',
+                                        callback: function () {
+                                            showWishListProducts();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 });
             }
 
             function showWishListProducts() {
-                window.location = '/product/show_wishlist';
+                window.location = '/wishlist/show_wishlist';
             }
 
             function addReview() {
@@ -606,17 +608,15 @@
             }
 
             function addToCart() {
-                /*<![CDATA[*/
-                var product_id = /*[[${single_product.id}]]*/ 'SearchParam';
-                var sale = /*[[${single_product.isSale()}]]*/ 'SearchParam';
-                /*]]>*/
+                var product_id = @json($single_product->id);
+                var sale = @json($single_product->sale);
                 var price = '';
                 if (sale) price = $('.product-price span.discounted-price').text().split(' DIN')[0];
                 else price = $('.product-price span.main-price').text().split(' DIN')[0];
                 var quantity = $('#quantity').val();
                 var size = $('.nice-select > span.current').text();
                 var color = $(".color").find("span").filter(".active").parent().attr('value');
-                var cartItem = {
+                var cart_item = {
                     "product_id": product_id,
                     "quantity": quantity,
                     "size": size,
@@ -625,16 +625,22 @@
                 };
 
                 $.ajax({
+                    url: "{{route('add.to.cart')}}",
                     type: "POST",
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    url: "/cart/add_to_cart",
-                    data: JSON.stringify(cartItem),
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader(header, token);
-                    },
-                    success: function (result) {
-                        refreshMinicart();
+                    dataType: 'JSON',
+                    data: cart_item,
+                    success: function (response) {
+                        $(".minicart-section").replaceWith(response['mini_cart']);
+                        $("#cart-icon").on("click", function (event) {
+                            event.stopPropagation();
+                            $("#cart-floating-box").slideToggle();
+                            $("#accountList").slideUp("slow");
+                            $("#languageList").slideUp("slow");
+                        });
+
+                        $("body:not(#cart-icon)").on("click", function () {
+                            $("#cart-floating-box").slideUp("slow");
+                        });
                     }
                 });
             }
@@ -649,7 +655,7 @@
                     url: '/cart/refresh_minicart',
                     type: 'get',
                     success: function (response) {
-                        $(".navigation-menu-top").replaceWith(response);
+                        $(".minicart-section").replaceWith(response);
                         $("#cart-icon").on("click", function (event) {
                             event.stopPropagation();
                             $("#cart-floating-box").slideToggle();
