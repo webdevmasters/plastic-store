@@ -167,8 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
-        Darryldecode\Cart\CartServiceProvider::class,
-        \App\Providers\WishListProvider::class,
+        \App\Providers\CartServiceProvider::class,
+        \App\Providers\WishListServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -192,7 +192,6 @@ return [
     */
 
     'aliases' => [
-
         'App'          => Illuminate\Support\Facades\App::class,
         'Arr'          => Illuminate\Support\Arr::class,
         'Artisan'      => Illuminate\Support\Facades\Artisan::class,

@@ -61,52 +61,54 @@
 
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="wishlist" role="tabpanel">
-                                    <div class="myaccount-content" th:if="${products.size()>0}">
-                                        <h3 th:text="#{wishlist}">Lista želja</h3>
+                                    @if(Wishlist::getContent()->count()>0)
+                                        <div class="myaccount-content">
+                                            <h3 th:text="#{wishlist}">Lista želja</h3>
 
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th th:text="#{picture}">Slika</th>
-                                                    <th th:text="#{name}">Naziv</th>
-                                                    <th th:text="#{size}">Dimenzije</th>
-                                                    <th th:text="#{price}">Cena</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="product,iter: ${products}">
-                                                    <td th:text="${iter.count}"></td>
-                                                    <td class="pro-thumbnail">
-                                                        <a th:href="@{/product/single_product/__${product.id}__}"><img
-                                                                alt="Product" class="img-fluid"
-                                                                style="width: 60px; height: 60px;"
-                                                                th:src="@{'/images/' + ${product.images.get(0).name}}"></a>
-                                                    </td>
-                                                    <td class="pro-title"><a
-                                                            th:href="@{/product/single_product/__${product.id}__}"
-                                                            th:text="${product.getName()}"></a></td>
-                                                    <td class="pro-quantity" th:classappend="${product.id}">
-                                                        <select>
-                                                            <option th:each="attr : ${product.productAttributes}"
-                                                                    th:text="${attr.getSize()}"
-                                                                    th:value="${attr.getPrice()}"></option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="pro-price"><span th:id="${product.id}"
-                                                                                th:text="${product.getMinPrice()}+' - '+${product.getMaxPrice()}+ ' RSD'"></span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th th:text="#{picture}">Slika</th>
+                                                        <th th:text="#{name}">Naziv</th>
+                                                        <th th:text="#{size}">Dimenzije</th>
+                                                        <th th:text="#{price}">Cena</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach(Wishlist::getContent() as $item)
+                                                        <tr>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td class="pro-thumbnail">
+                                                                <a href="{{route('single.product.by.id',$item->associatedModel)}}">
+                                                                    @foreach($item->associatedModel->images as $image)
+                                                                        <img alt="" style="width: 64px; height: 64px;" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                                                                        @if($loop->index==0)@break @endif
+                                                                    @endforeach</a>
+                                                            </td>
+                                                            <td class="pro-title"><a href="{{route('single.product.by.id',$item->associatedModel)}}">{{$item->associatedModel->name}}</a></td>
+                                                            <td class="pro-quantity {{$item->associatedModel->id}}">
+                                                                <select>
+                                                                    @foreach($item->associatedModel->sizes as $size)
+                                                                        <option value="{{$item->associatedModel->prices()->pluck('value')->all()[$loop->index]}}">{{$size->value}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td class="pro-price">
+                                                                <span id="{{$item->associatedModel->id}}">{{$item->associatedModel->minPrice().' - '.$item->associatedModel->maxPrice().' RSD'}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="myaccount-content" th:unless="${products.size()>0}">
-                                        <p style="text-align: center;font-weight: bold;font-size: 22px;"
-                                           th:text="#{wishlist.empty}">Vaša lista želja je
-                                            trenutno prazna.</p>
-                                    </div>
+                                    @else
+                                        <div class="myaccount-content">
+                                            <p style="text-align: center;font-weight: bold;font-size: 22px;" th:text="#{wishlist.empty}">Vaša lista želja je trenutno prazna.</p>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="tab-pane fade" id="orders" role="tabpanel">

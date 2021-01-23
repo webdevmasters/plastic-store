@@ -65,7 +65,7 @@
                                     <div class="language-currency-list hidden" id="accountList">
                                         <ul>
                                             <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
-                                            <li><a href="#" th:text="#{wishlist}">Lista želja</a></li>
+                                            <li><a href="{{route('show.wishlist')}}" th:text="#{wishlist}">Lista želja</a></li>
                                             <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
                                             @can('manage-customers')
                                                 <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
@@ -240,7 +240,7 @@
                         <ul>
                             <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
                             <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
-                            <li><a th:href="@{/product/show_wishlist}" th:text="#{wishlist}">Lista želja</a></li>
+                            <li><a href="{{route('show.wishlist')}}" th:text="#{wishlist}">Lista želja</a></li>
                             <li><a th:href="@{/faqs}" th:text="#{faqs}">Česta pitanja</a></li>
                         </ul>
                     </div>

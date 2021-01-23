@@ -23,8 +23,7 @@ return [
      *
      * the configuration for persisting cart
      */
-    'storage' => null,
-
+    'storage' => \App\CartDBStorage::class,
     /*
      * ---------------------------------------------------------------
      * events

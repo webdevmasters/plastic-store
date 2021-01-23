@@ -4,10 +4,14 @@
 namespace App\Providers;
 
 
+use App\WishListDBStorage;
 use Darryldecode\Cart\Cart;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
-class WishListProvider extends ServiceProvider {
+class WishListServiceProvider extends ServiceProvider {
 
     /**
      * Bootstrap the application services.
@@ -25,10 +29,10 @@ class WishListProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->singleton('wishlist', function($app) {
-            $storage = $app['session'];
+            $storage = Auth::check() ? new WishListDBStorage() : $app['session'];
             $events = $app['events'];
             $instanceName = 'wishlist';
-            $session_key = '88uuiioo99888';
+            $session_key = Auth::check() ?Auth::user()->id: Request::session()->getId();
 
             return new Cart(
                 $storage,
