@@ -7,7 +7,7 @@
         </h2>
     </div>
     <div class="cart-summary-button">
-        <a th:href="@{/checkout/show_checkout}">
+        <a href="{{route('create.checkout')}}">
             <button class="checkout-btn" th:text="#{place.order}">Završi kupovinu</button>
         </a>
     </div>

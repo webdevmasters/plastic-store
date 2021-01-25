@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Size
+ *
  * @mixin IdeHelperSize
  */
 class Size extends Model {

@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller {
             'address'    => 'nullable|string|max:255',
             'city'       => 'nullable|string|max:20',
             'phone'      => 'nullable|numeric|digits_between:9,12',
-            'email'      => 'required|string|email|max:255'
+            'email'      => 'required|string|email:rfc,dns|max:255'
         ]);
 
         $user = User::findOrFail($id);
@@ -61,6 +61,6 @@ class AuthenticatedSessionController extends Controller {
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('login'));
     }
 }

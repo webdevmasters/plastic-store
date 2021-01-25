@@ -9,7 +9,6 @@ use Darryldecode\Cart\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class WishListServiceProvider extends ServiceProvider {
 
@@ -32,7 +31,7 @@ class WishListServiceProvider extends ServiceProvider {
             $storage = Auth::check() ? new WishListDBStorage() : $app['session'];
             $events = $app['events'];
             $instanceName = 'wishlist';
-            $session_key = Auth::check() ?Auth::user()->id: Request::session()->getId();
+            $session_key = Auth::check() ? Auth::user()->id : Request::session()->token();
 
             return new Cart(
                 $storage,

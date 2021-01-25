@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\CartModel
+ *
  * @mixin IdeHelperCategory
  */
 class CartModel extends Model {

@@ -28,9 +28,9 @@
                         <!-- My Account Tab Menu Start -->
                         <div class="col-lg-3 col-12">
                             <div class="myaccount-tab-menu nav" role="tablist">
-                                <a data-toggle="tab" href="#dashboard" id="dashboard_link" th:classappend="${active_tab=='user_panel'}?'active show'">
-                                    <i class="fa fa-dashboard" th:text="#{dashboard}"></i>Korisnički panel</a>
-                                <a data-toggle="tab" href="#orders" id="orders_link" th:classappend="${active_tab=='orders_panel'}?'active show'">
+                                <a data-toggle="tab" href="#dashboard" id="dashboard_link" >
+                                    <i class=" fa fa-dashboard" th:text="#{dashboard}"></i>Korisnički panel</a>
+                                <a data-toggle="tab" href="#orders" id="orders_link">
                                     <i class="fa fa-cart-arrow-down" th:text="#{my.orders}"></i>Moje Porudžbine</a>
                                 <a data-toggle="tab" href="#wishlist">
                                     <i class="fa fa-cart-arrow-down" th:text="#{wishlist}"></i>Moje Želje</a>
@@ -112,45 +112,44 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
-                                    <div class="myaccount-content" th:if="${orders.size()>0}">
-                                        <h3 th:text="#{orders}">Porudžbine</h3>
+                                    @if(count($user->orders)>0)
+                                        <div class="myaccount-content">
+                                            <h3 th:text="#{orders}">Porudžbine</h3>
 
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th th:text="#{date.created}">Datum kreiranja</th>
-                                                    <th>Status</th>
-                                                    <th th:text="#{total}">Ukupno</th>
-                                                    <th th:text="#{view}">Pregled</th>
-                                                    <th th:text="#{option}">Opcije</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="order,iter: ${orders}">
-                                                    <td th:text="${iter.count}"></td>
-                                                    <td th:text="${#dates.format(order.getDateCreated(), 'dd-MMM-yyyy')}"></td>
-                                                    <td th:text="${order.getOrderStatus().getDisplayValue()}"></td>
-                                                    <td th:text="${order.getOrderTotal()}+' RSD'"></td>
-                                                    <td><a class="btn"
-                                                           th:href="@{/checkout/order_details/__${order.getId()}__}"
-                                                           th:text="#{details}">Detalji</a>
-                                                    </td>
-                                                    <td><a class="btn btn-danger btn-sm" href="#"
-                                                           th:if="${order.getOrderStatus().name()=='ORDERED'}"
-                                                           th:onclick="|showWarningDialog(${order.id})|"><i
-                                                                class="fa fa-times"></i></a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th th:text="#{date.created}">Datum kreiranja</th>
+                                                        <th>Status</th>
+                                                        <th th:text="#{total}">Ukupno</th>
+                                                        <th th:text="#{view}">Pregled</th>
+                                                        <th th:text="#{option}">Opcije</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($user->orders as $order)
+                                                        <tr>
+                                                            <td>{{$loop->index+1}}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($order->date_created)->format('d/m/Y')}}</td>
+                                                            <td>{{$order->status}}</td>
+                                                            <td>{{$order->total.' RSD'}}</td>
+                                                            <td><a class="btn" href="{{route('order.details',$order->id)}}" th:text="#{details}">Detalji</a></td>
+                                                            @if($order->status=='ORDERED')
+                                                                <td><a class="btn btn-danger btn-sm" href="#" onclick=showWarningDialog("{{$order->id}}")><i class="fa fa-times"></i></a></td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="myaccount-content" th:unless="${orders.size()>0}">
-                                        <p style="text-align: center;font-weight: bold;font-size: 22px;"
-                                           th:text="#{orders.empty}">Vaša lista
-                                            porudžbina je trenutno prazna.</p>
-                                    </div>
+                                    @else
+                                        <div class="myaccount-content">
+                                            <p style="text-align: center;font-weight: bold;font-size: 22px;" th:text="#{orders.empty}">Vaša lista porudžbina je trenutno prazna.</p>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <!-- Single Tab Content Start -->
@@ -241,20 +240,19 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
-
-            /*<![CDATA[*/
-            var active_tab = /*[[${active_tab}]]*/ 'SearchParam';
-            /*]]>*/
-
+            var active_tab = 'user_panel';
+            @if(isset($active_tab))
+                active_tab = @json($active_tab);
+            @endif
             $('.pro-quantity select').on('change', function () {
                 var price = this.value;
                 var id = $(this).parent().attr('class').split(' ')[1];
                 $('span#' + id + '').text(price + ' RSD');
             });
-            $('#dashboard_link').click();
+
             if (active_tab === 'orders_panel') {
                 $('#orders_link').click();
-            }
+            } else $('#dashboard_link').click();
 
             $('.pro-quantity select').trigger("change");
 
@@ -277,7 +275,7 @@
                         label: "Potvrdi",
                         className: 'btn-success',
                         callback: function () {
-                            window.location = '/customer/order_cancel/' + orderID;
+                            window.location = '{{url('/order/cancel_order')}}' + '/' + orderID;
                         }
                     },
                     cancel: {

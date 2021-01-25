@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\WishlistModel
+ *
  * @mixin IdeHelperCategory
  */
 class WishlistModel extends Model {

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,11 @@ Route::get('/wishlist/show_wishlist', [WishlistController::class, 'index'])->nam
 Route::post('/wishlist/add_to_wishlist', [WishlistController::class, 'store'])->name('add.to.wishlist');
 Route::get('/wishlist/delete_wishlist_item/{id}', [WishlistController::class, 'destroyFromWishlist'])->name('delete.wishlist.item');
 
+Route::post('/order/place_order', [OrderController::class, 'store'])->name('place.order');
+Route::get('/order/create_order', [OrderController::class, 'create'])->name('create.checkout');
+Route::get('/order/order_confirmation/{id}', [OrderController::class, 'confirmOrder'])->name('order.confirmation');
+Route::get('/order/order_details/{id}', [OrderController::class, 'show'])->name('order.details');
+Route::get('/order/cancel_order/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 

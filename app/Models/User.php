@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
+ * App\Models\User
+ *
  * @mixin IdeHelperUser
  */
 class User extends Authenticatable {
@@ -55,5 +57,9 @@ class User extends Authenticatable {
 
     public function hasRole($role){
         return $this->roles()->where('name',$role)->first();
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

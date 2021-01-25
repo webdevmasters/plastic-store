@@ -9,6 +9,8 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
+ * App\Models\Product
+ *
  * @mixin IdeHelperProduct
  */
 class Product extends Model {

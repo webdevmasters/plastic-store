@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 
 /**
+ * App\Models\Image
+ *
  * @mixin IdeHelperImage
  */
 class Image extends Model {

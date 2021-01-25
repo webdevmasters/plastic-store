@@ -79,6 +79,11 @@
                     $(this).remove();
                 });
             }, 5000);
+            //zabrama klika na dugme back na browseru
+            history.pushState(null, null, `{{ route('login') }}`);
+            window.addEventListener('popstate', function () {
+                history.pushState(null, null, `{{ route('login') }}`);
+            });
         });
     </script>
 @endpush

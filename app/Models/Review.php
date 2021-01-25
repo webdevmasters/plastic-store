@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Review
+ *
  * @mixin IdeHelperProduct
  */
 class Review extends Model {

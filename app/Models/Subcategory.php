@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 
 /**
+ * App\Models\Subcategory
+ *
  * @mixin IdeHelperSubCategory
  */
 class Subcategory extends Model {

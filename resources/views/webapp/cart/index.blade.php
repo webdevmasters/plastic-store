@@ -25,7 +25,6 @@
                 <div class="row">
                     <div class="col-12">
                         <form action="#">
-                            <!--=======  cart table  =======-->
                             <div class="cart-table table-responsive mb-40">
                                 <table class="table">
                                     <thead>

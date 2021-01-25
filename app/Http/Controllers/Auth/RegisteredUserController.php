@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller {
             'name'       => 'required|string|max:255|unique:users',
             'first_name' => 'nullable|string|max:255',
             'last_name'  => 'nullable|string|max:255',
-            'email'      => 'required|string|email|max:255|unique:users',
+            'email'      => 'required|string|email:rfc,dns|max:255|unique:users',
             'password'   => 'required|string|confirmed|min:8',
         ]);
 

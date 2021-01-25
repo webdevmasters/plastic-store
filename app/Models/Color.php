@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Color
+ *
  * @mixin IdeHelperColor
  */
 class Color extends Model {

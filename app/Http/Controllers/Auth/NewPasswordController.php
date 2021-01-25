@@ -18,7 +18,7 @@ class NewPasswordController extends Controller {
     public function store(Request $request) {
         $request->validate([
             'token'    => 'required',
-            'email'    => 'required|email',
+            'email'    => 'required|email:rfc,dns',
             'password' => 'required|string|confirmed|min:8',
         ]);
 

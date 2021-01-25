@@ -23,7 +23,7 @@ class ReviewRequest extends FormRequest {
     public function rules() {
         return $rules = [
             'reviewer' => 'required|string',
-            'email'    => 'required|string|email',
+            'email'    => 'required|string|email:rfc,dns',
             'comment'  => 'required|string|max:255',
             'rating'   => 'integer|min:1'
         ];
