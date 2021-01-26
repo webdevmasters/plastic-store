@@ -1,0 +1,122 @@
+@extends('webapp.layouts.main')
+@section('content')
+    <div class="breadcrumb-area pt-15 pb-15">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--=======  breadcrumb container  =======-->
+
+                    <div class="breadcrumb-container">
+                        <nav>
+                            <ul>
+                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
+                                <li th:text="#{about.us}">O nama</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--=======  End of breadcrumb container  =======-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section Start -->
+    <div class="about-section mb-50">
+        <div class="container">
+
+            <div class="row row-30">
+
+                <!-- About Image -->
+                <div class="about-image col-lg-6 mb-50">
+                    <img alt="" src="{{asset('static/images/banners/aboutus.png')}}" >
+                </div>
+
+                <!-- About Content -->
+                <div class="about-content col-lg-6">
+                    <div class="row">
+                        <div class="col-12 mb-50">
+                            <h1 th:text="#{welcome.to.ecommerce}">DBRODOŠLI NA E-PRODAVNICU <span th:text="#{store.name}"> PLASTIKA DRAŠKOVIĆ</span></h1>
+                            <p>Mi smo nova internet prodavnica koja ima za cilj prodaju plastike. Cilj nam je da naše
+                                kvalitetne proizvode isporučimo u najkraćem mogućem roku, jer nam je najvažnije zadovoljstvo
+                                kupca. Naši proizvodi su odličnog kvaliteta i proizvedeni su u Srbiji, a proizvođači su
+                                Drina, Pobeda, Megaplast, Miškone, Sanja Ippi, Bigplast, Immos Plast i drugi...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission, Vission & Goal -->
+            <div class="about-mission-vission-goal row row-20 mb-30">
+
+                <div class="col-lg-4 col-md-6 col-12 mb-sm-30">
+                    <h3 th:text="#{our.vision}">NAŠA VIZIJA</h3>
+                    <p th:text="#{vision.info}">Naša vizija je da postanemo neprikosnoveni lider na tržištu plastike. </p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-sm-30">
+                    <h3 th:text="#{our.mission}">NAŠA MISIJA</h3>
+                    <p th:text="#{mission.info}">Naša misija je da u narednom periodu obogatimo asortiman naših proizvoda kao i da povećamo kvalitet naših usluga.</p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-sm-0">
+                    <h3 th:text="#{our.goal}">NAŠ CILJ</h3>
+                    <p th:text="#{goal.info}">Naš cilj je da steknemo veliki broj zadovoljnih kupaca širom Srbije.</p>
+                </div>
+            </div>
+
+            <div class="row row-10 mb-50">
+
+                <!-- Banner -->
+                <div class="col-md-4 mb-sm-30">
+                    <div class="single-banner">
+                        <a href="#"><img alt="" src="{{asset('static/images/banners/vision.png')}}"></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mb-sm-30">
+                    <div class="single-banner">
+                        <a href="#"><img alt="" src="{{asset('static/images/banners/mission.png')}}"></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mb-sm-00">
+                    <div class="single-banner">
+                        <a href="#"><img alt="" src="{{asset('static/images/banners/goal.png')}}"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-30">
+                <!-- About Feature -->
+                <div class="about-feature col-md-7 col-12 mb-sm-30">
+                    <div class="row pt-100" >
+
+                        <div class="col-md-6 col-12 mb-30">
+                            <h4 th:text="#{fast.delivery}">BRZA ISPORUKA</h4>
+                            <p th:text="#{fast.delivery.info}">Obezbeđujemo brzu isporuku svih naših proizvoda.</p>
+                        </div>
+
+                        <div class="col-md-6 col-12 mb-30">
+                            <h4 th:text="#{products.quality}">KVALITET PROIZVODA</h4>
+                            <p th:text="#{products.quality.info}">Garantujemo kvalitet naših proizvoda.</p>
+                        </div>
+
+                        <div class="col-md-6 col-12 mb-30">
+                            <h4 th:text="#{order.tracking}">PRAĆENJE PORUDZBINE</h4>
+                            <p th:text="#{order.tracking.info}">Omogućavamo praćenje statusa vaše proudžbine.</p>
+                        </div>
+
+                        <div class="col-md-6 col-12 mb-30 mb-sm-0">
+                            <h4 th:text="#{support.24.7}">24/7 PODRŠKA</h4>
+                            <p th:text="#{support.24.7.info}">Pružamo Vam podršku 24/7.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- About Feature Banner -->
+                <div class="about-feature-banner col-md-5 col-12">
+                    <div class="single-banner"><a href="#"><img alt="" src="{{asset('static/images/banners/delivery-quality_tracking_support.png')}}"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

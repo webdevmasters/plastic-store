@@ -359,7 +359,7 @@
                 success: function (response) {
                     $('.view-mode-icons a:nth-child(1)').addClass('active');
                     $('.view-mode-icons a:nth-child(2)').removeClass('active');
-                    window.history.replaceState(null, null, location.href.substring(0, location.href.lastIndexOf('/') + 1) + categoryId);
+                    window.history.replaceState(null, null, location.href.substring(0, location.href.lastIndexOf('/') + 1) + response['selected_category']);
                     $('.shop-product-wrap').replaceWith(response['products_list']);
                     $('#pagination').replaceWith(response['pagination']);
                     $('.pagination-area > ul > li.page-item > a').each(function () {

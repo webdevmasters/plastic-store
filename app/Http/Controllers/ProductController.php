@@ -11,6 +11,7 @@ use App\Models\Review;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller {
 
@@ -113,6 +114,7 @@ class ProductController extends Controller {
     public function renderProductList($data) {
         $params = json_decode($data);
         $products_eloquent = null;
+        $category_name = Str::of(Category::findOrFail($params->category_id)->name)->slug('-');
         if(isset($params->subcategory_id)) {
             $products_eloquent = Product::whereSubcategoryId($params->subcategory_id);
         } else {
@@ -186,12 +188,13 @@ class ProductController extends Controller {
         $colors = view('webapp.includes.product.product_colors')->with('colorsByProducts', $colorsByProducts)->render();
         $header = view('webapp.includes.product.product_header')->with('pagination', json_decode(json_encode($paginated_products), true))->render();
 
-        return response()->json(['products_list' => $product_list_view,
-                                 'pagination'    => $pagination,
-                                 'header'        => $header,
-                                 'min_price'     => $params->category_changed || $params->color_changed ? $min_price : $params->min_price,
-                                 'max_price'     => $params->category_changed || $params->color_changed ? $max_price : $params->max_price,
-                                 'colors'        => $colors]);
+        return response()->json(['products_list'     => $product_list_view,
+                                 'pagination'        => $pagination,
+                                 'selected_category' => (string)$category_name,
+                                 'header'            => $header,
+                                 'min_price'         => $params->category_changed || $params->color_changed ? $min_price : $params->min_price,
+                                 'max_price'         => $params->category_changed || $params->color_changed ? $max_price : $params->max_price,
+                                 'colors'            => $colors]);
     }
 
     public function minTotalPrice($products) {

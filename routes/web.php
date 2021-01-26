@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
@@ -21,6 +22,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [HomeController::class, 'about'])->name('show.about');
+Route::get('/shipping_info', [HomeController::class, 'shippingInfo'])->name('show.shipping.info');
+Route::get('/selling_terms', [HomeController::class, 'sellingTerms'])->name('show.selling.terms');
+Route::get('/faqs', [HomeController::class, 'faqs'])->name('show.faqs');
+
+Route::get('/contact', [MessageController::class, 'contact'])->name('show.contact');
+Route::post('/send_message', [MessageController::class, 'sendMessage'])->name('send.message');
 
 Route::get('/slider_products_by_subcategory/{subcategory_id}', [ProductController::class, 'renderSliderBySubcategory']);
 Route::get('/products_by_category/{category:slug}', [ProductController::class, 'showProductsByCategory'])->name('products.by.category');

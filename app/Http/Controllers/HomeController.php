@@ -13,4 +13,20 @@ class HomeController extends Controller {
 
         return view('webapp.shop.index', compact('popular_products', 'new_products', 'sale_products'));
     }
+
+    public function shippingInfo() {
+        return view('webapp.shop.shipping_info');
+    }
+
+    public function sellingTerms() {
+        return view('webapp.shop.selling_terms');
+    }
+
+    public function about() {
+        return view('webapp.shop.about');
+    }
+
+    public function faqs() {
+        return view('webapp.shop.faqs');
+    }
 }

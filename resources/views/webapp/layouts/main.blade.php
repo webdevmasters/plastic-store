@@ -197,19 +197,16 @@
 
                     <div class="address-block" style="padding-top: 20px;">
                         <div class="image">
-                            <a th:href="@{/}">
-                                <img alt="" class="img-fluid" style="width: 250px;" th:src="@{'/img/logo.png'}">
+                            <a href="{{url('/')}}">
+                                <img alt="" class="img-fluid" src="{{asset('static/images/shop/logo.png')}}">
                             </a>
                         </div>
 
                         <div class="address-text">
                             <ul>
-                                <li th:text="#{address}+': Vojvode Stepe 148, 36000 Kraljevo.'">Adresa: Vojvode Stepe
-                                    148, 36000 Kraljevo.
-                                </li>
+                                <li th:text="#{address}+': Vojvode Stepe 148, 36000 Kraljevo.'">Adresa: Vojvode Stepe 148, 36000 Kraljevo.</li>
                                 <li th:text="#{phone.number}+': 062 464 406'">Telefon: 062 464 406</li>
-                                <li th:text="#{email}+' : plastika.draskovic@gmail.com'">Email:
-                                    plastika.draskovic@gmail.com
+                                <li th:text="#{email}+' : plastika.draskovic@gmail.com'">Email: plastika.draskovic@gmail.com
                                 </li>
                             </ul>
                         </div>
@@ -223,10 +220,10 @@
                     <div class="widget-block">
                         <h4 class="footer-widget-title mb-sm-10" th:text="#{information}">INFORMACIJE</h4>
                         <ul>
-                            <li><a th:href="@{/about}" th:text="#{about.us}">O nama</a></li>
-                            <li><a th:href="@{/contact}" th:text="#{contact}">Kontakt</a></li>
-                            <li><a th:href="@{/shipping_info}" th:text="#{delivery.info}">Informacije o dostavi</a></li>
-                            <li><a th:href="@{/selling_terms}" th:text="#{selling.terms}">Uslovi kupovine</a></li>
+                            <li><a href="{{route('show.about')}}" th:text="#{about.us}">O nama</a></li>
+                            <li><a href="{{route('show.contact')}}" th:text="#{contact}">Kontakt</a></li>
+                            <li><a href="{{route('show.shipping.info')}}" th:text="#{delivery.info}">Informacije o dostavi</a></li>
+                            <li><a href="{{route('show.selling.terms')}}" th:text="#{selling.terms}">Uslovi kupovine</a></li>
                         </ul>
                     </div>
 
@@ -241,7 +238,7 @@
                             <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
                             <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
                             <li><a href="{{route('show.wishlist')}}" th:text="#{wishlist}">Lista želja</a></li>
-                            <li><a th:href="@{/faqs}" th:text="#{faqs}">Česta pitanja</a></li>
+                            <li><a href="{{route('show.faqs')}}" th:text="#{faqs}">Česta pitanja</a></li>
                         </ul>
                     </div>
 
