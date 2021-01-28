@@ -1209,7 +1209,6 @@ function deleteFromMiniCart(id, page) {
         url: "/cart/delete_mini_cart_item/" + id,
         type: "GET",
         success: function (response) {
-            console.log(page);
             if (page === 1) window.location.reload();
             else {
                 $(".minicart-section").replaceWith(response['mini_cart']);

@@ -132,7 +132,7 @@
                                                     @foreach($user->orders as $order)
                                                         <tr>
                                                             <td>{{$loop->index+1}}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($order->date_created)->format('d/m/Y')}}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($order->date_updated)->format('d/m/Y')}}</td>
                                                             <td>{{$order->status}}</td>
                                                             <td>{{$order->total.' RSD'}}</td>
                                                             <td><a class="btn" href="{{route('order.details',$order->id)}}" th:text="#{details}">Detalji</a></td>

@@ -139,7 +139,7 @@
                                         <p>U zavisnosti od raspoložive količine određenog artikla i mogućnosti njegovog
                                             nabavljanja, a u skladu sa našom poslovnom politikom, očekivani rok isporuke
                                             proizvoda iz naše ponude je do 7 radnih dana. Detaljan opis uslova isporuke pogledajte
-                                            <a href="{{route('selling.terms')}}">ovde</a>.
+                                            <a href="{{route('show.selling.terms')}}">ovde</a>.
                                         </p>
                                     </div>
                                 </div>

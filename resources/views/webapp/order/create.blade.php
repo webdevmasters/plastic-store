@@ -129,7 +129,7 @@
 
                                                 <div class="singsle-method">
                                                     <input class="accept_terms" id="accept_terms" name="terms" type="checkbox">
-                                                    <label class="terms_label" for="accept_terms"><a th:href="@{/selling_terms}" th:text="#{accept.terms}">Prihvatam uslove kupovine</a></label>
+                                                    <label class="terms_label" for="accept_terms"><a href="{{route('show.selling.terms')}}" th:text="#{accept.terms}">Prihvatam uslove kupovine</a></label>
                                                     <div id="terms_error" class="invalid-feedback d-block"></div>
                                                 </div>
                                             </div>

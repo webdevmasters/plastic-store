@@ -69,10 +69,6 @@ class AdminProductController extends Controller {
         return back()->with('message', 'Uspešno ste sačuvali proizvod');
     }
 
-    public function show() {
-        //
-    }
-
     public function edit(Product $product) {
         return view('admin.product.edit')->with('categories', Category::all())->with('colors', Color::all())->with('product', $product);
     }
@@ -136,5 +132,9 @@ class AdminProductController extends Controller {
         Product::destroy($product->id);
 
         return back()->with('message', 'Uspešno ste obrisali proizvod ' . $product->name);
+    }
+
+    public function loadProductsByCategory($id){
+        return response()->json(Product::whereCategoryId($id)->orderBy('name')->get());
     }
 }

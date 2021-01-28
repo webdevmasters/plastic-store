@@ -187,8 +187,6 @@
     @yield('content')
 </section>
 <div class="footer-container">
-    <!--=======  footer navigation  =======-->
-
     <div class="footer-navigation pt-40 pb-20 pb-lg-40 pt-sm-30 pb-sm-10">
         <div class="container">
             <div class="row">
@@ -252,7 +250,7 @@
                         <p th:text="#{contact.info.suggestions}">Kontaktirajte nas kako biste imali najnovije informacije o proizvodima ili predloge kako bismo usavršili naš sajt.</p>
 
                         <div class="newsletter-form mb-20">
-                            <a th:href="@{/contact}" th:text="#{contact}">Kontakt</a>
+                            <a href="{{route('show.contact')}}" th:text="#{contact}">Kontakt</a>
                         </div>
                     </div>
 

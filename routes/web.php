@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminPromotionController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
@@ -61,7 +64,24 @@ Route::get('/admin/subcategories/{category_id}', [AdminProductController::class,
 Route::name('admin.')->prefix("admin")->middleware('can:manage-customers')->group(function() {
     Route::resources([
         'products' => AdminProductController::class,
+        'orders' => AdminOrderController::class,
+        'promotions' => AdminPromotionController::class,
     ]);
+});
+Route::middleware('can:manage-customers')->group(function() {
+    Route::get('/admin/products/products_by_category/{id}', [AdminProductController::class, 'loadProductsByCategory'])->name('admin.products.category');
+
+    Route::get('/admin/orders/customer_details/{id}', [AdminOrderController::class, 'showCustomerOrderDetails'])->name('admin.orders.customer.details');
+    Route::get('/admin/orders/confirm_order/{id}', [AdminOrderController::class, 'confirmOrder'])->name('admin.orders.confirm');
+    Route::get('/admin/orders/delete_order/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.delete');
+
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/users/delete_user/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.delete');
+    Route::get('/admin/users/user_details/{id}', [AdminUserController::class, 'show'])->name('admin.users.details');
+
+    Route::get('/admin/messages', [AdminMessageController::class, 'index'])->name('admin.messages.index');
+    Route::get('/admin/messages/delete_message/{id}', [AdminMessageController::class, 'destroy'])->name('admin.messages.delete');
+    Route::get('/admin/messages/answer_message/{id}/{result}', [AdminMessageController::class, 'answer'])->name('admin.messages.answer');
 });
 
 require __DIR__ . '/auth.php';

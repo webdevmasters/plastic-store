@@ -20,11 +20,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item active" role="presentation"><a class="nav-link" href="{{route('admin.products.index')}}">Proizvodi</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Porudžbine</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Korisnici</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Poruke</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="#">Promocije</a></li>
+                <li class="nav-item {{Route::is('admin.products.index')?'active':''}}" role="presentation"><a class="nav-link" href="{{route('admin.products.index')}}">Proizvodi</a></li>
+                <li class="nav-item {{Route::is('admin.orders.index')?'active':''}}" role="presentation"><a class="nav-link" href="{{route('admin.orders.index')}}">Porudžbine</a></li>
+                <li class="nav-item {{Route::is('admin.users.index')?'active':''}}" role="presentation"><a class="nav-link" href="{{route('admin.users.index')}}">Korisnici</a></li>
+                <li class="nav-item {{Route::is('admin.messages.index')?'active':''}}" role="presentation"><a class="nav-link" href="{{route('admin.messages.index')}}">Poruke</a></li>
+                <li class="nav-item {{Route::is('admin.promotions.index')?'active':''}}" role="presentation"><a class="nav-link" href="{{route('admin.promotions.index')}}">Promocije</a></li>
             </ul>
             <form class="form-inline mr-auto" target="_self">
                 <div class="form-group"></div>

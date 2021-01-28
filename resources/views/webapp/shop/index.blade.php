@@ -22,14 +22,18 @@
                     <div class="d-flex flex-column justify-content-center align-items-start h-100">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12" th:each="promotion: ${promotions}">
-                                    <div class="slider-content" th:if="${promotion.getCategory().getName()=='Nameštaj'}">
-                                        <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
-                                        <h1 th:text="${promotion.getProduct().getName()}"></h1>
-                                        <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'"></span></p>
-                                        <a class="slider-btn" th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}" th:text="#{buy}">KUPI</a>
+                                @foreach($promotions as $promotion)
+                                    <div class="col-lg-12">
+                                        @if($promotion->category->name=='Nameštaj')
+                                            <div class="slider-content">
+                                                <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                <h1>{{$promotion->product->name}}</h1>
+                                                <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
+                                                <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -48,14 +52,18 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="col-lg-12" th:each="promotion: ${promotions}">
-                                        <div class="slider-content" th:if="${promotion.getCategory().getName()=='Kupatilo'}">
-                                            <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
-                                            <h1 th:text="${promotion.getProduct().getName()}"></h1>
-                                            <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'"></span></p>
-                                            <a class="slider-btn" th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}" th:text="#{buy}">KUPI</a>
+                                    @foreach($promotions as $promotion)
+                                        <div class="col-lg-12">
+                                            @if($promotion->category->name=='Kupatilo')
+                                                <div class="slider-content">
+                                                    <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                    <h1>{{$promotion->product->name}}</h1>
+                                                    <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
+                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                                </div>
+                                            @endif
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -75,37 +83,26 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="col-lg-12" th:each="promotion: ${promotions}">
-                                        <div class="slider-content" th:if="${promotion.getCategory().getName()=='Saksije i bašta'}">
-                                            <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
-                                            <h1 th:text="${promotion.getProduct().getName()}"></h1>
-                                            <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'"></span></p>
-                                            <a class="slider-btn" th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}" th:text="#{buy}">KUPI</a>
+                                    @foreach($promotions as $promotion)
+                                        <div class="col-lg-12">
+                                            @if($promotion->category->name=='Saksije i bašta')
+                                                <div class="slider-content">
+                                                    <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                    <h1>{{$promotion->product->name}}</h1>
+                                                    <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
+                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                                </div>
+                                            @endif
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--=======  End of slider content  =======-->
                 </div>
-
-                <!--=======  End of slider item  =======-->
-
             </div>
-
-            <!--=======  End of hero slider one  =======-->
         </div>
-
-        <!--=======  End of slider container  =======-->
     </div>
-
-    <!--END OFF SLIDER-->
-
-    <!--=============================================
-    =            tab slider section         =
-    =============================================-->
 
     <div class="tab-product-slider-container mb-50">
         <div class="container">
@@ -187,14 +184,17 @@
                             <div class="col-lg-9 col-xl-10 col-md-8" id="first_slider">
                                 <div class="fl-slider banner-slider"></div>
                                 <!--=======  slider banner  =======-->
-                                <div class="slider-banner home-one-banner banner-bg banner-bg-1" th:each="promotion: ${promotions}">
-                                    <div class="banner-text" th:if="${promotion.getCategory().getName()=='Saksije i bašta'}">
-                                        <p th:text="#{week.product}">Proizvod nedelje</p>
-                                        <a th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}"><p class="big-text" th:text="${promotion.getProduct().getName()}"></p></a>
-                                        <p th:text="'Počev od '+${promotion.getProduct().getMinPrice()}+' RSD'"></p>
+                                @foreach($promotions as $promotion)
+                                    <div class="slider-banner home-one-banner banner-bg banner-bg-1" th:each="promotion: ${promotions}">
+                                        @if($promotion->category->name=='Saksije i bašta')
+                                            <div class="banner-text">
+                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
+                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                                <!--=======  End of slider banner  =======-->
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -249,16 +249,17 @@
                                 <!--=======  End of banner slider  =======-->
 
                                 <!--=======  slider banner  =======-->
-                                <div class="slider-banner home-one-banner banner-bg banner-bg-2"
-                                     th:each="promotion: ${promotions}">
-                                    <div class="banner-text" th:if="${promotion.getCategory().getName()=='Dečiji program'}">
-                                        <p th:text="#{week.product}">Proizvod nedelje</p>
-                                        <a th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}"><p class="big-text" th:text="${promotion.getProduct().getName()}"></p></a>
-                                        <p th:text="'Počev od '+${promotion.getProduct().getMinPrice()}+' RSD'"></p>
+                                @foreach($promotions as $promotion)
+                                    <div class="slider-banner home-one-banner banner-bg banner-bg-2">
+                                        @if($promotion->category->name=='Dečiji program')
+                                            <div class="banner-text">
+                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
+                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-
-                                <!--=======  End of slider banner  =======-->
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -313,15 +314,17 @@
 
                                 <!--=======  slider banner  =======-->
 
-                                <div class="slider-banner home-one-banner banner-bg banner-bg-3" th:each="promotion: ${promotions}">
-                                    <div class="banner-text" th:if="${promotion.getCategory().getName()=='Kuhinja'}">
-                                        <p th:text="#{week.product}">Proizvod nedelje</p>
-                                        <a th:href="@{/product/single_product/__${promotion.getProduct().getId()}__}"><p class="big-text" th:text="${promotion.getProduct().getName()}"></p></a>
-                                        <p th:text="'Počev od '+${promotion.getProduct().getMinPrice()}+' RSD'"></p>
+                                @foreach($promotions as $promotion)
+                                    <div class="slider-banner home-one-banner banner-bg banner-bg-3">
+                                        @if($promotion->category->name=='Kuhinja')
+                                            <div class="banner-text">
+                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
+                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-
-                                <!--=======  End of slider banner  =======-->
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -386,15 +389,15 @@
         });
 
         function openWishListDialog(product_id) {
-            var id={'product_id':product_id};
+            var id = {'product_id': product_id};
             $.ajax({
                 url: "{{route('add.to.wishlist')}}",
                 type: 'POST',
-                dataType:'JSON',
-                data:id,
+                dataType: 'JSON',
+                data: id,
                 success: function (response) {
                     $(".wishlist-section").replaceWith(response['mini-wishlist']);
-                    if(!response['duplicate']) {
+                    if (!response['duplicate']) {
                         bootbox.dialog({
                             title: 'Lista želja',
                             message: 'Uspešno ste dodali proizvod ' + response['product_name'] + ' u listu želja',
