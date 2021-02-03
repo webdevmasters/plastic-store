@@ -6,9 +6,11 @@ namespace App\Repositories;
 use App\Enums\OrderPayment;
 use App\Enums\OrderStatus;
 use App\Http\Requests\OrderRequest;
+use App\Mail\OrderReceived;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Cart;
+use Illuminate\Support\Facades\Mail;
 
 class OrderRepository implements OrderInterface {
 
@@ -43,8 +45,10 @@ class OrderRepository implements OrderInterface {
 
                 $order->items()->save($orderItem);
             }
-            Cart::clear();
         }
+        Mail::to($order->email)->send(new OrderReceived($order));
+
+        Cart::clear();
 
         return $order->id;
     }
@@ -60,6 +64,6 @@ class OrderRepository implements OrderInterface {
     public function cancel($id) {
         Order::where('id', $id)->update(['status' => OrderStatus::CANCELED]);
 
-        return  view('auth.my-account')->with('user', auth()->user())->with('active_tab', 'orders_panel');
+        return view('auth.my-account')->with('user', auth()->user())->with('active_tab', 'orders_panel');
     }
 }

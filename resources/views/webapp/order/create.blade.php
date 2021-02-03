@@ -185,7 +185,7 @@
         $(document).ready(function () {
             $('.loader').attr('data-after', 'Vaša porudžbina se obrađuje, molimo sačekajte...');
             $("#checkout-form-validation").submit(function (e) {
-                $('.loader-wrap').show();
+                $('.loader-wrap').removeClass('d-none');
                 e.preventDefault();
 
                 var form = $(this);

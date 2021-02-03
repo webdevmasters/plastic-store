@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model {
 
     use HasFactory;
+    public $answer;
 
     protected $fillable=['name','email','subject','message','answered'];
 }

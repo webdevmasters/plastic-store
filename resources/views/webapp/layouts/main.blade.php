@@ -121,9 +121,7 @@
                 <!--=======  sticky logo  =======-->
 
                 <div class="sticky-logo" style="width: 250px;">
-                    <a href="{{url('/')}}">
-                        <img alt="" class="img-fluid" src="{{'static/images/shop/logo.png'}}">
-                    </a>
+                    <a href="{{url('/')}}"><img alt="" class="img-fluid" src="{{asset('static/images/shop/logo.png')}}"></a>
                 </div>
 
                 <!--=======  End of sticky logo  =======-->
@@ -148,9 +146,7 @@
                                         <a href="{{route('products.by.category',$category)}}">{{$category->name}}</a>
                                         <ul class="sub-menu">
                                             @foreach($category->subcategories as $subcategory)
-                                                <li>
-                                                    <a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a>
-                                                </li>
+                                                <li><a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>

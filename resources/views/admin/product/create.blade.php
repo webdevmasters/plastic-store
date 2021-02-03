@@ -98,9 +98,7 @@
                             </span>
                         </div>
                     </div>
-                    <div id="image-holder">
-                        {{--                        <img class="thumb-image" th:each="image:${product.images}" th:if="${editing}" th:src="@{'/images/' + ${image.name}}">--}}
-                    </div>
+                    <div id="image-holder"></div>
 
                     <div class="form-group row" style="margin-top: 30px;">
                         <label class="col-sm-3 col-form-label" for="multiple-checkboxes">Boja</label>

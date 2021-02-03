@@ -136,6 +136,7 @@
 
         function showReplyDialog(msg_id, sender) {
             $('.loader').attr('data-after', 'Slanje vašeg odgovora u toku, molimo sačekajte...');
+
             var locale = {
                 OK: 'Odgovori',
                 CONFIRM: 'Odgovori',
@@ -149,14 +150,11 @@
                 inputType: 'textarea',
                 locale: 'custom',
                 callback: function (result) {
-                    if (result != null) {
-                        $('.loader-wrap').show();
+                    $('.loader-wrap').removeClass('d-none');
+                    if (result!=="") {
                         $.ajax({
                             type: "GET",
                             url: '{{url('/admin/messages/answer_message')}}' + '/' + msg_id + '/' + result,
-                            beforeSend: function () {
-                                $('.loader-wrap').removeClass('d-none');
-                            },
                             success: function () {
                                 $('.loader-wrap').addClass('d-none');
                                 window.location = '{{route('admin.messages.index')}}';
