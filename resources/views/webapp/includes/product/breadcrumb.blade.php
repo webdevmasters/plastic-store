@@ -6,7 +6,7 @@
                 <div class="breadcrumb-container">
                     <nav>
                         <ul>
-                            <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
+                            <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
                             <li id="breadcrumb_category" class="{{isset($selected_subcategory)?'parent-page':''}}" value="{{$selected_category->id}}">
                                 <a href="{{route('products.by.category',$selected_category)}}">{{$selected_category->name}}</a>
                             </li>

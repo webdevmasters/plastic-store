@@ -26,10 +26,10 @@
                                     <div class="col-lg-12">
                                         @if($promotion->category->name=='Nameštaj')
                                             <div class="slider-content">
-                                                <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                <p>{{__('messages.exclusive.offer')}}</p>
                                                 <h1>{{$promotion->product->name}}</h1>
-                                                <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
-                                                <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                                <p class="slider-price">{{__('messages.starts.from.big').' '}}<span>{{$promotion->product->minPrice().' RSD'}}</span></p>
+                                                <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}">{{__('messages.buy')}}</a>
                                             </div>
                                         @endif
                                     </div>
@@ -56,10 +56,10 @@
                                         <div class="col-lg-12">
                                             @if($promotion->category->name=='Kupatilo')
                                                 <div class="slider-content">
-                                                    <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                    <p>{{__('messages.exclusive.offer')}}</p>
                                                     <h1>{{$promotion->product->name}}</h1>
-                                                    <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
-                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                                    <p class="slider-price">{{__('messages.starts.from.big').' '}}<span>{{$promotion->product->minPrice().' RSD'}}</span></p>
+                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}">{{__('messages.buy')}}</a>
                                                 </div>
                                             @endif
                                         </div>
@@ -87,10 +87,10 @@
                                         <div class="col-lg-12">
                                             @if($promotion->category->name=='Saksije i bašta')
                                                 <div class="slider-content">
-                                                    <p th:text="#{exclusive.offer}">Ekskluzivna ponuda ove nedelje </p>
+                                                    <p>{{__('messages.exclusive.offer')}}</p>
                                                     <h1>{{$promotion->product->name}}</h1>
-                                                    <p class="slider-price" th:text="#{starts.from}">počev od <span th:text="${promotion.getProduct().getMinPrice()}+' RSD'">{{$promotion->product->minPrice()}}</span></p>
-                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}" th:text="#{buy}">KUPI</a>
+                                                    <p class="slider-price">{{__('messages.starts.from.big').' '}}<span>{{$promotion->product->minPrice(). ' RSD'}}</span></p>
+                                                    <a class="slider-btn" href="{{route('single.product.by.id',$promotion->product)}}">{{__('messages.buy')}}</a>
                                                 </div>
                                             @endif
                                         </div>
@@ -113,9 +113,9 @@
                     <div class="tab-slider-wrapper">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a aria-selected="true" class="nav-item nav-link active" data-toggle="tab" href="#featured" id="featured-tab" role="tab">Popularni proizvodi</a>
-                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#new-arrivals" id="new-arrival-tab" role="tab">Novi proizvodi</a>
-                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#on-sale" id="nav-onsale-tab" role="tab">Proizvodi na akciji</a>
+                                <a aria-selected="true" class="nav-item nav-link active" data-toggle="tab" href="#featured" id="featured-tab" role="tab">{{__('messages.popular.products')}}</a>
+                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#new-arrivals" id="new-arrival-tab" role="tab">{{__('messages.new.products')}}</a>
+                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#on-sale" id="nav-onsale-tab" role="tab">{{__('messages.sale.products')}}</a>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -165,7 +165,7 @@
                             <div class="col-lg-3 col-xl-2 col-md-4">
                                 <!--=======  sidebar  =======-->
                                 <div class="slider-sidebar">
-                                    <h3 class="slider-sidebar-title" th:text="#{garden}">SAKSIJE I BAŠTA</h3>
+                                    <h3 class="slider-sidebar-title">{{__('messages.garden')}}</h3>
                                     <div class="sidebar-first">
                                         <ul>
                                             @foreach($categories as $category)
@@ -185,12 +185,12 @@
                                 <div class="fl-slider banner-slider"></div>
                                 <!--=======  slider banner  =======-->
                                 @foreach($promotions as $promotion)
-                                    <div class="slider-banner home-one-banner banner-bg banner-bg-1" th:each="promotion: ${promotions}">
+                                    <div class="slider-banner home-one-banner banner-bg banner-bg-1">
                                         @if($promotion->category->name=='Saksije i bašta')
                                             <div class="banner-text">
-                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <p>{{__('messages.week.product')}}</p>
                                                 <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
-                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                                <p>{{__('messages.starts.from.big').' '.$promotion->product->minPrice().' RSD'}}</p>
                                             </div>
                                         @endif
                                     </div>
@@ -223,7 +223,7 @@
                                 <!--=======  sidebar  =======-->
 
                                 <div class="slider-sidebar">
-                                    <h3 class="slider-sidebar-title" th:text="#{kids.program}">DEČIJI PROGRAM</h3>
+                                    <h3 class="slider-sidebar-title">{{__('messages.kids.program')}}</h3>
                                     <div class="sidebar-second">
                                         <ul>
                                             @foreach($categories as $category)
@@ -253,9 +253,9 @@
                                     <div class="slider-banner home-one-banner banner-bg banner-bg-2">
                                         @if($promotion->category->name=='Dečiji program')
                                             <div class="banner-text">
-                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <p>{{__('messages.week.product')}}</p>
                                                 <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
-                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                                <p>{{__('messages.starts.from.big').' '.$promotion->product->minPrice().' RSD'}}</p>
                                             </div>
                                         @endif
                                     </div>
@@ -287,7 +287,7 @@
                                 <!--=======  sidebar  =======-->
 
                                 <div class="slider-sidebar">
-                                    <h3 class="slider-sidebar-title" th:text="#{kitchen}">KUHINJA</h3>
+                                    <h3 class="slider-sidebar-title">{{__('messages.kitchen')}}</h3>
                                     <div class="sidebar-third">
                                         <ul>
                                             @foreach($categories as $category)
@@ -318,9 +318,9 @@
                                     <div class="slider-banner home-one-banner banner-bg banner-bg-3">
                                         @if($promotion->category->name=='Kuhinja')
                                             <div class="banner-text">
-                                                <p th:text="#{week.product}">Proizvod nedelje</p>
+                                                <p>{{__('messages.week.product')}}</p>
                                                 <a href="{{route('single.product.by.id',$promotion->product)}}"><p class="big-text">{{$promotion->product->name}}</p></a>
-                                                <p>{{'Počev od '.$promotion->product->minPrice().' RSD'}}</p>
+                                                <p>{{__('messages.starts.from.big').' '.$promotion->product->minPrice().' RSD'}}</p>
                                             </div>
                                         @endif
                                     </div>

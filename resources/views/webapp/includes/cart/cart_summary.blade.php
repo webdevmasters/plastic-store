@@ -1,14 +1,14 @@
 <div class="cart-summary">
     <div class="cart-summary-wrap">
-        <h4 th:text="#{shopping}">Kupovina</h4>
-        <p th:text="#{total}">Ukupno <span>{{Cart::getTotal().' RSD'}}</span></p>
-        <p th:text="#{shipping.fee}">Poštarina <span>{{Cart::getTotal()>5000?'Besplatna isporuka':'/'}}</span></p>
-        <h2 th:text="#{total.price}">Ukupan iznos za uplatu <span>{{Cart::getTotal().' RSD'}}</span>
+        <h4>{{__('messages.shopping')}}</h4>
+        <p>{{__('messages.total')}} <span>{{Cart::getTotal().' RSD'}}</span></p>
+        <p>{{__('messages.shipping.fee')}} <span>{{Cart::getTotal()>5000?'Besplatna isporuka':'/'}}</span></p>
+        <h2>{{__('messages.total.price')}} <span>{{Cart::getTotal().' RSD'}}</span>
         </h2>
     </div>
     <div class="cart-summary-button">
         <a href="{{route('create.checkout')}}">
-            <button class="checkout-btn" th:text="#{place.order}">Završi kupovinu</button>
+            <button class="checkout-btn">{{__('messages.place.order')}}</button>
         </a>
     </div>
 </div>

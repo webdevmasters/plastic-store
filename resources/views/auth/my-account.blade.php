@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{my.account}">Moj nalog</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.my.account')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -28,15 +28,15 @@
                         <!-- My Account Tab Menu Start -->
                         <div class="col-lg-3 col-12">
                             <div class="myaccount-tab-menu nav" role="tablist">
-                                <a data-toggle="tab" href="#dashboard" id="dashboard_link" >
-                                    <i class=" fa fa-dashboard" th:text="#{dashboard}"></i>Korisnički panel</a>
+                                <a data-toggle="tab" href="#dashboard" id="dashboard_link">
+                                    <i class=" fa fa-dashboard"></i>{{__('messages.dashboard')}}</a>
                                 <a data-toggle="tab" href="#orders" id="orders_link">
-                                    <i class="fa fa-cart-arrow-down" th:text="#{my.orders}"></i>Moje Porudžbine</a>
+                                    <i class="fa fa-cart-arrow-down"></i>{{__('messages.my.orders')}}</a>
                                 <a data-toggle="tab" href="#wishlist">
-                                    <i class="fa fa-cart-arrow-down" th:text="#{wishlist}"></i>Moje Želje</a>
+                                    <i class="fa fa-cart-arrow-down"></i>{{__('messages.wishlist')}}</a>
                                 <a data-toggle="tab" href="#account-info">
-                                    <i class="fa fa-user" th:text="#{userdata}"></i>Korisnički podaci</a>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" th:text="#{logout}"></i>Odjava</a>
+                                    <i class="fa fa-user"></i>{{__('messages.userdata')}}</a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{__('messages.logout')}}</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
@@ -50,11 +50,11 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3 th:text="#{dashboard}">Kontrolna tabla</h3>
+                                        <h3>{{__('messages.dashboard')}}</h3>
                                         <div class="welcome mb-20">
-                                            <p style="font-weight: bold" th:text="#{hello}+' {{Auth::getName()}}"></p>
+                                            <p style="font-weight: bold">{{__('messages.hello').' '.$user->name}}</p>
                                         </div>
-                                        <p class="mb-0" th:text="#{dashboard.info}">Sa ove kontrolne table možeš lako proveriti svoje porudžbine, listu želja kao i manipulisati svojim korisničkim podacima.</p>
+                                        <p class="mb-0">{{__('messages.dashboard.info')}}</p>
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
@@ -63,17 +63,17 @@
                                 <div class="tab-pane fade" id="wishlist" role="tabpanel">
                                     @if(Wishlist::getContent()->count()>0)
                                         <div class="myaccount-content">
-                                            <h3 th:text="#{wishlist}">Lista želja</h3>
+                                            <h3>{{__('messages.wishlist')}}</h3>
 
                                             <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th th:text="#{picture}">Slika</th>
-                                                        <th th:text="#{name}">Naziv</th>
-                                                        <th th:text="#{size}">Dimenzije</th>
-                                                        <th th:text="#{price}">Cena</th>
+                                                        <th>{{__('messages.picture')}}</th>
+                                                        <th>{{__('messages.name')}}</th>
+                                                        <th>{{__('messages.size')}}</th>
+                                                        <th>{{__('messages.price')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -106,7 +106,7 @@
                                         </div>
                                     @else
                                         <div class="myaccount-content">
-                                            <p style="text-align: center;font-weight: bold;font-size: 22px;" th:text="#{wishlist.empty}">Vaša lista želja je trenutno prazna.</p>
+                                            <p style="text-align: center;font-weight: bold;font-size: 22px;">{{__('messages.wishlist.empty')}}</p>
                                         </div>
                                     @endif
                                 </div>
@@ -114,18 +114,18 @@
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
                                     @if(count($user->orders)>0)
                                         <div class="myaccount-content">
-                                            <h3 th:text="#{orders}">Porudžbine</h3>
+                                            <h3>{{__('messages.orders')}}</h3>
 
                                             <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th th:text="#{date.created}">Datum kreiranja</th>
+                                                        <th>{{__('messages.date.created')}}</th>
                                                         <th>Status</th>
-                                                        <th th:text="#{total}">Ukupno</th>
-                                                        <th th:text="#{view}">Pregled</th>
-                                                        <th th:text="#{option}">Opcije</th>
+                                                        <th>{{__('messages.total')}}</th>
+                                                        <th>{{__('messages.view')}}</th>
+                                                        <th>{{__('messages.option')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -135,7 +135,7 @@
                                                             <td>{{ \Carbon\Carbon::parse($order->date_updated)->format('d/m/Y')}}</td>
                                                             <td>{{$order->status}}</td>
                                                             <td>{{$order->total.' RSD'}}</td>
-                                                            <td><a class="btn" href="{{route('order.details',$order->id)}}" th:text="#{details}">Detalji</a></td>
+                                                            <td><a class="btn" href="{{route('order.details',$order->id)}}">{{__('messages.details')}}</a></td>
                                                             @if($order->status=='ORDERED')
                                                                 <td><a class="btn btn-danger btn-sm" href="#" onclick=showWarningDialog("{{$order->id}}")><i class="fa fa-times"></i></a></td>
                                                             @endif
@@ -147,7 +147,7 @@
                                         </div>
                                     @else
                                         <div class="myaccount-content">
-                                            <p style="text-align: center;font-weight: bold;font-size: 22px;" th:text="#{orders.empty}">Vaša lista porudžbina je trenutno prazna.</p>
+                                            <p style="text-align: center;font-weight: bold;font-size: 22px;">{{__('messages.orders.empty')}}</p>
                                         </div>
                                     @endif
                                 </div>
@@ -155,69 +155,69 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3 th:text="#{userdata}">Podaci o nalogu</h3>
+                                        <h3>{{__('messages.userdata')}}</h3>
 
                                         <div class="account-details-form">
                                             <form id="account_form" action="{{route('customer.update',auth()->id())}}" method="POST">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="first_name" th:text="#{first.name}">Ime*</label>
+                                                        <label for="first_name">{{__('messages.first.name')}}</label>
                                                         <input id="first_name" name="first_name" value="{{$user->first_name}}" type="text">
                                                         @error('first_name')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="last-name" th:text="#{last.name}">Prezime*</label>
+                                                        <label for="last-name">{{__('messages.last.name')}}</label>
                                                         <input id="last-name" name="last_name" type="text" value="{{$user->last_name}}">
                                                         @error('last_name')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="phone-number" th:text="#{phone.number}">Broj telefona</label>
+                                                        <label for="phone-number">{{__('messages.phone.number')}}</label>
                                                         <input id="phone-number" name="phone" type="text" value="{{$user->phone}}">
                                                         @error('phone')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="address" th:text="#{address}">Adresa</label>
+                                                        <label for="address">{{__('messages.address')}}</label>
                                                         <input id="address" name="address" type="text" value="{{$user->address}}">
                                                         @error('address')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="city" th:text="#{city}">Grad</label>
+                                                        <label for="city">{{__('messages.city')}}</label>
                                                         <input id="city" name="city" type="text" value="{{$user->city}}">
                                                         @error('city')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-lg-6 col-12 mb-30">
-                                                        <label for="zip-code" th:text="#{zip.code}">Poštanski broj</label>
+                                                        <label for="zip-code">{{__('messages.zip.code')}}</label>
                                                         <input id="zip-code" name="zip_code" type="text" value="{{$user->zip_code}}">
                                                         @error('zip_code')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-12 mb-30">
-                                                        <label for="email" th:text="#{email}">Email*</label>
+                                                        <label for="email">{{__('messages.email')}}</label>
                                                         <input id="email" name="email" type="email" value="{{$user->email}}" readonly>
                                                         @error('email')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
 
                                                     <div class="col-12 mb-30">
-                                                        <label for="display-name" th:text="#{username}">Korisničko ime*</label>
-                                                        <input id="display-name" placeholder="Korisničko ime" name="name" type="text" value="{{$user->name}}" readonly>
+                                                        <label for="display-name">{{__('messages.username')}}</label>
+                                                        <input id="display-name" placeholder="{{__('messages.username')}}" name="name" type="text" value="{{$user->name}}" readonly>
                                                         @error('name')
                                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                                     </div>
                                                     <div class="col-12">
-                                                        <button class="save-change-btn" th:text="#{save}" type="submit">Sačuvaj promene</button>
+                                                        <button class="save-change-btn" type="submit">{{__('messages.save')}}</button>
                                                     </div>
                                                 </div>
                                             </form>

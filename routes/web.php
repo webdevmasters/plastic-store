@@ -29,6 +29,7 @@ Route::get('/about', [HomeController::class, 'about'])->name('show.about');
 Route::get('/shipping_info', [HomeController::class, 'shippingInfo'])->name('show.shipping.info');
 Route::get('/selling_terms', [HomeController::class, 'sellingTerms'])->name('show.selling.terms');
 Route::get('/faqs', [HomeController::class, 'faqs'])->name('show.faqs');
+Route::get('/change_language/{language}', [HomeController::class, 'changeLanguage'])->name('change.language');
 
 Route::get('/contact', [MessageController::class, 'contact'])->name('show.contact');
 Route::post('/send_message', [MessageController::class, 'sendMessage'])->name('send.message');
@@ -63,11 +64,12 @@ Route::get('/admin/subcategories/{category_id}', [AdminProductController::class,
 
 Route::name('admin.')->prefix("admin")->middleware('can:manage-customers')->group(function() {
     Route::resources([
-        'products' => AdminProductController::class,
-        'orders' => AdminOrderController::class,
+        'products'   => AdminProductController::class,
+        'orders'     => AdminOrderController::class,
         'promotions' => AdminPromotionController::class,
     ]);
 });
+
 Route::middleware('can:manage-customers')->group(function() {
     Route::get('/admin/products/products_by_category/{id}', [AdminProductController::class, 'loadProductsByCategory'])->name('admin.products.category');
 
@@ -83,5 +85,4 @@ Route::middleware('can:manage-customers')->group(function() {
     Route::get('/admin/messages/delete_message/{id}', [AdminMessageController::class, 'destroy'])->name('admin.messages.delete');
     Route::get('/admin/messages/answer_message/{id}/{result}', [AdminMessageController::class, 'answer'])->name('admin.messages.answer');
 });
-
 require __DIR__ . '/auth.php';

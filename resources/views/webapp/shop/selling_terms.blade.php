@@ -8,8 +8,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{selling.terms}">Uslovi kupovine</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.selling.terms')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -25,7 +25,7 @@
 
             <div class="row row-30">
                 <div class="col-sm-12" id="content">
-                    <h1 th:text="#{selling.terms}">Uslovi kupovine</h1>
+                    <h1>{{__('messages.selling.terms')}}</h1>
                     <p><br></p>
                     <p><span>Na osnovu odredbe čl.13. i čl.27. Zakona o zaštiti potrošača (Sl.glasnikRS 62/2014)
                     firma&nbsp;Plastika Drašković iz Kraljeva, svoje cenjene potrošače koji

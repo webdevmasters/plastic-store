@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{faqs}">Česta pitanja</li>
+                                <li class="parent-page"><a href="{{url('/')}}" >{{__('messages.home')}}</a></li>
+                                <li >{{__('messages.faqs')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -25,14 +25,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="faq-wrapper">
-                        <h2 style=" text-align: center;" th:text="#{faqs}">ČESTA PITANJA</h2>
+                        <h2 style=" text-align: center;" >{{__('messages.faqs')}}</h2>
                         <br>
                         <div id="accordion">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseOne" aria-expanded="true" class="btn btn-link" data-target="#collapseOne" data-toggle="collapse" th:text="#{how.to.find}">
-                                            KAKO DA PRONAĐEM PROIZVOD KOJI MI TREBA?
+                                        <button aria-controls="collapseOne" aria-expanded="true" class="btn btn-link" data-target="#collapseOne" data-toggle="collapse">
+                                            {{__('messages.how.to.find')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -61,8 +61,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseTwo" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseTwo" data-toggle="collapse" th:text="#{how.to.buy}">
-                                            KAKO DA KUPIM NEŠTO IZ INTERNET PRODAVNICE PLASTIKA DRAŠKOVIĆ?
+                                        <button aria-controls="collapseTwo" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseTwo" data-toggle="collapse">
+                                            {{__('messages.how.to.buy')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -89,8 +89,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingThree">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseThree" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseThree" data-toggle="collapse" th:text="#{what.is.cart}">
-                                            ŠTA JE KORPA?
+                                        <button aria-controls="collapseThree" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseThree" data-toggle="collapse">
+                                            {{__('messages.what.is.cart')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -112,7 +112,7 @@
                             <div class="card">
                                 <div class="card-header" id="headingFour">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseFour" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFour" data-toggle="collapse" th:text="#{how.to.pay}">KAKO PLAĆAM?
+                                        <button aria-controls="collapseFour" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFour" data-toggle="collapse">{{__('messages.how.to.pay')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -127,8 +127,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingFive">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseFive" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFive" data-toggle="collapse" th:text="#{how.to.receive}">
-                                            ZA KOJE VREME ĆU DOBITI NARUČENE PROIZVODE?
+                                        <button aria-controls="collapseFive" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseFive" data-toggle="collapse">
+                                            {{__('messages.how.to.receive')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -147,8 +147,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingSix">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseSix" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseSix" data-toggle="collapse" th:text="#{how.to.check}">
-                                            KAKO DA PROVERIM DA LI MI JE NARUDŽBINA POSLATA?
+                                        <button aria-controls="collapseSix" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseSix" data-toggle="collapse">
+                                            {{__('messages.how.to.check')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -162,7 +162,7 @@
                             <div class="card">
                                 <div class="card-header" id="headingSeven">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseSeven" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseSeven" data-toggle="collapse" th:text="#{what.is.registration}">ŠTA JE REGISTRACIJA?
+                                        <button aria-controls="collapseSeven" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseSeven" data-toggle="collapse">{{__('messages.what.is.registration')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -179,8 +179,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingEight">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseEight" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseEight" data-toggle="collapse" th:text="#{how.to.change.pswd}">
-                                            KAKO DA PROMENIM LOZINKU?
+                                        <button aria-controls="collapseEight" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseEight" data-toggle="collapse">
+                                            {{__('messages.how.to.change.pswd')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>
@@ -198,8 +198,8 @@
                             <div class="card">
                                 <div class="card-header" id="headingNine">
                                     <h5 class="mb-0">
-                                        <button aria-controls="collapseNine" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseNine" data-toggle="collapse" th:text="#{forgot.pswd}">
-                                            ŠTA DA RADIM AKO ZABORAVIM LOZINKU?
+                                        <button aria-controls="collapseNine" aria-expanded="false" class="btn btn-link collapsed" data-target="#collapseNine" data-toggle="collapse">
+                                            {{__('messages.forgot.pswd')}}
                                             <span> <i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i> </span>
                                         </button>
                                     </h5>

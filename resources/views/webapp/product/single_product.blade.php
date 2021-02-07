@@ -8,8 +8,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li class="parent-page"><a href="{{'products.by.category',$single_product->category->name}}">{{$single_product->category->name}}</a></li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li class="parent-page"><a href="{{route('products.by.category',$single_product->category->name)}}">{{$single_product->category->name}}</a></li>
                                 <li>{{$single_product->name}}</li>
                             </ul>
                         </nav>
@@ -78,23 +78,23 @@
                         @if(count($single_product->reviews)>0)
                             <p class="d-inline-block ml-10 review-link">
                                 @if(count($single_product->reviews)>1)
-                                    <a th:text="'('+${reviews.size()}+' Ocene)'"></a>
+                                    <a>{{count($single_product->reviews).' '.__('messages.reviews')}}</a>
                                 @else
-                                    <a th:text="'('+${reviews.size()}+' Ocena)'"></a>
+                                    <a>{{count($single_product->reviews).' '.__('messages.review')}}</a>
                                 @endif
                             </p>
                         @endif
                         <div class="availability mb-0">
-                            <span class="title" th:text="#{availability}">Dostupnost:  </span>
+                            <span class="title">{{__('messages.availability').':'}}</span>
                             @if($single_product->available)
-                                <h3 class="product-available mb-15" th:text="'( '+#{in.stock}+' )'">( NA STANJU )</h3>
+                                <h3 class="product-available mb-15">{{'('.__('messages.in.stock').')'}}</h3>
                             @else
-                                <h3 class="product-not-available mb-15" th:text="'( '+#{out.of.stock}+' )'">( NIJE NA STANJU )</h3>
+                                <h3 class="product-not-available mb-15">{{'('.__('messages.out.of.stock').')'}}</h3>
                             @endif
                         </div>
 
                         <div class="price mb-0">
-                            <span class="title" th:text="#{price}">Cena:  </span>
+                            <span class="title">{{__('messages.price').':'}}</span>
                             <h2 class="product-price mb-0">
                                 <span class="main-price {{$single_product->sale?'discounted':''}}">{{$single_product->prices()->first()->value.' DIN'}}</span>
                                 @if($single_product->sale)
@@ -106,14 +106,14 @@
 
                         <br>
                         <div class="manufacturer mb-0">
-                            <span class="title" th:text="#{manufacturer}">Proizvođač:  </span>
+                            <span class="title">{{__('messages.manufacturer').':'}}</span>
                             <p class="product-manufacturer mb-20">{{$single_product->manufacturer}}</p>
                         </div>
 
                         <p class="product-description mb-20">{{$single_product->description}}</p>
 
                         <div class="size mb-20">
-                            <span class="title" th:text="#{size}"> Veličina:</span> <br>
+                            <span class="title">{{__('messages.size').':'}}</span> <br>
                             <select class="nice-select" id="chooseSize" name="chooseSize">
                                 @foreach($single_product->sizes as $size)
                                     <option value="{{$single_product->prices()->pluck('value')->all()[$loop->index].'-'.$single_product->prices()->pluck('discounted_price')->all()[$loop->index]}}">{{$size->value}}</option>
@@ -122,7 +122,7 @@
                         </div>
 
                         <div class="color mb-20">
-                            <span class="title" th:text="#{color}"> Boja:</span> <br>
+                            <span class="title">{{__('messages.color').':'}}</span> <br>
                             @foreach($single_product->colors as $color)
                                 <a value="{{$color->code}}">
                                     <span class="color-block {{$loop->first?'active':''}}" style="{{'background-color:'.$color->code.';'}}" title="{{$color->name}}"></span>
@@ -131,25 +131,25 @@
                         </div>
 
                         <div class="cart-buttons mb-20">
-                            <span class="quantity-title mr-10" th:text="#{quantity}">Količina: </span>
+                            <span class="quantity-title mr-10">{{__('messages.quantity').':'}}</span>
                             <div class="pro-qty mb-20">
                                 <input id="quantity" type="text" value="1">
                             </div>
                             <div class="add-to-cart-btn ml-10 d-inline-block">
                                 @if($single_product->available)
-                                    <a class="fl-btn" href="#" onclick="addToCart()" th:text="#{add.to.cart}"><i class="fa fa-shopping-cart"></i> Dodaj u korpu</a>
+                                    <a class="fl-btn" href="#" onclick="addToCart()"><i class="fa fa-shopping-cart"></i>{{'  '.__('messages.add.to.cart')}}</a>
                                 @else
-                                    <a class="fl-btn" href="#" onclick="shakeProduct()" th:text="#{add.to.cart}"><i class="fa fa-shopping-cart"></i> Dodaj u korpu</a>
+                                    <a class="fl-btn" href="#" onclick="shakeProduct()"><i class="fa fa-shopping-cart"></i>{{'  '.__('messages.add.to.cart')}}</a>
                                 @endif
                             </div>
                         </div>
 
                         <p class="wishlist-link mb-20 pb-15">
-                            <a href="@{/product/show_wishlist}"> <i class="icon ion-md-heart-empty" th:text="#{search.wishlist}"></i> Pretraži listu želja</a>
+                            <a href="{{route('show.wishlist')}}"> <i class="icon ion-md-heart-empty"></i>{{__('messages.search.wishlist')}}</a>
                         </p>
 
                         <div class="category-list-container mb-20">
-                            <span th:text="#{categories}">Kategorije: </span>
+                            <span>{{__('messages.categories')}}</span>
                             <ul>
                                 @foreach($single_product->category->subcategories as $subcategory)
                                     <li><a href="{{route('products.by.subcategory',$subcategory->id)}}">{{$subcategory->name}}</a>,</li>
@@ -176,8 +176,8 @@
                     <div class="tab-slider-wrapper product-description-review-container">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a aria-selected="true" class="nav-item nav-link active" data-toggle="tab" href="#product-description" id="description-tab" role="tab" th:text="#{description}">Opis</a>
-                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#review" id="review-tab" role="tab" th:text="#{view}">Pregled</a>
+                                <a aria-selected="true" class="nav-item nav-link active" data-toggle="tab" href="#product-description" id="description-tab" role="tab">{{__('messages.description')}}</a>
+                                <a aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#review" id="review-tab" role="tab">{{__('messages.view')}}</a>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -187,7 +187,7 @@
 
                                 <div class="product-description">
                                     @empty($single_product->description)
-                                        <p th:text="#{description.empty}">Trenutno ne postoji opis za izabrani proizvod</p>
+                                        <p>{{__('messages.description.empty')}}</p>
                                     @else
                                         <p>{{$single_product->description.'.'}}</p>
                                     @endempty
@@ -200,8 +200,8 @@
                                 <div class="product-ratting-wrap">
                                     @if(count($single_product->reviews)>0)
                                         <div class="pro-avg-ratting">
-                                            <h4>{{round($single_product->avgRating(),1)}}<span th:text="'('+#{average}+')'">(Prosek)</span></h4>
-                                            <span>{{'Bazirano na '.count($single_product->reviews).' komentara'}}</span>
+                                            <h4>{{round($single_product->avgRating(),1)}}<span>{{'('.__('messages.average').')'}}</span></h4>
+                                            <span>{{__('messages.based.on').count($single_product->reviews).' '.__('messages.comments')}}</span>
                                         </div>
                                         <div class="ratting-list">
                                             <div class="sin-list float-left">
@@ -309,18 +309,18 @@
                                         </div>
                                     @else
                                         <div>
-                                            <p style="font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 50px; margin-top: 30px;" th:text="#{review.empty}">Trenutno ne postoje ocene i komentari za izabrani proizvod</p>
+                                            <p style="font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 50px; margin-top: 30px;">{{__('messages.review.empty')}}</p>
                                         </div>
                                     @endif
                                     <div class="rated_success" hidden>
                                         <p style="font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 50px; margin-top: 30px;">Hvala što ste ocenili ovaj proizvod!</p>
                                     </div>
                                     <div class="ratting-form-wrapper fix">
-                                        <h3 th:text="#{rate.product}">Oceni proizvod i dodaj svoj komentar</h3>
+                                        <h3>{{__('messages.rate.product')}}</h3>
                                         <form id="comment_form">
                                             <div class="ratting-form row">
                                                 <div class="col-12 mb-15">
-                                                    <h5 th:text="#{price}">Ocena:</h5>
+                                                    <h5>{{__('messages.price').':'}}</h5>
                                                     <!-- Rating Stars Box -->
                                                     <div class='rating-stars'>
                                                         <ul id='stars'>
@@ -335,22 +335,22 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12 mb-15">
-                                                    <label for="reviewer" th:text="#{first.name}">Ime:</label>
-                                                    <input id="reviewer" name="reviewer" th:placeholder="#{first.name}" value="{{isset(Auth::User()->name)?Auth::User()->name:''}}" type="text">
+                                                    <label for="reviewer">{{__('messages.first.name')}}:</label>
+                                                    <input id="reviewer" name="reviewer" placeholder="{{__('messages.first.name')}}" value="{{isset(Auth::User()->name)?Auth::User()->name:''}}" type="text">
                                                     <div id="reviewer_error" class="invalid-feedback d-block"></div>
                                                 </div>
                                                 <div class="col-md-6 col-12 mb-15">
-                                                    <label for="email" th:text="#{email}">Mejl:</label>
-                                                    <input id="email" name="email" th:placeholder="#{email}" value="{{isset(Auth::User()->email)?Auth::User()->email:''}}" type="text">
+                                                    <label for="email">{{__('messages.email')}}:</label>
+                                                    <input id="email" name="email" placeholder="{{__('messages.email.address')}}" value="{{isset(Auth::User()->email)?Auth::User()->email:''}}" type="text">
                                                     <div id="email_error" class="invalid-feedback d-block"></div>
                                                 </div>
                                                 <div class="col-12 mb-15">
-                                                    <label for="comment" th:text="#{comment}">Tvoj komentar:</label>
-                                                    <textarea id="comment" name="comment" th:placeholder="#{comment}"></textarea>
+                                                    <label for="comment">{{__('messages.comment')}}:</label>
+                                                    <textarea id="comment" name="comment" placeholder="{{__('messages.comment')}}"></textarea>
                                                     <div id="comment_error" class="invalid-feedback d-block"></div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input type="submit" th:value="#{add.comment}">
+                                                    <input type="submit" value="{{__('messages.add.comment')}}">
                                                 </div>
                                             </div>
                                         </form>
@@ -377,7 +377,7 @@
                     <!--=======  section title  =======-->
 
                     <div class="section-title">
-                        <h2 th:text="#{similar.products}">SLIČNI PROIZVODI</h2>
+                        <h2>{{__('messages.similar.products')}}</h2>
                     </div>
 
                     <!--=======  End of section title  =======-->

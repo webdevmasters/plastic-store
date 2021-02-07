@@ -251,6 +251,30 @@ Made by Hernán Sartorio
         $("#currencyList, #accountList").slideUp("slow");
     });
 
+    $(".eng").on("click", function (event) {
+        $.ajax({
+            url: '/change_language/' +'en',
+            type: 'get',
+            success: function (response) {
+                $("#languageList").slideToggle();
+                $("#currencyList, #accountList").slideUp("slow");
+                window.location.reload();
+            }
+        });
+    });
+
+    $(".srb").on("click", function (event) {
+        $.ajax({
+            url: '/change_language/' +'rs',
+            type: 'get',
+            success: function (response) {
+                $("#languageList").slideToggle();
+                $("#currencyList, #accountList").slideUp("slow");
+                window.location.reload();
+            }
+        });
+    });
+
     $("#changeAccount").on("click", function (event) {
         event.stopPropagation();
         $("#accountList").slideToggle();
@@ -1204,6 +1228,7 @@ Made by Hernán Sartorio
         slidesToShow: 1
     });
 })(jQuery);
+
 function deleteFromMiniCart(id, page) {
     $.ajax({
         url: "/cart/delete_mini_cart_item/" + id,

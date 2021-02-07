@@ -14,7 +14,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="password">Šifra :</label>
                         <div class="col-sm-9">
-                            <input class="form-control" id="password" placeholder="Šifra" name="code" value="{{ old('code') }}" type="text"/>
+                            <input class="form-control" id="password" placeholder="{{__('messages.password')}}" name="code" value="{{ old('code') }}" type="text"/>
                             @error('code')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
@@ -22,7 +22,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="name">Naziv :</label>
                         <div class="col-sm-9">
-                            <input class="form-control" id="name" placeholder="Naziv" name="name" value="{{ old('name') }}" type="text"/>
+                            <input class="form-control" id="name" placeholder="{{__('messages.name')}}" name="name" value="{{ old('name') }}" type="text"/>
                             @error('name')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="description">Opis :</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="description" placeholder="Opis" name="description" value="{{ old('description') }}" rows="3"></textarea>
+                            <textarea class="form-control" id="description" placeholder="{{__('messages.description')}}" name="description" value="{{ old('description') }}" rows="3"></textarea>
                             @error('description')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
@@ -38,7 +38,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="manufacturer">Proizvođač</label>
                         <div class="col-sm-9">
-                            <input class="form-control" id="manufacturer" placeholder="Proizvođač" value="{{ old('manufacturer') }}" name="manufacturer" type="text"/>
+                            <input class="form-control" id="manufacturer" placeholder="{{__('messages.manufacturer')}}" value="{{ old('manufacturer') }}" name="manufacturer" type="text"/>
                             @error('manufacturer')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>

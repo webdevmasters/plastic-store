@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{about.us}">O nama</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.about.us')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="about-content col-lg-6">
                     <div class="row">
                         <div class="col-12 mb-50">
-                            <h1 th:text="#{welcome.to.ecommerce}">DBRODOŠLI NA E-PRODAVNICU <span th:text="#{store.name}"> PLASTIKA DRAŠKOVIĆ</span></h1>
+                            <h1>{{__('messages.welcome.to.ecommerce')}}<span>{{__('messages.store.name')}}</span></h1>
                             <p>Mi smo nova internet prodavnica koja ima za cilj prodaju plastike. Cilj nam je da naše
                                 kvalitetne proizvode isporučimo u najkraćem mogućem roku, jer nam je najvažnije zadovoljstvo
                                 kupca. Naši proizvodi su odličnog kvaliteta i proizvedeni su u Srbiji, a proizvođači su
@@ -49,18 +49,18 @@
             <div class="about-mission-vission-goal row row-20 mb-30">
 
                 <div class="col-lg-4 col-md-6 col-12 mb-sm-30">
-                    <h3 th:text="#{our.vision}">NAŠA VIZIJA</h3>
-                    <p th:text="#{vision.info}">Naša vizija je da postanemo neprikosnoveni lider na tržištu plastike. </p>
+                    <h3>{{__('messages.our.vision')}}</h3>
+                    <p>{{__('messages.vision.info')}}</p>
                 </div>
 
                 <div class="col-lg-4 col-md-6 col-12 mb-sm-30">
-                    <h3 th:text="#{our.mission}">NAŠA MISIJA</h3>
-                    <p th:text="#{mission.info}">Naša misija je da u narednom periodu obogatimo asortiman naših proizvoda kao i da povećamo kvalitet naših usluga.</p>
+                    <h3>{{__('messages.our.mission')}}</h3>
+                    <p>{{__('messages.mission.info')}}</p>
                 </div>
 
                 <div class="col-lg-4 col-md-6 col-12 mb-sm-0">
-                    <h3 th:text="#{our.goal}">NAŠ CILJ</h3>
-                    <p th:text="#{goal.info}">Naš cilj je da steknemo veliki broj zadovoljnih kupaca širom Srbije.</p>
+                    <h3>{{__('messages.our.goal')}}</h3>
+                    <p>{{__('messages.goal.info')}}</p>
                 </div>
             </div>
 
@@ -90,23 +90,23 @@
                     <div class="row pt-100" >
 
                         <div class="col-md-6 col-12 mb-30">
-                            <h4 th:text="#{fast.delivery}">BRZA ISPORUKA</h4>
-                            <p th:text="#{fast.delivery.info}">Obezbeđujemo brzu isporuku svih naših proizvoda.</p>
+                            <h4>{{__('messages.fast.delivery')}}</h4>
+                            <p>{{__('messages.fast.delivery.info')}}</p>
                         </div>
 
                         <div class="col-md-6 col-12 mb-30">
-                            <h4 th:text="#{products.quality}">KVALITET PROIZVODA</h4>
-                            <p th:text="#{products.quality.info}">Garantujemo kvalitet naših proizvoda.</p>
+                            <h4>{{__('messages.products.quality')}}</h4>
+                            <p>{{__('messages.products.quality.info')}}</p>
                         </div>
 
                         <div class="col-md-6 col-12 mb-30">
-                            <h4 th:text="#{order.tracking}">PRAĆENJE PORUDZBINE</h4>
-                            <p th:text="#{order.tracking.info}">Omogućavamo praćenje statusa vaše proudžbine.</p>
+                            <h4>{{__('messages.order.tracking')}}</h4>
+                            <p>{{__('messages.order.tracking.info')}}</p>
                         </div>
 
                         <div class="col-md-6 col-12 mb-30 mb-sm-0">
-                            <h4 th:text="#{support.24.7}">24/7 PODRŠKA</h4>
-                            <p th:text="#{support.24.7.info}">Pružamo Vam podršku 24/7.</p>
+                            <h4>{{__('messages.support.24.7')}}</h4>
+                            <p>{{__('messages.support.24.7.info')}}</p>
                         </div>
 
                     </div>

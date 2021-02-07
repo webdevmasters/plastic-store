@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <link href="https://fonts.googleapis.com/css?family=Raleway:500,800" rel="stylesheet">
-    <title th:text="#{error.403}">Pristup stranici je zabranjen</title>
+    <title>{{__('messages.error.403')}}</title>
     <style>
         * {
             margin: 0;
@@ -73,6 +73,6 @@
 </svg>
 </use>
 <h1>403</h1>
-<h2 th:text="#{error.403}">Pristup ovoj stranici je zabranjen!</h2>
+<h2>{{__('messages.error.403')}}</h2>
 </body>
 </html>

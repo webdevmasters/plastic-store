@@ -8,11 +8,11 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
                                 @auth
-                                    <li class="parent-page"><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
+                                    <li class="parent-page"><a href="{{route('customer.my.account')}}">{{__('messages.customer.my.account')}}</a></li>
                                 @endauth
-                                <li th:text="#{order.content}">Sadržaj Vaše porudžbine</li>
+                                <li>{{__('messages.order.content')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -31,13 +31,13 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th class="pro-thumbnail" th:text="#{picture}">Slika</th>
-                                    <th class="pro-title" th:text="#{product}">Proizvod</th>
-                                    <th class="pro-color" th:text="#{color}">Boja</th>
-                                    <th class="pro-size" th:text="#{size}">Veličina</th>
-                                    <th class="pro-price" th:text="#{price}">Cena</th>
-                                    <th class="pro-quantity" th:text="#{quantity}">Količina</th>
-                                    <th class="pro-subtotal" th:text="#{total}">Ukupno</th>
+                                    <th class="pro-thumbnail">{{__('messages.picture')}}</th>
+                                    <th class="pro-title">{{__('messages.product')}}</th>
+                                    <th class="pro-color">{{__('messages.color')}}</th>
+                                    <th class="pro-size">{{__('messages.size')}}</th>
+                                    <th class="pro-price">{{__('messages.price')}}</th>
+                                    <th class="pro-quantity">{{__('messages.quantity')}}</th>
+                                    <th class="pro-subtotal">{{__('messages.total')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>

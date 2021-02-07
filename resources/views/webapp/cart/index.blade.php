@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{content.cart}">Sadržaj Vaše korpe</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.content.cart')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -29,14 +29,14 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="pro-thumbnail" th:text="#{picture}">Slika</th>
-                                        <th class="pro-title" th:text="#{product}">Proizvod</th>
-                                        <th class="pro-color" th:text="#{color}">Boja</th>
-                                        <th class="pro-size" th:text="#{size}">Veličina</th>
-                                        <th class="pro-price" th:text="#{price}">Cena</th>
-                                        <th class="pro-quantity" th:text="#{quantity}">Količina</th>
-                                        <th class="pro-subtotal" th:text="#{total}">Ukupno</th>
-                                        <th class="pro-remove" th:text="#{remove}">Obriši</th>
+                                        <th class="pro-thumbnail">{{__('messages.picture')}}</th>
+                                        <th class="pro-title">{{__('messages.product')}}</th>
+                                        <th class="pro-color">{{__('messages.color')}}</th>
+                                        <th class="pro-size">{{__('messages.size')}}</th>
+                                        <th class="pro-price" >{{__('messages.price')}}</th>
+                                        <th class="pro-quantity" >{{__('messages.quantity')}}</th>
+                                        <th class="pro-subtotal">{{__('messages.total')}}</th>
+                                        <th class="pro-remove">{{__('messages.remove')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -91,9 +91,9 @@
                         <div class="card-body cart">
                             <div class="col-sm-12 empty-cart-cls text-center">
                                 <img class="img-fluid" height="300" style="background: transparent" src="{{asset('static/images/shop/empty-cart.png')}}" width="300">
-                                <h3 th:text="#{empty.cart}"><strong>Vaša korpa je trenutno prazna</strong></h3>
-                                <h4 th:text="#{add.content}">Dodajte nešto kako biste videli sadržaj :)</h4>
-                                <div class="newsletter-form mb-20 mt-30"><a href="{{url('/')}}" th:text="#{continue.shopping}">Nastavi kupovinu</a></div>
+                                <h3><strong>{{__('messages.empty.cart')}}</strong></h3>
+                                <h4>{{__('messages.add.content')}}</h4>
+                                <div class="newsletter-form mb-20 mt-30"><a href="{{url('/')}}">{{__('messages.continue.shopping')}}</a></div>
                             </div>
                         </div>
                     </div>

@@ -7,8 +7,8 @@
                 <div class="breadcrumb-container">
                     <nav>
                         <ul>
-                            <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                            <li th:text="#{order.confirmation}">Potvrda Vaše porudžbine</li>
+                            <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                            <li>{{__('messages.order.confirmation')}}</li>
                         </ul>
                     </nav>
                 </div>
@@ -21,12 +21,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 order-1 order-lg-2">
-                <p style="font-weight: bold; font-size: 20px" th:text="#{order.accepted}">Vaša porudžbina je primljena</p>
-                <p style="font-weight: bold; font-size: 16px" th:text="#{order.thanks}">Hvala što kupujete kod nas.</p>
-                <p style="font-weight: bold; font-size: 14px" th:text="#{order.number.confirmation}+': '+${order.getId()}">{{'Vaš broj porudžbine je '.$order->order_number}}</p>
-                <p style="font-weight: normal; font-size: 14px" th:text="#{order.email.received}">Primićete email sa potvrdom kao i detaljima vaše porudžbine.</p>
+                <p style="font-weight: bold; font-size: 20px">{{__('messages.order.accepted')}}</p>
+                <p style="font-weight: bold; font-size: 16px">{{__('messages.order.thanks')}}</p>
+                <p style="font-weight: bold; font-size: 16px">{{ __('messages.order.number.confirmation').': '.$order->order_number}}</p>
+                <p style="font-weight: normal; font-size: 14px">{{__('messages.order.email.received')}}</p>
                 <div class="order-summary-button">
-                    <a href="{{url('/')}}"><button class="checkout-btn" th:text="#{continue.shopping}">Nastavi kupovinu</button></a>
+                    <a href="{{url('/')}}"><button class="checkout-btn">{{__('messages.continue.shopping')}}</button></a>
                 </div>
             </div>
         </div>

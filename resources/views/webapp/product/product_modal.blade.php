@@ -56,23 +56,23 @@
                             @if(count($product->reviews)>0)
                                 <p class="d-inline-block ml-10 review-link">
                                     @if(count($product->reviews)>1)
-                                        <a th:text="'('+${reviews.size()}+' Ocene)'"></a>
+                                        <a>{{count($product->reviews).' '.__('messages.reviews')}}</a>
                                     @else
-                                        <a th:text="'('+${reviews.size()}+' Ocena)'"></a>
+                                        <a>{{count($product->reviews).' '.__('messages.review')}}</a>
                                     @endif
                                 </p>
                             @endif
                             <div class="availability mb-0">
-                                <span class="title" th:text="#{availability}">Dostupnost:  </span>
+                                <span class="title">{{__('messages.availability').':'}}</span>
                                 @if($product->available)
-                                    <h3 class="product-available mb-15" th:text="'( '+#{in.stock}+' )'">( NA STANJU )</h3>
+                                    <h3 class="product-available mb-15">{{'('.__('messages.in.stock').')'}}</h3>
                                 @else
-                                    <h3 class="product-not-available mb-15" th:text="'( '+#{out.of.stock}+' )'">( NIJE NA STANJU )</h3>
+                                    <h3 class="product-not-available mb-15">{{'('.__('messages.out.of.stock').')'}}</h3>
                                 @endif
                             </div>
 
                             <div class="price mb-0">
-                                <span class="title" th:text="#{price}">Cena:  </span>
+                                <span class="title">{{__('messages.price')}}</span>
                                 <h2 class="product-price mb-0">
                                     <span class="main-price-modal {{$product->sale?'discounted':''}}">{{$product->prices()->first()->value.' DIN'}}</span>
                                     @if($product->sale)
@@ -84,14 +84,14 @@
 
                             <br>
                             <div class="manufacturer mb-0">
-                                <span class="title" th:text="#{manufacturer}">Proizvođač:  </span>
+                                <span class="title">{{__('messages.manufacturer').':'}}</span>
                                 <p class="product-manufacturer mb-20">{{$product->manufacturer}}</p>
                             </div>
 
                             <p class="product-description mb-15">{{$product->description}}</p>
 
                             <div class="size mb-15">
-                                <span class="title" th:text="#{size}"> Veličina:</span> <br>
+                                <span class="title"> {{__('messages.size').':'}}</span> <br>
                                 <select class="nice-select-modal" id="chooseSize" name="chooseSize">
                                     @foreach($product->sizes as $size)
                                         <option value="{{$product->prices()->pluck('value')->all()[$loop->index].'-'.$product->prices()->pluck('discounted_price')->all()[$loop->index]}}">{{$size->value}}</option>
@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="color mb-15">
-                                <span class="title" th:text="#{color}"> Boja:</span> <br>
+                                <span class="title">{{__('messages.color').':'}}</span> <br>
                                 @foreach($product->colors as $color)
                                     <a value="{{$color->name}}">
                                         <span class="color-block {{$loop->first?'active':''}}" style="{{'background-color:'.$color->code.';'}}" title="{{$color->name}}"></span>

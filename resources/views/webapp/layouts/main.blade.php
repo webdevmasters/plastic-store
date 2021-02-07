@@ -24,8 +24,8 @@
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="header-top-text text-center text-lg-left mb-0 mb-md-15 mb-sm-15">
-                        <p th:text="#{free.shipping.info}"><i class="icon ion-md-alarm"></i> Besplatna dostava za porudžbine preko 5000 din. -
-                            <span class="support-no" th:text="#{support.number}">Podrška: 062 464 406</span>
+                        <p><i class="icon ion-md-alarm"></i> {{__('messages.free.shipping.info')}}
+                            <span class="support-no">{{' | '.__('messages.support.number').' - 062 464 406'}}</span>
                         </p>
                     </div>
                 </div>
@@ -33,14 +33,14 @@
                     <!--=======  header top dropdowns  =======-->
                     <div class="header-top-dropdown d-flex justify-content-center justify-content-lg-end">
                         <div class="single-dropdown">
-                            <span class="d-none d-sm-inline-block" th:text="#{language}+': '">Language:</span>
+                            <span class="d-none d-sm-inline-block">{{__('messages.language').':'}}</span>
                             <a href="#" id="changeLanguage">
-                                <span id="languageName" th:text="${lang=='en'}? #{english}:#{serbian}" th:with="lang=${#locale.language}">English <i class="fa fa-angle-down"></i></span>
+                                <span id="languageName">{{app()->getLocale()=='en'?__('messages.english'):__('messages.serbian')}} <i class="fa fa-angle-down"></i></span>
                             </a>
                             <div class="language-currency-list hidden" id="languageList">
                                 <ul>
-                                    <li class="eng"><a href="?lang=en" th:text="#{english}">English</a></li>
-                                    <li class="srb"><a href="?lang=sr" th:text="#{serbian}">Serbian</a></li>
+                                    <li class="eng"><a href="#">{{__('messages.english')}}</a></li>
+                                    <li class="srb"><a href="#">{{__('messages.serbian')}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -50,10 +50,10 @@
                         <!--=======  single dropdown  =======-->
                         @if (Route::has('login'))
                             @guest()
-                                <a href="{{route('login')}}" th:text="#{login}">Prjavi se </a>
+                                <a href="{{route('login')}}">{{__('messages.login')}}</a>
                                 @if (Route::has('register'))
                                     <span> / </span>
-                                    <a href="{{route('register')}}" th:text="#{register}">Registruj se</a>
+                                    <a href="{{route('register')}}">{{__('messages.register')}}</a>
                                 @endif
                             @endguest
                             @auth
@@ -64,14 +64,14 @@
                                     </a>
                                     <div class="language-currency-list hidden" id="accountList">
                                         <ul>
-                                            <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
-                                            <li><a href="{{route('show.wishlist')}}" th:text="#{wishlist}">Lista želja</a></li>
-                                            <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
+                                            <li><a href="{{route('show.cart')}}">{{__('messages.cart')}}</a></li>
+                                            <li><a href="{{route('show.wishlist')}}">{{__('messages.wishlist')}}</a></li>
+                                            <li><a href="{{route('customer.my.account')}}">{{__('messages.my.account')}}</a></li>
                                             @can('manage-customers')
-                                                <li><a href="{{route('admin.products.index')}}" th:text="#{administration}">Administracija</a></li>
+                                                <li><a href="{{route('admin.products.index')}}">{{__('messages.administration')}}</a></li>
                                             @endcan
                                             <li>
-                                                <a th:text="#{logout}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Odjavi se</a>
+                                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('messages.logout')}}</a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
@@ -161,8 +161,8 @@
                     <div class="col-12 col-lg-3" id="search-section">
                         <!--=======  navigation search bar  =======-->
                         <div class="navigation-search d-none d-lg-block">
-                            <input id="search" name="search" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Unesite reč pretrage')" required
-                                   placeholder="#{search.products}+' ...'" value="{{isset($search)?$search:''}}" type="search">
+                            <input id="search" name="search" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity({{__('messages.enter.keyword')}})" required
+                                   placeholder="{{__('messages.search.products').' ...'}}" value="{{isset($search)?$search:''}}" type="search">
                             <button type="submit"><i class="icon ion-md-search"></i></button>
                         </div>
                         <!--=======  End of navigation search bar  =======-->
@@ -198,9 +198,9 @@
 
                         <div class="address-text">
                             <ul>
-                                <li th:text="#{address}+': Vojvode Stepe 148, 36000 Kraljevo.'">Adresa: Vojvode Stepe 148, 36000 Kraljevo.</li>
-                                <li th:text="#{phone.number}+': 062 464 406'">Telefon: 062 464 406</li>
-                                <li th:text="#{email}+' : plastika.draskovic@gmail.com'">Email: plastika.draskovic@gmail.com
+                                <li>{{__('messages.address').': Vojvode Stepe 148, 36000 Kraljevo.'}}</li>
+                                <li>{{__('messages.phone.number').': 062 464 406'}}</li>
+                                <li>{{__('messages.email').': plastika.draskovic@gmail.com'}}
                                 </li>
                             </ul>
                         </div>
@@ -212,12 +212,12 @@
                     <!--=======  widget block  =======-->
 
                     <div class="widget-block">
-                        <h4 class="footer-widget-title mb-sm-10" th:text="#{information}">INFORMACIJE</h4>
+                        <h4 class="footer-widget-title mb-sm-10">{{__('messages.information')}}</h4>
                         <ul>
-                            <li><a href="{{route('show.about')}}" th:text="#{about.us}">O nama</a></li>
-                            <li><a href="{{route('show.contact')}}" th:text="#{contact}">Kontakt</a></li>
-                            <li><a href="{{route('show.shipping.info')}}" th:text="#{delivery.info}">Informacije o dostavi</a></li>
-                            <li><a href="{{route('show.selling.terms')}}" th:text="#{selling.terms}">Uslovi kupovine</a></li>
+                            <li><a href="{{route('show.about')}}">{{__('messages.about.us')}}</a></li>
+                            <li><a href="{{route('show.contact')}}">{{__('messages.contact')}}</a></li>
+                            <li><a href="{{route('show.shipping.info')}}">{{__('messages.delivery.info')}}</a></li>
+                            <li><a href="{{route('show.selling.terms')}}">{{__('messages.selling.terms')}}</a></li>
                         </ul>
                     </div>
 
@@ -227,12 +227,12 @@
                     <!--=======  widget block  =======-->
 
                     <div class="widget-block">
-                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10" th:text="#{my.account.big}">MOJ NALOG</h4>
+                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10">{{__('messages.my.account.big')}}</h4>
                         <ul>
-                            <li><a href="{{route('customer.my.account')}}" th:text="#{my.account}">Moj nalog</a></li>
-                            <li><a href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a></li>
-                            <li><a href="{{route('show.wishlist')}}" th:text="#{wishlist}">Lista želja</a></li>
-                            <li><a href="{{route('show.faqs')}}" th:text="#{faqs}">Česta pitanja</a></li>
+                            <li><a href="{{route('customer.my.account')}}">{{__('messages.my.account')}}</a></li>
+                            <li><a href="{{route('show.cart')}}">{{__('messages.cart')}}</a></li>
+                            <li><a href="{{route('show.wishlist')}}">{{__('messages.wishlist')}}</a></li>
+                            <li><a href="{{route('show.faqs')}}">{{__('messages.faqs')}}</a></li>
                         </ul>
                     </div>
 
@@ -242,11 +242,11 @@
                     <!--=======  widget block  =======-->
 
                     <div class="widget-block">
-                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10" th:text="#{contact.us.big}">KONTAKTIRAJTE NAS </h4>
-                        <p th:text="#{contact.info.suggestions}">Kontaktirajte nas kako biste imali najnovije informacije o proizvodima ili predloge kako bismo usavršili naš sajt.</p>
+                        <h4 class="footer-widget-title mt-sm-20 mb-sm-10">{{__('messages.contact.us.big')}}</h4>
+                        <p>{{__('messages.contact.info.suggestions')}}</p>
 
                         <div class="newsletter-form mb-20">
-                            <a href="{{route('show.contact')}}" th:text="#{contact}">Kontakt</a>
+                            <a href="{{route('show.contact')}}">{{__('messages.contact')}}</a>
                         </div>
                     </div>
 

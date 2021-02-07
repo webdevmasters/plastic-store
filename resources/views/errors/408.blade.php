@@ -6,7 +6,7 @@
     <meta content="CodePen" name="apple-mobile-web-app-title">
     <link href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" rel="shortcut icon" type="image/x-icon">
     <link color="#111" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" rel="mask-icon" type="">
-    <title th:text="#{error.408}">408 - Zahtev istekao</title>
+    <title>{{__('messages.error.408')}}</title>
     <style>
         html,
         body {
@@ -164,7 +164,7 @@
         </svg>
         <span>8</span>
     </h1>
-    <p class="subtitle" th:text="#{error.408}">Istekao zahtev ka serveru</p>
+    <p class="subtitle">{{__('messages.error.408')}}</p>
 </div>
 <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
 <script id="rendered-js">

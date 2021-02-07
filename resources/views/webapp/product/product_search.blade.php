@@ -15,9 +15,9 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{search}">Pretraga</li>
-                                <li>{{'> Reč pretrage: '.$search}}</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.search')}}</li>
+                                <li>{{__('messages.keyword').$search}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -28,7 +28,7 @@
     </div>
 
     @if(count($products)>0)
-        <div class="shop-page-content mb-50" th:if="${products.size()>0}">
+        <div class="shop-page-content mb-50">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 order-1 order-lg-2">
@@ -51,17 +51,17 @@
                                 <div class="col-lg-8 col-md-8 col-sm-12 d-flex flex-column flex-sm-row justify-content-between align-items-left align-items-sm-center">
                                     <!--=======  Sort by dropdown  =======-->
                                     <div class="sort-by-dropdown d-flex align-items-center mb-xs-10">
-                                        <p class="mr-10 mb-0" th:text="#{sort.by}">Sortiraj: </p>
+                                        <p class="mr-10 mb-0">{{__('messages.sort.by')}}</p>
                                         <select class="nice-select" id="sort-by" name="sort-by">
-                                            <option th:text="#{sort.by.price.low}" value="min-price">Najjeftinije prvo</option>
-                                            <option th:text="#{sort.by.price.high}" value="max-price">Najskuplje prvo</option>
-                                            <option selected th:text="#{sort.by.name.a.z}" value="name-asc">Naziv A-Z</option>
-                                            <option th:text="#{sort.by.name.z.a}" value="name-desc">Naziv Z-A</option>
+                                            <option value="min-price">{{__('messages.sort.by.price.low')}}</option>
+                                            <option value="max-price">{{__('messages.sort.by.price.high')}}</option>
+                                            <option selected value="name-asc">{{__('messages.sort.by.name.a.z')}}</option>
+                                            <option value="name-desc">{{__('messages.sort.by.name.z.a')}}</option>
                                         </select>
                                     </div>
 
                                     <div class="sort-by-dropdown d-flex align-items-center mb-xs-10">
-                                        <p class="mr-10 mb-0" th:text="#{show}">Prikaži: </p>
+                                        <p class="mr-10 mb-0">{{__('messages.show')}}</p>
                                         <select class="nice-select" id="show-by" name="show-by">
                                             <option value="20">20</option>
                                             <option value="40">40</option>
@@ -87,18 +87,17 @@
             </div>
         </div>
     @else
-        <div class="shop-page-content mb-50" th:unless="${products.size()>0}">
+        <div class="shop-page-content mb-50">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 order-1 order-lg-2">
-                        <p style="font-weight: bold; font-size: 20px"
-                           th:text="'Rezultati pretraživanja za pojam: '+${search}"></p>
-                        <p style="font-weight: bold; font-size: 16px">Nema proizvoda koji zadovoljavaju zadati kriterijum.</p>
-                        <p style="font-weight: bold; font-size: 14px">Predlozi:</p>
-                        <p style="font-weight: normal; font-size: 14px">Uverite se da ste sve ključne reči upisali ispravno.</p>
-                        <p style="font-weight: normal; font-size: 14px">Probajte sa drugim ključnim rečima.</p>
-                        <p style="font-weight: normal; font-size: 14px">Probajte uopštenije klične reči.</p>
-                        <p style="font-weight: normal; font-size: 14px">Probajte manje ključnih reči.</p>
+                        <p style="font-weight: bold; font-size: 20px">{{__('messages.search.results').' '.$search}}</p>
+                        <p style="font-weight: bold; font-size: 16px">{{__('messages.search.no.products')}}</p>
+                        <p style="font-weight: bold; font-size: 14px">{{__('messages.suggestions')}}</p>
+                        <p style="font-weight: normal; font-size: 14px">{{__('messages.try.keywords')}}</p>
+                        <p style="font-weight: normal; font-size: 14px">{{__('messages.try.another.words')}}</p>
+                        <p style="font-weight: normal; font-size: 14px">{{__('messages.try.general.words')}}</p>
+                        <p style="font-weight: normal; font-size: 14px">{{__('messages.try.small.words')}}</p>
                     </div>
                 </div>
             </div>
@@ -142,15 +141,15 @@
         });
 
         function openWishListDialog(product_id) {
-            var id={'product_id':product_id};
+            var id = {'product_id': product_id};
             $.ajax({
                 url: "{{route('add.to.wishlist')}}",
                 type: 'POST',
-                dataType:'JSON',
-                data:id,
+                dataType: 'JSON',
+                data: id,
                 success: function (response) {
                     $(".wishlist-section").replaceWith(response['mini-wishlist']);
-                    if(!response['duplicate']) {
+                    if (!response['duplicate']) {
                         bootbox.dialog({
                             title: 'Lista želja',
                             message: 'Uspešno ste dodali proizvod ' + response['product_name'] + ' u listu želja',

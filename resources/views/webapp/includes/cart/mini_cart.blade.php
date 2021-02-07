@@ -3,9 +3,9 @@
         <span class="image"><i class="icon ion-md-cart" id="cart-image"></i></span>
         <h5><i class="fa fa-angle-down"></i>{{Cart::getTotal().' RSD'}}</h5>
         @if(Cart::getContent()->count()==1)
-            <p>{{Cart::getContent()->count().' artikal'}}</p>
+            <p>{{Cart::getContent()->count().' '.__('messages.item')}}</p>
         @else
-            <p>{{Cart::getContent()->count().' artikala'}}</p>
+            <p>{{Cart::getContent()->count().' '.__('messages.items')}}</p>
         @endif
     </a>
 
@@ -32,9 +32,8 @@
                     </div>
                     <div class="cart-float-single-item-desc">
                         <p class="product-title"><a href="{{route("single.product.by.id",$item->associatedModel)}}">{{$item->associatedModel->name}}</a></p>
-                        {{--                                    treba prevod--}}
-                        <p class="quantity">{{'Kolicina: '.$item->quantity}}</p>
-                        <p class="quantity">{{'Boja: '.$item->attributes->color_name}}</p>
+                        <p class="quantity">{{__('messages.quantity').': '.$item->quantity}}</p>
+                        <p class="quantity">{{__('messages.color').': '.$item->attributes->color_name}}</p>
                         <p class="price">{{$item->price.' RSD'}}</p>
                     </div>
                 </div>
@@ -44,15 +43,15 @@
         <div class="cart-calculation">
             @if(Cart::getContent()->count()>0)
                 <div class="calculation-details">
-                    <p class="total">Ukupno<span>{{Cart::getTotal().' RSD'}}</span></p>
+                    <p class="total">{{__('messages.total')}}<span>{{Cart::getTotal().' RSD'}}</span></p>
                 </div>
                 <div class="floating-cart-btn text-center">
-                    <a class="fl-btn pull-left" href="{{route('show.cart')}}" th:text="#{cart}">Korpa</a>
-                    <a class="fl-btn pull-right" href="{{route('create.checkout')}}" th:text="#{place.order}">Završi kupovinu</a>
+                    <a class="fl-btn pull-left" href="{{route('show.cart')}}">{{__('messages.cart')}}</a>
+                    <a class="fl-btn pull-right" href="{{route('create.checkout')}}" >{{__('messages.place.order')}}</a>
                 </div>
             @else
                 <div class="calculation-details">
-                    <p class="total">Vaša korpa je prazna !</p>
+                    <p class="total">{{__('messages.empty.cart')}}</p>
                 </div>
             @endif
         </div>

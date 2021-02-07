@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{contact}">Kontakt</li>
+                                <li class="parent-page"><a href="{{url('/')}}" >{{__('messages.home')}}</a></li>
+                                <li >{{__('messages.contact')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -27,18 +27,18 @@
                     <!--=======  contact page side content  =======-->
 
                     <div class="contact-page-side-content">
-                        <h3 class="contact-page-title" th:text="#{contact}">Kontakt</h3>
-                        <p class="contact-page-message mb-30" th:text="#{contact.info}">Možete nas kontaktirati u svako doba putem email-a ili telefonom kako biste dobili više informacija o našim proizvodima.</p>
+                        <h3 class="contact-page-title" >{{__('messages.contact')}}</h3>
+                        <p class="contact-page-message mb-30">{{__('messages.contact.info')}}</p>
                         <div class="single-contact-block">
-                            <h4><i class="fa fa-fax" th:text="#{address}"></i> Adresa</h4>
+                            <h4><i class="fa fa-fax"></i> {{__('messages.address')}}</h4>
                             <p>Vojvode Stepe 148, 36000, Kraljevo</p>
                         </div>
                         <div class="single-contact-block">
-                            <h4><i class="fa fa-phone" th:text="#{phone.number}"></i> Telefon</h4>
+                            <h4><i class="fa fa-phone"></i> {{__('messages.phone.number')}}</h4>
                             <p>Mob. - 062 464 406</p>
                         </div>
                         <div class="single-contact-block">
-                            <h4><i class="fa fa-envelope-o" th:text="#{email}"></i> Email</h4>
+                            <h4><i class="fa fa-envelope-o" ></i> {{__('messages.email')}}</h4>
                             <p>plastika.draskovic@gmail.com</p>
                         </div>
                     </div>
@@ -51,37 +51,37 @@
                         </div>
                     @else
                         <div class="contact-form-content">
-                            <h3 class="contact-page-title" th:text="#{ask.us}">Pitajte nas</h3>
+                            <h3 class="contact-page-title" >{{__('messages.ask.us')}}</h3>
 
                             <div class="contact-form">
                                 <form id="contact-form" method="post" action="{{route('send.message')}}">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="name" th:text="#{name}">Ime <span class="required">*</span></label>
+                                        <label for="name" >{{__('messages.name')}} <span class="required">*</span></label>
                                         <input id="name" name="name" value="{{auth()->check()?Auth::user()->first_name:old('name')}}" type="text">
                                         @error('name')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="email" th:text="#{email}">Email <span class="required">*</span></label>
+                                        <label for="email" >{{__('messages.email')}} <span class="required">*</span></label>
                                         <input id="email" name="email"  value="{{auth()->check()?Auth::user()->email:old('email')}}" type="email">
                                         @error('email')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="subject" th:text="#{title}">Naslov <span class="required">*</span></label>
+                                        <label for="subject" >{{__('messages.title')}} <span class="required">*</span></label>
                                         <input id="subject" name="subject" value="{{old('subject')}}" type="text">
                                         @error('subject')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="message" th:text="#{message}">Poruka <span class="required">*</span></label>
+                                        <label for="message" >{{__('messages.message')}} <span class="required">*</span></label>
                                         <textarea id="message" name="message" value="{{old('message')}}" style="line-height: 2"></textarea>
                                         @error('message')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                     </div>
                                     <div class="form-group mb-0">
-                                        <button class="fl-btn" id="submit" name="submit" th:text="#{send}" type="submit" value="submit">Pošalji</button>
+                                        <button class="fl-btn" id="submit" name="submit" type="submit" value="submit">{{__('messages.send')}}</button>
                                     </div>
                                 </form>
                             </div>

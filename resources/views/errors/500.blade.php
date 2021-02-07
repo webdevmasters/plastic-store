@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title th:text="#{error.500}">500 - Greška na serveru</title>
+    <title >{{__('messages.error.500')}}</title>
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -139,8 +139,8 @@
         <div class="notfound-404">
             <h1>500</h1>
         </div>
-        <h2 th:text="'Uups! '+#{error.500}">Uups! Greška na serveru</h2>
-        <p th:text="#{error.500.info}">Radimo na tome kako bismo povratili pristup ovoj stranici. <a href="{{url('/')}}" th:text="#{back.to.home}">Nazad na početnu</a></p>
+        <h2 >{{'Uups! '.__('messages.error.500')}}</h2>
+        <p >{{__('messages.error.500.info')}}<a href="{{url('/')}}" >{{__('messages.back.to.home')}}</a></p>
     </div>
 </div>
 

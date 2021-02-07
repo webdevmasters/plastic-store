@@ -6,7 +6,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
-    <title th:text="#{error.404}">Stranica nije pronađena</title>
+    <title>{{__('messages.error.404')}}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700" rel="stylesheet">
 
@@ -123,9 +123,9 @@
         <div class="notfound-404">
             <h1>4<span></span>4</h1>
         </div>
-        <h2 th:text="'Uups! '+#{error.404}">Uups! Stranica nije pronađena</h2>
-        <p th:text="#{error.404.info}">Žao nam je, ali stranica koju ste tražili ne postoji, možda je obrisana ili je trenutno nedostupna.</p>
-        <a href="{{url('/')}}" th:text="#{back.to.home}">Nazad na početnu</a>
+        <h2>{{'Uups! '.__('messages.error.404')}}</h2>
+        <p>{{__('messages.error.404.info')}}</p>
+        <a href="{{url('/')}}">{{__('messages.back.to.home')}}</a>
     </div>
 </div>
 

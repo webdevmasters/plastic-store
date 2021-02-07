@@ -9,8 +9,8 @@
                     <div class="breadcrumb-container">
                         <nav>
                             <ul>
-                                <li class="parent-page"><a href="{{url('/')}}" th:text="#{home}">Početna</a></li>
-                                <li th:text="#{wishlist}">Lista želja</li>
+                                <li class="parent-page"><a href="{{url('/')}}">{{__('messages.home')}}</a></li>
+                                <li>{{__('messages.wishlist')}}</li>
                             </ul>
                         </nav>
                     </div>
@@ -30,11 +30,11 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="pro-thumbnail" th:text="#{picture}">Slika</th>
-                                        <th class="pro-title" th:text="#{name}">Naziv</th>
-                                        <th class="pro-quantity" th:text="#{size}">Dimenzije</th>
-                                        <th class="pro-price" th:text="#{price}">Cena</th>
-                                        <th class="pro-remove" th:text="#{remove}">Obriši</th>
+                                        <th class="pro-thumbnail">{{__('messages.picture')}}</th>
+                                        <th class="pro-title">{{__('messages.name')}}</th>
+                                        <th class="pro-quantity">{{__('messages.size')}}</th>
+                                        <th class="pro-price">{{__('messages.price')}}</th>
+                                        <th class="pro-remove">{{__('messages.remove')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -78,10 +78,10 @@
                         <div class="card-body cart">
                             <div class="col-sm-12 empty-cart-cls text-center">
                                 <img class="img-fluid" height="300" style="background: transparent" src="{{asset('static/images/shop/empty-wishlist.png')}}" width="300" alt="">
-                                <h3 th:text="#{wishlist.empty}"><strong>Vaša lista želja je trenutno prazna</strong></h3>
-                                <h4 th:text="#{add.content}">Dodajte nešto kako biste videli sadržaj :)</h4>
+                                <h3><strong>{{__('messages.wishlist.empty')}}</strong></h3>
+                                <h4>{{__('messages.add.content').':)'}} </h4>
                                 <div class="newsletter-form mb-20 mt-30">
-                                    <a href="{{url('/')}}" th:text="#{continue.shopping}">Nastavi kupovinu</a>
+                                    <a href="{{url('/')}}">{{__('messages.continue.shopping')}}</a>
                                 </div>
                             </div>
                         </div>
