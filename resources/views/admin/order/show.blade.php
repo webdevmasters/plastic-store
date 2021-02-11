@@ -1,4 +1,6 @@
 @extends('admin.layouts.master')
+@section('title','Detalji porudžbine')
+
 @section('content')
     <div class="container">
         <h4 data-type="header" id="header">{{'Porudzbina '.$order->order_number}}</h4>

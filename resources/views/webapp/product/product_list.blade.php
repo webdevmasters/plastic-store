@@ -1,5 +1,4 @@
 @extends('webapp.layouts.main')
-
 @section('title',isset($selected_subcategory)?$selected_subcategory->name:$selected_category->name)
 @section('content')
     <!--==========   breadcrumb area   ===========-->

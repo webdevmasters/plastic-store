@@ -1,4 +1,6 @@
 @extends('admin.layouts.master')
+@section('title','Proizvodi')
+
 @section('content')
     <div class="container">
         <h4 data-type="header" id="header">PRIKAZ PROIZVODA </h4>

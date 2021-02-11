@@ -1,5 +1,5 @@
 @extends('webapp.layouts.main')
-
+@section('title','Registracija')
 @section('content')
     <div class="breadcrumb-area pt-15 pb-15">
         <div class="container">

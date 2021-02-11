@@ -1,5 +1,5 @@
 @extends('webapp.layouts.main')
-
+@section('title','Pretraga proizvoda')
 @section('content')
 
     <!--=============================================

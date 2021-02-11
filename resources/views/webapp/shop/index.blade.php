@@ -1,7 +1,5 @@
 @extends('webapp.layouts.main')
-
 @section('title','Početna')
-
 @section('content')
 
     <!--SLIDER-->

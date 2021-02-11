@@ -1,4 +1,5 @@
 @extends('webapp.layouts.main')
+@section('title','Korpa')
 @section('content')
     <div class="breadcrumb-area pt-15 pb-15">
         <div class="container">

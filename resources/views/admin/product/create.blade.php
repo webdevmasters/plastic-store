@@ -1,4 +1,6 @@
 @extends('admin.layouts.master')
+@section('title','Kreiranje proizvoda')
+
 @section('content')
 
     <div class="container c1691">
