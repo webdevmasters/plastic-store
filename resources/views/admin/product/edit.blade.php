@@ -87,7 +87,7 @@
                                     <option selected="selected" value="{{$price->value}}">{{$price->value}}</option>
                                 @endforeach
                             </select>
-                            @error('prices')
+                            @error('prices.*')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
                     </div>
@@ -132,9 +132,9 @@
                                     id="multiple-checkboxes"
                                     multiple
                                     name="colors[]"
-                                    value="{{ old('colors[]') }}">
+                                    value="{{ old('colors') }}">
                                 @foreach($colors as $color)
-                                    <option {{$product->colors->pluck('id')->contains($color->id)?'selected':''}}value="{{$color->id}}" style="background: {{$color->code}}">{{$color->name}}</option>
+                                    <option {{$product->colors->pluck('id')->contains($color->id)?'selected':''}} value="{{$color->id}}" style="background: {{$color->code}}">{{$color->name}}</option>
                                 @endforeach
                             </select>
                             @error('colors')
@@ -211,17 +211,37 @@
                 placeholder: "Unesite cene"
             });
 
-            $(document).on('keypress', '.select2-search__field', function () {
-                $(this).val($(this).val().replace(/[^\d].+/, ""));
-                if ((event.which < 48 || event.which > 57)) {
-                    event.preventDefault();
-                }
-            });
-
             $('#price-discounted').select2({
                 tags: true,
                 allowClear: true,
                 placeholder: "Unesite akcijske cene"
+            });
+
+            $("#price").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
+            $("#size").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
+            $("#price-discounted").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
             });
 
             $('#sale').on('change', function () {

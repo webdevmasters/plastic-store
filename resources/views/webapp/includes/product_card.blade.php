@@ -2,7 +2,12 @@
     <div class="image {{$product->sale? 'sale-product':''}}">
         <a href="{{route('single.product.by.id',$product)}}">
             @foreach($product->images as $image)
-                <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                @if(count($product->images)==1)
+                    <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                    <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                @else
+                    <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                @endif
                 @if($loop->index==1)@break @endif
             @endforeach
         </a>

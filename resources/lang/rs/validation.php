@@ -112,7 +112,7 @@ return [
         'array' => 'Polje :attribute mora sadržati :size item-a.',
     ],
     'starts_with' => 'Polje :attribute mora početi sa jednim od: :values.',
-    'string' => 'Polje :attribute must be a string.',
+    'string' => 'Polje :attribute mora biti string.',
     'timezone' => 'Polje :attribute mora biti u validnoj zoni.',
     'unique' => 'Polje :attribute je već zauzeto.',
     'uploaded' => 'Polje :attribute se ne može upload-ovati.',
@@ -147,6 +147,31 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'code' => 'šifra',
+        'token' => 'token',
+        'email' => 'mejl',
+        'password' => 'šifra',
+        'name' => 'naziv',
+        'description' => 'opis',
+        'manufacturer' => 'proizvođač',
+        'category' => 'kategorija',
+        'subcatеgory' => 'podkategorija',
+        'sizes' => 'dimenzije',
+        'prices' => 'cene',
+        'discounted_prices' => 'akcijske cene',
+        'images' => 'slike',
+        'colors' => 'boje',
+        'available' => 'na stanju',
+        'sale' => 'akcija',
+        'first_name' => 'ime',
+        'last_name' => 'prezime',
+        'phone' => 'telefon',
+        'address' => 'adresa',
+        'city' => 'grad',
+        'zip_code' => 'poštanski broj',
+        'subject' => 'naslov',
+        'message' => 'poruka',
+    ],
 
 ];

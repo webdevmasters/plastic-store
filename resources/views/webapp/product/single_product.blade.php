@@ -36,11 +36,10 @@
                         <!--product large image start -->
                         <div class="tab-content product-large-image-list fl-product-large-image-list fl3-product-large-image-list" id="myTabContent">
                             @foreach($single_product->images as $image)
-                                <div role="tabpanel" aria-labelledby="{{'single-slide-tab-'.$loop->index}}" class="{{$loop->index==1? 'tab-pane fade show active':'tab-pane fade'}}" id="{{'single-slide-'.$loop->index}}">
+                                <div role="tabpanel" aria-labelledby="{{'single-slide-tab-'.$loop->index}}" class="{{$loop->index==0? 'tab-pane fade show active':'tab-pane fade'}}" id="{{'single-slide-'.$loop->index}}">
                                     <!--Single Product Image Start-->
                                     <div class="single-product-img img-full">
-                                        <img alt="" class="img-fluid" id="imgtodrag"
-                                             src="{{asset($image->getOriginalName())}}">
+                                        <img alt="" class="img-fluid" id="imgtodrag" src="{{asset($image->getOriginalName())}}">
                                         <a class="big-image-popup" href="{{asset($image->getOriginalName())}}"><i class="fa fa-search-plus"></i></a>
                                     </div>
                                     <!--Single Product Image End-->
@@ -146,7 +145,7 @@
                         </div>
 
                         <p class="wishlist-link mb-20 pb-15">
-                            <a href="{{route('show.wishlist')}}"> <i class="icon ion-md-heart-empty"></i>{{__('messages.search.wishlist')}}</a>
+                            <a href="#" data-tooltip="{{__('messages.add.to.wishlist')}}" onclick=openWishListDialog("{{$single_product->id}}")> <i class="icon ion-md-heart-empty"></i>{{__('messages.add.to.wishlist')}}</a>
                         </p>
 
                         <div class="category-list-container mb-20">

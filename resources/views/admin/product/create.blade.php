@@ -32,7 +32,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="description">Opis :</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="description" placeholder="{{__('messages.description')}}" name="description" value="{{ old('description') }}" rows="3"></textarea>
+                            <textarea class="form-control" id="description" placeholder="{{__('messages.description')}}" name="description" rows="3">{{ old('description') }}</textarea>
                             @error('description')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
@@ -48,9 +48,13 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="category">Kategorija :</label>
                         <div class="col-sm-9">
-                            <select class="selectpicker form-control" id="category" name="category" value="{{ old('category') }}">
+                            <select class="selectpicker form-control" id="category" name="category">
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @if (old('category') == $category->id)
+                                        <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                    @else
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             @error('category')
@@ -60,15 +64,15 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="subcategory">Pod :</label>
                         <div class="col-sm-9">
-                            <select class="selectpicker form-control" id="subcategory" name="subcategory" value="{{ old('subcategory') }}"></select>
-                            @error('subcatgory')
+                            <select class="selectpicker form-control" id="subcategory" name="subcategory"></select>
+                            @error('subcatеgory')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="size">Dimenzije :</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="size" name="sizes[]" value="{{ old('sizes[]') }}" multiple></select>
+                            <select class="form-control" id="size" name="sizes[]" multiple></select>
                             @error('sizes')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
@@ -76,16 +80,16 @@
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="price">Cene :</label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" id="price" name="prices[]" value="{{ old('prices[]') }}" multiple></select>
-                            @error('prices')
+                            <select class="form-control select2" id="price" name="prices[]" multiple></select>
+                            @error('prices.*')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-sm-3" for="price-discounted">Cene-akcija :</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="price-discounted" name="discounted_prices[]" value="{{ old('discounted_prices') }}" multiple></select>
-                            @error('discounted_prices')
+                            <select class="form-control" id="price-discounted" name="discounted_prices[]" multiple></select>
+                            @error('discounted_prices.*')
                             <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                         </div>
                     </div>
@@ -103,7 +107,7 @@
                     <div id="image-holder"></div>
 
                     <div class="form-group row" style="margin-top: 30px;">
-                        <label class="col-sm-3 col-form-label" for="multiple-checkboxes">Boja</label>
+                        <label class="col-sm-3 col-form-label" for="colors">Boja</label>
                         <div class="col-sm-9">
                             <select class="selectpicker form-control" data-actions-box="true"
                                     data-deselect-all-text="Deselektuj sve"
@@ -111,10 +115,9 @@
                                     data-none-selected-text="Izaberite boju"
                                     data-select-all-text="Selektuj sve" data-selected-text-format="count"
                                     data-size="6"
-                                    id="multiple-checkboxes"
+                                    id="colors"
                                     multiple
-                                    name="colors[]"
-                                    value="{{ old('colors[]') }}">
+                                    name="colors[]">
                                 @foreach($colors as $color)
                                     <option value="{{$color->id}}" style="background: {{$color->code}}">{{$color->name}}</option>
                                 @endforeach
@@ -127,10 +130,10 @@
                         <div class="col-sm-3">Stanje :</div>
                         <div class="col-sm-9">
                             <div class="form-check">
-                                <input class="form-check-input" id="status" name="available" value="{{ old('available') }}" type="checkbox"/>
+                                <input class="form-check-input" id="available" name="available" value="{{ old('available') }}" type="checkbox"/>
                                 @error('available')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>@enderror
-                                <label class="form-check-label" for="status"> Na stanju </label></div>
+                                <label class="form-check-label" for="available"> Na stanju </label></div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -170,9 +173,15 @@
             $("#category").trigger('change');
 
             //aktivacija dropdown menija
-            $('#multiple-checkboxes').selectpicker();
+            $('#colors').selectpicker();
             $('#category').selectpicker();
             $('#subcategory').selectpicker();
+
+            var old_colors =@json(old('colors'));
+            if (old_colors !== null) {
+                $('#colors').val(old_colors);
+                $('#colors').selectpicker('refresh');
+            }
 
             $('#price-discounted').prop('disabled', 'disabled');
             if ($("#sale").is(":checked")) {
@@ -180,6 +189,8 @@
             } else {
                 $('#price-discounted').empty();
             }
+
+            document.getElementById('available').click();
 
             $('#size').select2({
                 tags: true,
@@ -193,17 +204,37 @@
                 placeholder: "Unesite cene"
             });
 
-            $(document).on('keypress', '.select2-search__field', function () {
-                $(this).val($(this).val().replace(/[^\d].+/, ""));
-                if ((event.which < 48 || event.which > 57)) {
-                    event.preventDefault();
-                }
-            });
-
             $('#price-discounted').select2({
                 tags: true,
                 allowClear: true,
                 placeholder: "Unesite akcijske cene"
+            });
+
+            $("#price").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
+            $("#size").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
+            });
+
+            $("#price-discounted").on("select2:select", function (evt) {
+                var element = evt.params.data.element;
+                var $element = $(element);
+
+                $element.detach();
+                $(this).append($element);
+                $(this).trigger("change");
             });
 
             $('#sale').on('change', function () {
@@ -227,11 +258,16 @@
                 type: "GET",
                 success: function (data) {
                     $("#subcategory").empty();
-
                     $.each(data, function (item) {
                         $('#subcategory').append($("<option></option>").attr("value", data[item].id).text(data[item].name));
                     });
-                    $('#subcategory').select(0);
+
+                    var old =@json(old('subcategory'));
+                    if (old !== null)
+                        $('#subcategory').val(old);
+                    else
+                        $('#subcategory').select(0);
+
                     $('#subcategory').selectpicker('refresh');
                 }
             })

@@ -5,7 +5,12 @@
             <div class="image {{$product->sale?' sale-product':''}}">
                 <a href="{{route('single.product.by.id',$product)}}">
                     @foreach($product->images as $image)
-                        <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                        @if(count($product->images)==1)
+                            <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                            <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                        @else
+                            <img alt="" class="img-fluid" src="{{asset($image->getOriginalName())}}">
+                        @endif
                         @if($loop->index==1)@break @endif
                     @endforeach
                 </a>
@@ -39,9 +44,9 @@
 
                 <div class="hover-icons">
                     <ul>
-                        <li><a data-tooltip="#{add.to.cart}" href="{{route('single.product.by.id',$product)}}"><i class="icon ion-md-cart"></i></a></li>
-                        <li><a href="#" data-tooltip="#{add.to.wishlist}" onclick=openWishListDialog("{{$product->id}}")> <i class="icon ion-md-heart-empty"></i></a></li>
-                        <li><a href="#" data-tooltip="#{details}" onclick="openProductModal({{$product->id}})"><i class="icon ion-md-open"></i></a></li>
+                        <li><a data-tooltip="{{__('messages.add.to.cart')}}" href="{{route('single.product.by.id',$product)}}"><i class="icon ion-md-cart"></i></a></li>
+                        <li><a href="#" data-tooltip="{{__('messages.add.to.wishlist')}}" onclick=openWishListDialog("{{$product->id}}")> <i class="icon ion-md-heart-empty"></i></a></li>
+                        <li><a href="#" data-tooltip="{{__('messages.details')}}" onclick="openProductModal({{$product->id}})"><i class="icon ion-md-open"></i></a></li>
                     </ul>
                 </div>
             </div>

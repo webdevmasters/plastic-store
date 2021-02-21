@@ -24,23 +24,24 @@ class StoreProductRequest extends FormRequest {
      */
     public function rules() {
 
-        $code_rule = Route::has('admin.products.update') ? 'sometimes|required' : 'required|unique:products';
-        $images_rule = Route::has('admin.products.update') ? '' : 'required';
+        $code_rule = Route::is('admin.products.update') ? 'sometimes|required' : 'required|unique:products';
+        $images_rule = Route::is('admin.products.update') ? '' : 'required';
 
         return $rules = [
-            'code'              => $code_rule,
-            'name'              => 'required',
-            'description'       => 'max:255',
-            'manufacturer'      => 'required',
-            'sizes'             => 'required|distinct',
-            'category'          => 'required',
-            'subcategory'       => 'required',
-            'images'            => $images_rule,
-            'prices'            => 'required|distinct',
-            'prices.*'          => 'numeric',
-            'colors'            => 'required|distinct',
-            'images.*'          => 'mimes:jpg,png',
-            'discounted_prices' => 'required_if:sale,true',
+            'code'                => $code_rule,
+            'name'                => 'required',
+            'description'         => 'max:255',
+            'manufacturer'        => 'required',
+            'sizes'               => 'required|distinct',
+            'category'            => 'required',
+            'subcategory'         => 'required',
+            'images'              => $images_rule,
+            'prices'              => 'required|distinct',
+            'prices.*'            => 'numeric',
+            'discounted_prices.*' => 'numeric',
+            'colors'              => 'required|distinct',
+            'images.*'            => 'mimes:jpg,png',
+            'discounted_prices'   => 'required_if:sale,true',
         ];
     }
 

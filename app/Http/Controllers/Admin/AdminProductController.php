@@ -99,21 +99,27 @@ class AdminProductController extends Controller {
             }
         }
 
-        $product->prices()->delete();
+        $price_ids = array();
+        $size_ids = array();
+        $color_ids = array();
+
         foreach($validated['prices'] as $index => $value) {
             $price = Price::updateOrCreate(['value' => $value]);
-            if($request->has('discounted_prices'))
-                $product->prices()->attach($price, ['discounted_price' => $validated['discounted_prices'][$index]]);
-            else {
-                $product->prices()->attach($price);
+            array_push($price_ids, $price->id);
+            if($request->has('discounted_prices')) {
+                $product->prices()->updateExistingPivot($price->id, ['discounted_price' => $validated['discounted_prices'][$index]], true);
+            } else {
+                $product->prices()->updateExistingPivot($price->id, ['discounted_price' => 0], true);
             }
         }
-        $product->sizes()->delete();
+
         foreach($validated['sizes'] as $index => $value) {
             $size = Size::updateOrCreate(['value' => $value]);
-            $product->sizes()->attach($size);
+            array_push($size_ids, $size->id);
         }
 
+        $product->prices()->sync($price_ids);
+        $product->sizes()->sync($size_ids);
         $product->colors()->sync($validated['colors']);
 
         return back()->with('message', 'Uspešno ste izmenili proizvod ' . $product->name);
@@ -134,7 +140,7 @@ class AdminProductController extends Controller {
         return back()->with('message', 'Uspešno ste obrisali proizvod ' . $product->name);
     }
 
-    public function loadProductsByCategory($id){
+    public function loadProductsByCategory($id) {
         return response()->json(Product::whereCategoryId($id)->orderBy('name')->get());
     }
 }

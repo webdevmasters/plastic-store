@@ -13,7 +13,7 @@
                         <!--product large image start -->
                         <div class="tab-content product-large-image-list fl-product-large-image-list fl3-product-large-image-list quickview-product-large-image-list" id="myTabContent2">
                             @foreach($product->images as $image)
-                                <div role="tabpanel" aria-labelledby="{{'single-slide-tab-'.$loop->index}}" class="{{$loop->index==1? 'tab-pane fade show active':'tab-pane fade'}}" id="{{'single-slide-'.$loop->index}}">
+                                <div role="tabpanel" aria-labelledby="{{'single-slide-tab-'.$loop->index}}" class="{{$loop->index==0? 'tab-pane fade show active':'tab-pane fade'}}" id="{{'single-slide-'.$loop->index}}">
                                     <!--Single Product Image Start-->
                                     <div class="single-product-img img-full">
                                         <img alt="" class="img-fluid" id="imgtodrag" src="{{asset($image->getOriginalName())}}">

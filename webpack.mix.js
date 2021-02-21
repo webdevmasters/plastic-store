@@ -32,9 +32,7 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/js/webapp/minicart.js',
     ], 'public/js/webapp/main.js')
     .scripts([
-        'resources/js/administration/administration.js',
         'resources/js/administration/img-upload.js',
-        'resources/js/administration/product-validation.js',
         'resources/js/administration/table.js',
     ], 'public/js/administration/admin.js')
     .styles([

@@ -1,9 +1,3 @@
-$(document).ready(function () {
-
-
-});
-
-
 $("#fileUpload").on('change', function (event) {
     //Get count of selected files
     var countFiles = $(this)[0].files.length;
@@ -39,7 +33,6 @@ $("#fileUpload").on('change', function (event) {
         return false;
     }
 });
-
 
 
 $(document).ready(function () {
