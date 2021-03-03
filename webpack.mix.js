@@ -24,11 +24,12 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/js/external/ajax-es6-shim.js',
         'resources/js/external/bootstrap-select.js',
         'resources/js/external/bootbox.js',
+        'resources/js/external/typeahead-autocomplete.js',
     ], 'public/js/external/external.js')
     .scripts([
         'resources/js/webapp/plugins.js',
         'resources/js/webapp/main.js',
-    //    'resources/js/webapp/validation.js',
+        'resources/js/webapp/autocomplete.js',
         'resources/js/webapp/minicart.js',
     ], 'public/js/webapp/main.js')
     .scripts([

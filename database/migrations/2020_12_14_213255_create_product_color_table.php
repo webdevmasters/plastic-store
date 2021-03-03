@@ -13,8 +13,8 @@ class CreateProductColorTable extends Migration {
      */
     public function up() {
         Schema::create('product_color', function(Blueprint $table) {
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('color_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('color_id')->constrained();
             $table->timestamps();
         });
     }

@@ -37,7 +37,6 @@
     @yield('content')
 </main>
 
-@include('admin.includes.footer')
 
 <script src="{{mix('js/external/external.js')}}" type="text/javascript"></script>
 <script src="{{mix('js/administration/admin.js')}}" type="text/javascript"></script>

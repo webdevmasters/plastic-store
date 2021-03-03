@@ -117,7 +117,8 @@ class AdminProductController extends Controller {
             $size = Size::updateOrCreate(['value' => $value]);
             array_push($size_ids, $size->id);
         }
-
+        $product->sizes()->detach($size_ids);
+        $product->prices()->detach($price_ids);
         $product->prices()->sync($price_ids);
         $product->sizes()->sync($size_ids);
         $product->colors()->sync($validated['colors']);

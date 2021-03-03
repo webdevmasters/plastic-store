@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use App\Repositories\OrderInterface;
+use App\Repositories\interfaces\OrderInterface;
 
 class OrderController extends Controller {
 
@@ -19,7 +19,7 @@ class OrderController extends Controller {
     }
 
     public function create() {
-       return $this->orderRepository->create();
+        return $this->orderRepository->create();
     }
 
     public function show($id) {
@@ -31,6 +31,6 @@ class OrderController extends Controller {
     }
 
     public function confirmOrder($id) {
-        return view('webapp.order.order_confirmation')->with('order',Order::findOrFail($id));
+        return view('webapp.order.order_confirmation')->with('order', Order::findOrFail($id));
     }
 }

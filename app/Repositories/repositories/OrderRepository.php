@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\repositories;
 
 use App\Enums\OrderPayment;
 use App\Enums\OrderStatus;
@@ -9,6 +9,7 @@ use App\Http\Requests\OrderRequest;
 use App\Mail\OrderReceived;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Repositories\interfaces\OrderInterface;
 use Cart;
 use Illuminate\Support\Facades\Mail;
 

@@ -146,7 +146,9 @@
                                         <a href="{{route('products.by.category',$category)}}">{{$category->name}}</a>
                                         <ul class="sub-menu">
                                             @foreach($category->subcategories as $subcategory)
-                                                <li><a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a></li>
+                                                @if(count($subcategory->products)>0)
+                                                    <li><a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a></li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     </li>
@@ -161,8 +163,8 @@
                     <div class="col-12 col-lg-3" id="search-section">
                         <!--=======  navigation search bar  =======-->
                         <div class="navigation-search d-none d-lg-block">
-                            <input id="search" name="search" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity({{__('messages.enter.keyword')}})" required
-                                   placeholder="{{__('messages.search.products').' ...'}}" value="{{isset($search)?$search:''}}" type="search">
+                            <input class="typeahead form-control" id="search" name="search" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity({{__('messages.enter.keyword')}})" required
+                                   placeholder="{{__('messages.search.products').' ...'}}" value="{{isset($search)?$search:''}}" type="text">
                             <button type="submit"><i class="icon ion-md-search"></i></button>
                         </div>
                         <!--=======  End of navigation search bar  =======-->

@@ -41,6 +41,7 @@ Route::get('/products_list_fragment/{data}', [ProductController::class, 'renderP
 Route::get('/products_list_searched_fragment/{data}', [ProductController::class, 'renderSearchedProductList']);
 Route::get('/product_modal/{id}', [ProductController::class, 'showProductModal']);
 Route::get('/search_products_by_name', [ProductController::class, 'searchProduct'])->name('search_by_name');
+Route::get('autocomplete', [ProductController::class, 'searchAutocomplete'])->name('autocomplete');;
 Route::get('/single_product/{product:slug}', [ProductController::class, 'showSingleProduct'])->name('single.product.by.id');
 Route::post('/single_product/add_review', [ProductController::class, 'addReview'])->name('add.review');
 
@@ -61,15 +62,6 @@ Route::get('/order/order_details/{id}', [OrderController::class, 'show'])->name(
 Route::get('/order/cancel_order/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
-
-Route::name('admin.')->prefix("admin")->middleware('can:manage-customers')->group(function() {
-    Route::resources([
-        'products'   => AdminProductController::class,
-        'orders'     => AdminOrderController::class,
-        'promotions' => AdminPromotionController::class,
-    ]);
-});
-
 Route::middleware('can:manage-customers')->group(function() {
     Route::get('/admin/products/products_by_category/{id}', [AdminProductController::class, 'loadProductsByCategory'])->name('admin.products.category');
 
@@ -84,5 +76,12 @@ Route::middleware('can:manage-customers')->group(function() {
     Route::get('/admin/messages', [AdminMessageController::class, 'index'])->name('admin.messages.index');
     Route::get('/admin/messages/delete_message/{id}', [AdminMessageController::class, 'destroy'])->name('admin.messages.delete');
     Route::get('/admin/messages/answer_message/{id}/{result}', [AdminMessageController::class, 'answer'])->name('admin.messages.answer');
+});
+Route::name('admin.')->prefix("admin")->middleware('can:manage-customers')->group(function() {
+    Route::resources([
+        'products'   => AdminProductController::class,
+        'orders'     => AdminOrderController::class,
+        'promotions' => AdminPromotionController::class,
+    ]);
 });
 require __DIR__ . '/auth.php';

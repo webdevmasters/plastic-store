@@ -3,23 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MessageRequest;
-use App\Models\Message;
-use Illuminate\Http\Request;
+use App\Repositories\interfaces\MessageInterface;
 
 class MessageController extends Controller {
 
+    public $messageRepository;
+
+    public function __construct(MessageInterface $messageRepository) {
+        $this->messageRepository = $messageRepository;
+    }
+
     public function contact() {
-        return view('webapp.shop.contact');
+        return $this->messageRepository->contact();
     }
 
     public function sendMessage(MessageRequest $request) {
-        Message::create([
-            'name'    => $request->name,
-            'email'   => $request->email,
-            'subject' => $request->subject,
-            'message' => $request->message,
-        ]);
-
-        return back()->with('message', 'Hvala na Vašem pitanju. Potrudićemo se da odgovorimo u najkraćem roku!');
+        return $this->messageRepository->sendMessage($request);
     }
 }
