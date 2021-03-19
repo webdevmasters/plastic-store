@@ -46,7 +46,7 @@
                             <td class="{{$product->id}}">
                                 <select class="sizes" style="width: 100px">
                                     @foreach($product->sizes as $size)
-                                        <option value="{{$product->prices()->pluck('value')->all()[$loop->index]}}">{{$size->value}}</option>
+                                        <option value="{{$product->prices->pluck('value')->all()[$loop->index]}}">{{$size->value}}</option>
                                     @endforeach
                                 </select>
                             </td>

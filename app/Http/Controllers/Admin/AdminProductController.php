@@ -20,7 +20,7 @@ class AdminProductController extends Controller {
     }
 
     public function index() {
-        return view('admin.product.index')->with('categories', Category::all())->with('products', Product::all());
+        return view('admin.product.index')->with('categories', Category::all())->with('products', Product::with('category','prices','sizes','images')->get());
     }
 
     public function create() {
@@ -142,6 +142,6 @@ class AdminProductController extends Controller {
     }
 
     public function loadProductsByCategory($id) {
-        return response()->json(Product::whereCategoryId($id)->orderBy('name')->get());
+        return response()->json(Product::whereCategoryId($id)->with('prices','sizes','images')->orderBy('name')->get());
     }
 }

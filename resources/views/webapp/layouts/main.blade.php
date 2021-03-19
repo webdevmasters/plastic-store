@@ -146,7 +146,7 @@
                                         <a href="{{route('products.by.category',$category)}}">{{$category->name}}</a>
                                         <ul class="sub-menu">
                                             @foreach($category->subcategories as $subcategory)
-                                                @if(count($subcategory->products)>0)
+                                                @if($subcategory->products_count>0)
                                                     <li><a href="{{route('products.by.subcategory',$subcategory)}}">{{$subcategory->name}}</a></li>
                                                 @endif
                                             @endforeach

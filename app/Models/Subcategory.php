@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function Symfony\Component\String\s;
 
 
 /**
@@ -18,6 +19,7 @@ class Subcategory extends Model {
     public $timestamps = false;
 
     protected $fillable = ['name,slug'];
+    protected $withCount = ['products'];
 
     public function category() {
         return $this->belongsTo(Category::class);

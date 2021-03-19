@@ -12,7 +12,7 @@ class AdminUserController extends Controller {
     }
 
     public function index() {
-        return view('admin.user.index')->with('users', User::all());
+        return view('admin.user.index')->with('users', User::with('orders')->get());
     }
 
     public function show($id) {
@@ -21,7 +21,6 @@ class AdminUserController extends Controller {
 
     public function destroy($id) {
         User::destroy($id);
-
         return redirect()->route('admin.users.index');
     }
 }

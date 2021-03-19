@@ -52,7 +52,7 @@
                                             <td class="pro-quantity {{$item->associatedModel->id}}">
                                                 <select>
                                                     @foreach($item->associatedModel->sizes as $size)
-                                                        <option value="{{$item->associatedModel->prices()->pluck('value')->all()[$loop->index]}}">{{$size->value}}</option>
+                                                        <option value="{{$item->associatedModel->prices->pluck('value')->all()[$loop->index]}}">{{$size->value}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>

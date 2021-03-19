@@ -25,11 +25,11 @@ class ProductRepository implements ProductInterface {
     }
 
     public function loadProductsBySubcategory($subcategory_id) {
-        return Product::whereSubcategoryId($subcategory_id)->get();
+        return Product::whereSubcategoryId($subcategory_id)->with('images', 'prices', 'sizes')->get();
     }
 
     public function addReview(ReviewRequest $request) {
-        $review = Review::create([
+        Review::create([
             'reviewer'   => $request->reviewer,
             'email'      => $request->email,
             'comment'    => $request->comment,
@@ -46,8 +46,8 @@ class ProductRepository implements ProductInterface {
     }
 
     public function showSingleProduct(Product $product) {
-        $similar_products = Product::whereCategoryId($product->category_id)->inRandomOrder()->take(15)->get();
-        $product->reviews()->pluck('rating')->avg();
+        $similar_products = Product::whereCategoryId($product->category_id)->with('images', 'sizes', 'prices')->inRandomOrder()->take(15)->get();
+        $product = Product::whereId($product->id)->with('prices', 'reviews')->firstOrFail();
         $product_ratings = Review::where('product_id', '=', 3)->pluck('rating')->toArray();
 
         $ratings = ['1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0];
@@ -67,7 +67,7 @@ class ProductRepository implements ProductInterface {
     }
 
     public function searchProduct(Request $request) {
-        $products = Product::where('name', 'LIKE', '%' . $request->input('search') . '%')->orderBy('name')->paginate(20);
+        $products = Product::where('name', 'LIKE', '%' . $request->input('search') . '%')->with('prices', 'sizes', 'images')->orderBy('name')->paginate(20);
 
         return view('webapp.product.product_search')
             ->with('products', $products)
@@ -86,7 +86,7 @@ class ProductRepository implements ProductInterface {
     public function renderSearchedProductList($data) {
         $params = json_decode($data);
 
-        $products_eloquent = Product::where('name', 'LIKE', '%' . $params->search . '%');
+        $products_eloquent = Product::where('name', 'LIKE', '%' . $params->search . '%')->with('prices', 'sizes', 'images');
         switch($params->sort) {
             case 'name-asc':
                 $products_eloquent->orderBy('name', 'asc');
@@ -127,16 +127,17 @@ class ProductRepository implements ProductInterface {
         $products_eloquent = null;
         $category_name = Str::of(Category::findOrFail($params->category_id)->name)->slug('-');
         if(isset($params->subcategory_id)) {
-            $products_eloquent = Product::whereSubcategoryId($params->subcategory_id);
+            $products_eloquent = Product::whereSubcategoryId($params->subcategory_id)->with('prices', 'sizes', 'images');
         } else {
-            $products_eloquent = Product::whereCategoryId($params->category_id);
+            $products_eloquent = Product::whereCategoryId($params->category_id)->with('prices', 'sizes', 'images');
         }
+        $products = $products_eloquent->get();
         $min_price = 0;
         $max_price = 0;
-        $colorsByProducts = Color::whereHas('products', function($query) use ($products_eloquent) {
-            $query->whereIn('product_id', $products_eloquent->get()->pluck('id'));
-        })->with('products', function($query) use ($products_eloquent) {
-            $query->whereIn('product_id', $products_eloquent->get()->pluck('id'));
+        $colorsByProducts = Color::whereHas('products', function($query) use ($products) {
+            $query->whereIn('product_id', $products->pluck('id'));
+        })->with('products', function($query) use ($products) {
+            $query->whereIn('product_id', $products->pluck('id'));
         })->get();
 
         if(!$params->category_changed) {
@@ -148,10 +149,10 @@ class ProductRepository implements ProductInterface {
                 $min_price = $params->min_price;
                 $max_price = $params->max_price;
 
-                $colorsByProductsChanged = Color::whereHas('products', function($query) use ($products_eloquent) {
-                    $query->whereIn('product_id', $products_eloquent->get()->pluck('id'));
-                })->with('products', function($query) use ($products_eloquent) {
-                    $query->whereIn('product_id', $products_eloquent->get()->pluck('id'));
+                $colorsByProductsChanged = Color::whereHas('products', function($query) use ($products) {
+                    $query->whereIn('product_id', $products->pluck('id'));
+                })->with('products', function($query) use ($products) {
+                    $query->whereIn('product_id', $products->pluck('id'));
                 })->get();
                 $colorsByProducts = $colorsByProductsChanged;
             }
@@ -162,13 +163,13 @@ class ProductRepository implements ProductInterface {
                     }
                 });
                 if(!$params->price_changed) {
-                    $min_price = $this->minTotalPrice($products_eloquent->get());
-                    $max_price = $this->maxTotalPrice($products_eloquent->get());
+                    $min_price = $this->minTotalPrice($products);
+                    $max_price = $this->maxTotalPrice($products);
                 }
             }
         } else {
-            $min_price = $this->minTotalPrice($products_eloquent->get());
-            $max_price = $this->maxTotalPrice($products_eloquent->get());
+            $min_price = $this->minTotalPrice($products);
+            $max_price = $this->maxTotalPrice($products);
         }
         switch($params->sort) {
             case 'name-asc':
@@ -227,41 +228,37 @@ class ProductRepository implements ProductInterface {
     }
 
     public function showProductsByCategory(Category $category) {
-        $products_eloquent = Product::whereCategoryId($category->id)->orderBy('name');
-        $products = $products_eloquent->get();
-        $paginated_products = $products_eloquent->paginate(20);
-
+        $products = Product::whereCategoryId($category->id)->with('prices', 'sizes', 'images')->orderBy('name')->paginate(10);
         $colorsByProducts = Color::whereHas('products', function($query) use ($products) {
-            $query->whereIn('product_id', $products->pluck('id'));
+            $query->whereIn('product_id', collect($products->items())->pluck('id'));
         })->with('products', function($query) use ($products) {
-            $query->whereIn('product_id', $products->pluck('id'));
+            $query->whereIn('product_id', collect($products->items())->pluck('id'));
         })->get();
 
         return view('webapp.product.product_list')
-            ->with('products', $paginated_products)
+            ->with('products', $products)
             ->with('colorsByProducts', $colorsByProducts)
             ->with('selected_category', Category::where('id', $category->id)->first())
             ->with('min_price', $this->minTotalPrice($products))
             ->with('max_price', $this->maxTotalPrice($products))
-            ->with('pagination', json_decode(json_encode($paginated_products), true));
+            ->with('pagination', json_decode(json_encode($products), true));
     }
 
     public function showProductsBySubcategory(Subcategory $subcategory) {
-        $products = Product::whereSubcategoryId($subcategory->id)->get();
-        $paginated_products = Product::whereSubcategoryId($subcategory->id)->paginate(20);
+        $products = Product::whereSubcategoryId($subcategory->id)->with('prices', 'sizes', 'images')->orderBy('name')->paginate(10);
         $colorsByProducts = Color::whereHas('products', function($query) use ($products) {
-            $query->whereIn('product_id', $products->pluck('id'));
+            $query->whereIn('product_id', collect($products->items())->pluck('id'));
         })->with('products', function($query) use ($products) {
-            $query->whereIn('product_id', $products->pluck('id'));
+            $query->whereIn('product_id', collect($products->items())->pluck('id'));
         })->get();
 
         return view('webapp.product.product_list')
-            ->with('products', $paginated_products)
+            ->with('products', $products)
             ->with('colorsByProducts', $colorsByProducts)
             ->with('selected_subcategory', $subcategory)
             ->with('selected_category', $subcategory->category)
             ->with('min_price', $this->minTotalPrice($products))
             ->with('max_price', $this->maxTotalPrice($products))
-            ->with('pagination', json_decode(json_encode($paginated_products), true));
+            ->with('pagination', json_decode(json_encode($products), true));
     }
 }

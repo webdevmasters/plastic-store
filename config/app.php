@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -199,6 +200,7 @@ return [
         'Bus'          => Illuminate\Support\Facades\Bus::class,
         'Cache'        => Illuminate\Support\Facades\Cache::class,
         'Cart'         => Darryldecode\Cart\Facades\CartFacade::class,
+        'DebugBar'     => Barryvdh\Debugbar\Facade::class,
         'Wishlist'     => App\Facades\Wishlist::class,
         'Config'       => Illuminate\Support\Facades\Config::class,
         'Cookie'       => Illuminate\Support\Facades\Cookie::class,

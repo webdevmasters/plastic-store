@@ -25,10 +25,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [HomeController::class, 'about'])->name('show.about');
-Route::get('/shipping_info', [HomeController::class, 'shippingInfo'])->name('show.shipping.info');
-Route::get('/selling_terms', [HomeController::class, 'sellingTerms'])->name('show.selling.terms');
-Route::get('/faqs', [HomeController::class, 'faqs'])->name('show.faqs');
+Route::view('/about', 'webapp.shop.about')->name('show.about');
+Route::view('/shipping_info', 'webapp.shop.shipping_info')->name('show.shipping.info');
+Route::view('/selling_terms', 'webapp.shop.selling_terms')->name('show.selling.terms');
+Route::view('/faqs', 'webapp.shop.faqs')->name('show.faqs');
 Route::get('/change_language/{language}', [HomeController::class, 'changeLanguage'])->name('change.language');
 
 Route::get('/contact', [MessageController::class, 'contact'])->name('show.contact');
@@ -62,7 +62,7 @@ Route::get('/order/order_details/{id}', [OrderController::class, 'show'])->name(
 Route::get('/order/cancel_order/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
 
 Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
-Route::middleware('can:manage-customers')->group(function() {
+Route::middleware('auth')->middleware('can:manage-customers')->group(function() {
     Route::get('/admin/products/products_by_category/{id}', [AdminProductController::class, 'loadProductsByCategory'])->name('admin.products.category');
 
     Route::get('/admin/orders/customer_details/{id}', [AdminOrderController::class, 'showCustomerOrderDetails'])->name('admin.orders.customer.details');

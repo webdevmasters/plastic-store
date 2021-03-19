@@ -28,7 +28,7 @@
                             <td style="text-align: center">{{$user->email}}</td>
                             <td style="text-align: center">{{$user->phone}}</td>
                             <td style="text-align: center">{{\Carbon\Carbon::parse($user->date_created)->format('d/m/Y')}}</td>
-                            <td style="text-align: center">{{count($user->orders()->get())}}</td>
+                            <td style="text-align: center">{{count($user->orders)}}</td>
                             <td style="text-align: center">
                                 <a class="btn btn-info btn-sm" href="{{route('admin.users.details',$user->id)}}"><i class="fa fa-bars"></i></a>
                                 <a class="btn btn-danger btn-sm" href="#" onclick=showWarningDialog("{{$user->id}}")><i class="fa fa-times"></i></a>

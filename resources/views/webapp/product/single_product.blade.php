@@ -96,9 +96,9 @@
                         <div class="price mb-0">
                             <span class="title">{{__('messages.price').':'}}</span>
                             <h2 class="product-price mb-0">
-                                <span class="main-price {{$single_product->sale?'discounted':''}}">{{$single_product->prices()->first()->value.' DIN'}}</span>
+                                <span class="main-price {{$single_product->sale?'discounted':''}}">{{$single_product->prices->first()->value.' DIN'}}</span>
                                 @if($single_product->sale)
-                                    <span class="discounted-price">{{$single_product->prices()->first()->pivot->discounted_price.' DIN'}}</span>
+                                    <span class="discounted-price">{{$single_product->prices->first()->pivot->discounted_price.' DIN'}}</span>
                                     <span class="discount-percentage">{{$single_product->savings()}}</span>
                                 @endif
                             </h2>
@@ -116,7 +116,7 @@
                             <span class="title">{{__('messages.size').':'}}</span> <br>
                             <select class="nice-select" id="chooseSize" name="chooseSize">
                                 @foreach($single_product->sizes as $size)
-                                    <option value="{{$single_product->prices()->pluck('value')->all()[$loop->index].'-'.$single_product->prices()->pluck('discounted_price')->all()[$loop->index]}}">{{$size->value}}</option>
+                                    <option value="{{$single_product->prices->pluck('value')->all()[$loop->index].'-'.$single_product->prices->pluck('discounted_price')->all()[$loop->index]}}">{{$size->value}}</option>
                                 @endforeach
                             </select>
                         </div>
