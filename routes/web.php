@@ -31,7 +31,7 @@ Route::view('/selling_terms', 'webapp.shop.selling_terms')->name('show.selling.t
 Route::view('/faqs', 'webapp.shop.faqs')->name('show.faqs');
 Route::get('/change_language/{language}', [HomeController::class, 'changeLanguage'])->name('change.language');
 
-Route::get('/contact', [MessageController::class, 'contact'])->name('show.contact');
+Route::view('/contact', 'webapp.shop.contact')->name('show.contact');
 Route::post('/send_message', [MessageController::class, 'sendMessage'])->name('send.message');
 
 Route::get('/slider_products_by_subcategory/{subcategory_id}', [ProductController::class, 'renderSliderBySubcategory']);
@@ -48,21 +48,21 @@ Route::post('/single_product/add_review', [ProductController::class, 'addReview'
 Route::post('/cart/add_to_cart', [CartController::class, 'store'])->name('add.to.cart');
 Route::get('/cart/delete_mini_cart_item/{id}', [CartController::class, 'destroyFromMiniCart'])->name('delete.mini_cart.item');
 Route::get('/cart/delete_cart_item/{id}', [CartController::class, 'destroyFromCart'])->name('delete.cart.item');
-Route::get('/cart/show_cart', [CartController::class, 'index'])->name('show.cart');
+Route::view('/cart/show_cart', 'webapp.cart.index')->name('show.cart');
 Route::get('/cart/update_mini_cart/{id}/{quantity}', [CartController::class, 'updateMiniCart'])->name('update.mini.cart');
 
-Route::get('/wishlist/show_wishlist', [WishlistController::class, 'index'])->name('show.wishlist');
+Route::view('/wishlist/show_wishlist', 'webapp.wishlist.index')->name('show.wishlist');
 Route::post('/wishlist/add_to_wishlist', [WishlistController::class, 'store'])->name('add.to.wishlist');
 Route::get('/wishlist/delete_wishlist_item/{id}', [WishlistController::class, 'destroyFromWishlist'])->name('delete.wishlist.item');
 
 Route::post('/order/place_order', [OrderController::class, 'store'])->name('place.order');
-Route::get('/order/create_order', [OrderController::class, 'create'])->name('create.checkout');
+Route::get('/order/create_order', 'create')->name('create.checkout');
 Route::get('/order/order_confirmation/{id}', [OrderController::class, 'confirmOrder'])->name('order.confirmation');
 Route::get('/order/order_details/{id}', [OrderController::class, 'show'])->name('order.details');
 Route::get('/order/cancel_order/{id}', [OrderController::class, 'cancel'])->name('order.cancel');
 
-Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
 Route::middleware('auth')->middleware('can:manage-customers')->group(function() {
+    Route::get('/admin/subcategories/{category_id}', [AdminProductController::class, 'findSubcategoriesByCategory'])->name('admin.subcategories');
     Route::get('/admin/products/products_by_category/{id}', [AdminProductController::class, 'loadProductsByCategory'])->name('admin.products.category');
 
     Route::get('/admin/orders/customer_details/{id}', [AdminOrderController::class, 'showCustomerOrderDetails'])->name('admin.orders.customer.details');

@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminOrderController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     public function index() {
         return view('admin.order.index')->with('orders', Order::all());
     }

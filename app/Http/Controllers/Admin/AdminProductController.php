@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     public function index() {
         return view('admin.product.index')->with('categories', Category::all())->with('products', Product::with('category','prices','sizes','images')->get());
     }

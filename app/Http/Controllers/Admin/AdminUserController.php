@@ -7,10 +7,6 @@ use App\Models\User;
 
 class AdminUserController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     public function index() {
         return view('admin.user.index')->with('users', User::with('orders')->get());
     }

@@ -11,14 +11,15 @@ class HomeController extends Controller {
         if(in_array($language, \Config::get('app.locales'))) {
             session(['locale' => $language]);
         }
+
         return app()->currentLocale();
     }
 
     public function index() {
         $promotions = Promotion::all();
-        $popular_products = Product::whereAvailable(1)->with('sizes','images')->take(15)->get();
-        $new_products = Product::whereAvailable(1)->with('sizes','images')->orderByDesc('created_at')->take(15)->get();
-        $sale_products = Product::whereSale(1)->with('sizes','images')->orderByDesc('updated_at')->take(15)->get();
+        $popular_products = Product::whereAvailable(1)->with('sizes', 'images')->take(15)->get();
+        $new_products = Product::whereAvailable(1)->with('sizes', 'images')->orderByDesc('created_at')->take(15)->get();
+        $sale_products = Product::whereSale(1)->with('sizes', 'images')->orderByDesc('updated_at')->take(15)->get();
 
         return view('webapp.shop.index', compact('popular_products', 'new_products', 'sale_products', 'promotions'));
     }

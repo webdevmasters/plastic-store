@@ -32,10 +32,6 @@ class AdminPromotionController extends Controller {
         return back()->with('message','Uspešno ste ažurirali promociju za proizvod '.Product::findOrFail($request->product)->name);
     }
 
-    public function show() {
-
-    }
-
     public function edit($id) {
         return view('admin.promotion.edit')
             ->with('promotion',  Promotion::findOrFail($id))
